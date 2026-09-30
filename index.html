@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
   
-  <!-- Leaflet Dark HD -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -17,7 +16,7 @@
   <style>
     :root {
       --bg: #070c16;
-      --card-bg: rgba(15, 23, 42, 0.78);
+      --card-bg: rgba(15, 23, 42, 0.82);
       --card-border: rgba(255, 255, 255, 0.08);
       --accent: #00f2fe;
       --accent-blue: #4facfe;
@@ -99,7 +98,6 @@
     }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-    /* Bento Cards */
     .bento-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -155,13 +153,8 @@
       margin-top: 2px;
     }
 
-    /* Screen Views */
-    .screen-view {
-      display: none;
-      animation: fadeIn 0.2s ease-out;
-    }
+    .screen-view { display: none; }
     .screen-view.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     .screen-header { margin-bottom: 16px; }
     .screen-tag {
@@ -179,7 +172,7 @@
       font-weight: 700;
     }
 
-    /* DYNAMIC ACCORDION CARDS */
+    /* Dynamic Accordion Cards */
     .dynamic-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -190,9 +183,7 @@
       transition: all 0.25s ease;
       overflow: hidden;
     }
-    .dynamic-card:hover {
-      border-color: rgba(0, 242, 254, 0.3);
-    }
+    .dynamic-card:hover { border-color: rgba(0, 242, 254, 0.3); }
     .dynamic-header {
       display: flex;
       justify-content: space-between;
@@ -204,9 +195,7 @@
       color: var(--accent);
       transition: transform 0.3s ease;
     }
-    .dynamic-card.open .dynamic-arrow {
-      transform: rotate(180deg);
-    }
+    .dynamic-card.open .dynamic-arrow { transform: rotate(180deg); }
     .dynamic-body {
       max-height: 0;
       opacity: 0;
@@ -237,12 +226,8 @@
       border: 1px solid rgba(0, 242, 254, 0.25);
     }
 
-    /* MAP WITH HD DARK TILES */
-    .map-search-bar {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
+    /* MAP SECTION (CLEAN DARK RETINA NO API KEYS) */
+    .map-search-bar { display: flex; gap: 8px; margin-bottom: 12px; }
     .city-input {
       flex: 1;
       background: rgba(255, 255, 255, 0.06);
@@ -277,7 +262,7 @@
       overflow: hidden;
       margin-top: 8px;
       z-index: 5;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      background: #111a2e;
     }
 
     .quick-cities {
@@ -298,11 +283,7 @@
       white-space: nowrap;
       cursor: pointer;
     }
-    .quick-pill.active {
-      background: var(--accent);
-      color: #031322;
-      font-weight: 700;
-    }
+    .quick-pill.active { background: var(--accent); color: #031322; font-weight: 700; }
 
     .lab-info-banner {
       background: rgba(255, 255, 255, 0.03);
@@ -329,72 +310,117 @@
       font-size: 12px;
       font-weight: 700;
       margin-top: 6px;
-      transition: all 0.2s;
-    }
-    .route-btn:active {
-      background: var(--accent);
-      color: #031322;
     }
 
-    /* Calculator */
-    .quiz-card { margin-bottom: 14px; }
-    .quiz-q { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #f1f5f9; }
-    .quiz-options { display: flex; flex-direction: column; gap: 8px; }
-    .quiz-btn {
+    /* STEPPER / DYNAMIC QUIZ QUEST WITH REAL OUTCOME */
+    .quest-progress-box {
+      margin-bottom: 16px;
+    }
+    .quest-bar-wrap {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+    .quest-bar {
+      width: 25%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-blue));
+      transition: width 0.3s ease;
+    }
+
+    .step-card {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+    .step-card.active { display: block; }
+
+    .quest-btn {
+      width: 100%;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
       color: #cbd5e1;
-      padding: 13px 16px;
+      padding: 14px 16px;
       border-radius: 14px;
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 500;
       text-align: left;
       cursor: pointer;
+      margin-bottom: 8px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       transition: all 0.15s;
     }
-    .quiz-btn:active { transform: scale(0.98); }
-    .quiz-btn.selected {
-      background: rgba(0, 242, 254, 0.12);
+    .quest-btn:active {
+      transform: scale(0.98);
+      background: rgba(0, 242, 254, 0.15);
       border-color: var(--accent);
       color: #fff;
-      font-weight: 600;
     }
-    .quiz-btn.selected::after { content: '✓'; color: var(--accent); font-weight: 800; }
 
-    .score-banner {
-      background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(79, 172, 254, 0.15));
-      border: 1px solid rgba(0, 242, 254, 0.3);
-      border-radius: var(--radius);
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-top: 18px;
+    /* Final Clinical Recommendation Passport */
+    .passport-result {
+      display: none;
+      animation: fadeIn 0.35s ease;
     }
-    .score-circle {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: var(--bg);
-      border: 3px solid var(--accent);
+
+    .passport-header {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(79, 172, 254, 0.2));
+      border: 1px solid rgba(0, 242, 254, 0.4);
+      border-radius: var(--radius);
+      padding: 22px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .passport-score-val {
+      font-family: 'Outfit', sans-serif;
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin: 8px 0;
+    }
+
+    .action-checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .action-checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: #e2e8f0;
+      background: rgba(255,255,255,0.03);
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .print-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-blue));
+      color: #031322;
+      border: none;
+      padding: 13px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 13.5px;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Outfit', sans-serif;
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--accent);
-      flex-shrink: 0;
+      gap: 8px;
     }
 
-    .chart-container { position: relative; height: 220px; margin-top: 12px; }
-
-    /* ==========================================================
-       GOOEY LIQUID SLIDER DOCK (ПОЛНЫЙ ИНТЕРАКТИВ ТАП + ЖИВОЙ СВАЙП)
-       ========================================================== */
+    /* Dock Bar */
     .dock-container {
       position: fixed;
       bottom: 16px;
@@ -412,7 +438,7 @@
       z-index: 1000;
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
       perspective: 320px;
-      touch-action: none; /* Allows fluid pointer drag on mobile */
+      touch-action: none;
       user-select: none;
     }
 
@@ -440,7 +466,7 @@
       align-items: center;
       justify-content: space-around;
       padding: 0 4px;
-      pointer-events: none; /* Let dock-container capture smooth gesture events */
+      pointer-events: none;
     }
 
     .dock-btn {
@@ -460,22 +486,9 @@
       will-change: transform, filter;
     }
 
-    .dock-btn svg {
-      width: 20px;
-      height: 20px;
-      stroke: currentColor;
-    }
-
-    .dock-btn span {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-    }
-
-    .dock-btn.active {
-      color: #031322;
-      font-weight: 800;
-    }
+    .dock-btn svg { width: 20px; height: 20px; stroke: currentColor; }
+    .dock-btn span { font-size: 10px; font-weight: 600; letter-spacing: 0.02em; }
+    .dock-btn.active { color: #031322; font-weight: 800; }
   </style>
 </head>
 <body>
@@ -519,15 +532,14 @@
       <div class="bento-card" onclick="goToTab(1)" style="cursor: pointer; border-color: rgba(0, 242, 254, 0.3);">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div>
-            <div class="screen-tag">Быстрый тест</div>
-            <h3 style="font-size: 16px; font-weight: 700;">Пройти скрининг-опрос</h3>
-            <p style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">4 вопроса определят ваш индекс семейного риска</p>
+            <div class="screen-tag">Интерактивный триаж</div>
+            <h3 style="font-size: 16px; font-weight: 700;">Пройти персональный чек-ап</h3>
+            <p style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">Пошаговый расчет и получение паспорта здоровья</p>
           </div>
           <div style="font-size: 22px; color: var(--accent);">➔</div>
         </div>
       </div>
 
-      <!-- DYNAMIC EXPANDABLE CARDS (КЛИКАБЕЛЬНЫЕ С ПОДРОБНОСТЯМИ) -->
       <div class="screen-header" style="margin-top: 20px;">
         <span class="screen-tag">Интерактивный маршрут</span>
         <h3 style="font-size: 17px; font-weight: 700;">Памятка: нажми для раскрытия</h3>
@@ -579,55 +591,115 @@
       </div>
     </main>
 
-    <!-- SCREEN 2: CALCULATOR -->
+    <!-- SCREEN 2: DYNAMIC STEPPER QUEST (ВМЕСТО СТАТИЧНЫХ ВОПРОСОВ) -->
     <section class="screen-view" id="screen-calc">
       <div class="screen-header">
-        <span class="screen-tag">Интерактивный триаж</span>
-        <h2 class="screen-title">Калькулятор Риска</h2>
+        <span class="screen-tag">Пошаговый скрининг</span>
+        <h2 class="screen-title" id="questTitle">Шаг 1 из 4</h2>
       </div>
 
-      <div class="bento-card quiz-card">
-        <div class="quiz-q">1. Были ли в роду инфаркты или инсульты в возрасте до 50 лет?</div>
-        <div class="quiz-options">
-          <button class="quiz-btn selected" onclick="pickQuiz(1, 0, this)">Нет / Не знаю</button>
-          <button class="quiz-btn" onclick="pickQuiz(1, 15, this)">У одного родственника (+15%)</button>
-          <button class="quiz-btn" onclick="pickQuiz(1, 30, this)">У нескольких родственников (+30%)</button>
+      <div class="quest-progress-box">
+        <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-sub);">
+          <span id="questStepLabel">Анамнез сердечно-сосудистой системы</span>
+          <span id="questPercent">25%</span>
+        </div>
+        <div class="quest-bar-wrap">
+          <div class="quest-bar" id="questBar"></div>
         </div>
       </div>
 
-      <div class="bento-card quiz-card">
-        <div class="quiz-q">2. Фиксировался ли рак груди / яичников у родственниц до 45 лет?</div>
-        <div class="quiz-options">
-          <button class="quiz-btn selected" onclick="pickQuiz(2, 0, this)">Не было</button>
-          <button class="quiz-btn" onclick="pickQuiz(2, 25, this)">1 случай в семье (+25%)</button>
-          <button class="quiz-btn" onclick="pickQuiz(2, 40, this)">2 и более случаев (BRCA риск, +40%)</button>
+      <!-- Step 1 -->
+      <div class="bento-card step-card active" id="step1">
+        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px;">
+          🫀 Были ли у близких родственников (родители, бабушки/дедушки) инфаркты, инсульты или тромбозы в возрасте до 50 лет?
         </div>
+        <button class="quest-btn" onclick="nextQuest(1, 0, 'Сердце: спокойный фон')">
+          <span>Нет, таких случаев не помню</span> ➔
+        </button>
+        <button class="quest-btn" onclick="nextQuest(1, 20, 'Сердце: умеренный фактор')">
+          <span>У 1 родственника (после 45 лет)</span> ➔
+        </button>
+        <button class="quest-btn" onclick="nextQuest(1, 40, 'Сердце: критический маркер тромбофилии')">
+          <span>У 2+ родственников в раннем возрасте</span> ➔
+        </button>
       </div>
 
-      <div class="bento-card quiz-card">
-        <div class="quiz-q">3. Есть ли диабет 2 типа или патологии щитовидной железы?</div>
-        <div class="quiz-options">
-          <button class="quiz-btn selected" onclick="pickQuiz(3, 0, this)">Нет</button>
-          <button class="quiz-btn" onclick="pickQuiz(3, 10, this)">У бабушек/дедушек (+10%)</button>
-          <button class="quiz-btn" onclick="pickQuiz(3, 20, this)">У прямых родителей (+20%)</button>
+      <!-- Step 2 -->
+      <div class="bento-card step-card" id="step2">
+        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px;">
+          🧬 Фиксировался ли рак груди, яичников или кишечника у прямых родственников моложе 45-50 лет?
         </div>
+        <button class="quest-btn" onclick="nextQuest(2, 0, 'Онко: чистый анамнез')">
+          <span>Случаев онкологии не было</span> ➔
+        </button>
+        <button class="quest-btn" onclick="nextQuest(2, 25, 'Онко: 1 случай BRCA риска')">
+          <span>1 случай у тети / бабушки</span> ➔
+        </button>
+        <button class="quest-btn" onclick="nextQuest(2, 45, 'Онко: высокий риск синдрома Линча/BRCA')">
+          <span>Множественные случаи у матери/сестры</span> ➔
+        </button>
       </div>
 
-      <div class="score-banner">
-        <div class="score-circle" id="mobileScore">10%</div>
-        <div>
-          <div style="font-size: 11px; text-transform: uppercase; color: var(--text-sub); font-weight: 700;">Индекс предрасположенности</div>
-          <strong id="mobileRiskStatus" style="font-size: 15px; color: var(--emerald);">Низкий базовый риск</strong>
-          <p id="mobileRiskNote" style="font-size: 12px; color: #cbd5e1; margin-top: 4px;">Критичных генетических маркеров не выявлено. Достаточно регулярного диспансерного контроля.</p>
+      <!-- Step 3 -->
+      <div class="bento-card step-card" id="step3">
+        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px;">
+          🩺 Сахарный диабет 2 типа или узловой зоб щитовидной железы у старшего поколения?
+        </div>
+        <button class="quest-btn" onclick="nextQuest(3, 0, 'Метаболизм: норма')">
+          <span>Нет / Не диагностировали</span> ➔
+        </button>
+        <button class="quest-btn" onclick="nextQuest(3, 15, 'Метаболизм: предрасположенность к диабету')">
+          <span>Да, у бабушек или дедушек</span> ➔
+        </button>
+        <button class="quest-btn" onclick="nextQuest(3, 25, 'Метаболизм: прямой семейный диабет')">
+          <span>Да, у обоих родителей</span> ➔
+        </button>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="bento-card step-card" id="step4">
+        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px;">
+          📋 Сдавали ли вы когда-нибудь генетические панели или коагулограмму?
+        </div>
+        <button class="quest-btn" onclick="finishQuest(0)">
+          <span>Ни разу не сдавал(а) (скрытый статус)</span> ➔
+        </button>
+        <button class="quest-btn" onclick="finishQuest(-10)">
+          <span>Сдавал(а), мутаций не обнаружено</span> ➔
+        </button>
+      </div>
+
+      <!-- FINAL OUTCOME: PERSONAL HEALTH PASSPORT -->
+      <div class="passport-result" id="passportResult">
+        <div class="passport-header">
+          <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 700;">
+            Персональный отчет скрининга
+          </span>
+          <div class="passport-score-val" id="finalPercent">65%</div>
+          <strong id="finalStatus" style="font-size: 16px; color: #ff5252;">Умеренно-высокий риск</strong>
+        </div>
+
+        <div class="bento-card">
+          <h4 style="font-size: 14px; margin-bottom: 8px;">🎯 Ваш персональный протокол действий:</h4>
+          <ul class="action-checklist" id="actionList">
+            <!-- Populated via JS -->
+          </ul>
+
+          <button class="print-btn" onclick="alert('✅ Отчет сохранен в историю браузера! Распечатайте или покажите терапевту.')">
+            📥 Сохранить персональную памятку
+          </button>
+          <button style="width: 100%; margin-top: 10px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--text-sub); padding: 10px; border-radius: 12px; font-size: 12px; cursor: pointer;" onclick="resetQuest()">
+            🔄 Пройти заново
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- SCREEN 3: MAP WITH HD DARK THEME -->
+    <!-- SCREEN 3: MAP (БЕЗ API КЛЮЧЕЙ, ЧИСТЫЙ СТИЛЬ) -->
     <section class="screen-view" id="screen-map">
       <div class="screen-header">
-        <span class="screen-tag">Интерактивный навигатор по РФ</span>
-        <h2 class="screen-title">Где Сдать: Поиск Лабораторий</h2>
+        <span class="screen-tag">Навигатор по лабораториям РФ</span>
+        <h2 class="screen-title">Где Сдать: Поиск и Цены</h2>
       </div>
 
       <div class="map-search-bar">
@@ -645,7 +717,6 @@
 
       <div id="cityMap"></div>
 
-      <!-- КЛИКАБЕЛЬНАЯ КАРТОЧКА С МАРШРУТОМ В РЕАЛЬНЫЕ КАРТЫ -->
       <div class="lab-info-banner" id="labSelectedBanner">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <strong id="labBannerName" style="color: var(--accent); font-size: 14px;">МГНЦ РАН (ул. Москворечье, 1)</strong>
@@ -737,7 +808,7 @@
 
   </div>
 
-  <!-- GOOEY DOCK NAVIGATION: ТАП + ПОЛНОЦЕННЫЙ СВАЙП -->
+  <!-- GOOEY DOCK NAVIGATION -->
   <nav class="dock-container" id="dockContainer">
     <svg class="gooey-canvas" id="gooeySvg" preserveAspectRatio="none">
       <defs>
@@ -774,12 +845,9 @@
   </nav>
 
   <script>
-    /* 1. РАСКРЫТИЕ ДИНАМИЧЕСКИХ КАРТОЧЕК */
-    function toggleCard(card) {
-      card.classList.toggle('open');
-    }
+    function toggleCard(card) { card.classList.toggle('open'); }
 
-    /* 2. GOOEY ЖВАЧКА: ТАП + РЕАЛЬНОЕ ПЕРЕТЯГИВАНИЕ СВАЙПОМ ЗА ПАЛЬЦЕМ */
+    /* DOCK NAVIGATION & SWIPE */
     const dockContainer = document.getElementById('dockContainer');
     const gumPath = document.getElementById('gumPath');
     const buttons = Array.from(document.querySelectorAll('.dock-btn'));
@@ -918,7 +986,7 @@
       });
     }
 
-    /* ЖИВОЙ СВАЙП И ТАПЫ ЧЕРЕЗ POINTER EVENTS БЕЗ БЛОКИРОВОК */
+    /* GESTURE DRAG / SWIPE */
     let isTouching = false;
     let touchStartX = 0;
     let hasDragged = false;
@@ -927,7 +995,7 @@
       isTouching = true;
       hasDragged = false;
       touchStartX = e.clientX;
-      isAnimating = false; // Останавливаем авто-анимацию при перехвате пальцем
+      isAnimating = false;
     });
 
     dockContainer.addEventListener('pointermove', (e) => {
@@ -940,7 +1008,6 @@
         const fingerX = e.clientX - cRect.left;
         const bWidth = getBounds(currentIndex).width;
 
-        // Жидкость следует прямо за пальцем
         currentX1 = fingerX - bWidth / 2;
         currentX2 = fingerX + bWidth / 2;
         drawGum(currentX1, currentX2, 3);
@@ -956,7 +1023,6 @@
       const fingerX = e.clientX - cRect.left;
 
       if (!hasDragged) {
-        // Обычный чистый клик/тап
         let clickedIdx = 0;
         buttons.forEach((btn, idx) => {
           const b = getBounds(idx);
@@ -964,7 +1030,6 @@
         });
         goToTab(clickedIdx);
       } else {
-        // Завершение свайпа -> Snap к ближайшей кнопке
         const gumMid = (currentX1 + currentX2) / 2;
         let nearestIdx = 0;
         let minDist = Infinity;
@@ -988,7 +1053,93 @@
       }
     }
 
-    /* 3. КАРТА: СОВРЕМЕННЫЙ HD ТЕМНЫЙ СТИЛЬ (CARTO DARKMATTER) */
+    /* STEPPER QUEST LOGIC (ДИНАМИКА И ЦЕЛЬ) */
+    let questStep = 1;
+    let questScore = 10;
+    const questNotes = [];
+
+    function nextQuest(step, points, note) {
+      questScore += points;
+      if (points > 0) questNotes.push(note);
+
+      document.getElementById(`step${step}`).classList.remove('active');
+      questStep = step + 1;
+
+      document.getElementById('questTitle').innerText = `Шаг ${questStep} из 4`;
+      const titles = [
+        "",
+        "Анамнез сердечно-сосудистой системы",
+        "Онкогенетический скрининг (BRCA)",
+        "Эндокринный и метаболический профиль",
+        "Лабораторный статус"
+      ];
+      document.getElementById('questStepLabel').innerText = titles[questStep];
+      document.getElementById('questPercent').innerText = `${questStep * 25}%`;
+      document.getElementById('questBar').style.width = `${questStep * 25}%`;
+
+      document.getElementById(`step${questStep}`).classList.add('active');
+    }
+
+    function finishQuest(finalBonus) {
+      questScore = Math.min(95, Math.max(12, questScore + finalBonus));
+
+      document.getElementById('step4').classList.remove('active');
+      document.getElementById('questTitle').innerText = "Готово! Результат анализа";
+      document.getElementById('questBar').style.width = '100%';
+      document.getElementById('questPercent').innerText = '100%';
+
+      const passport = document.getElementById('passportResult');
+      passport.style.display = 'block';
+
+      document.getElementById('finalPercent').innerText = questScore + '%';
+
+      const statusEl = document.getElementById('finalStatus');
+      const listEl = document.getElementById('actionList');
+      listEl.innerHTML = '';
+
+      if (questScore < 30) {
+        statusEl.innerText = "Низкий базовый риск";
+        statusEl.style.color = "#10b981";
+        listEl.innerHTML = `
+          <li>✅ Семейный фон благоприятный. Специфических мутаций не предполагается.</li>
+          <li>🩺 Рекомендован плановый профилактический осмотр у терапевта раз в год.</li>
+          <li>🩸 Стандартный клинический анализ крови и базовый уровень холестерина.</li>
+        `;
+      } else if (questScore < 60) {
+        statusEl.innerText = "Умеренный генетический риск";
+        statusEl.style.color = "#f59e0b";
+        listEl.innerHTML = `
+          <li>⚠️ Обнаружены косвенные семейные факторы предрасположенности.</li>
+          <li>🧪 Рекомендуется сдать расширенную липидограмму и коагулограмму (свертываемость).</li>
+          <li>💊 Женщинам перед приемом КОК обязательно сдать тест на мутацию Лейдена (ген F5).</li>
+          <li>🏥 Обсудить результаты с терапевтом для получения направления в центр превенции.</li>
+        `;
+      } else {
+        statusEl.innerText = "Высокий клинический риск!";
+        statusEl.style.color = "#ff5252";
+        listEl.innerHTML = `
+          <li>🚨 Присутствуют яркие семейные триггеры ранних патологий.</li>
+          <li>🧬 Первоочередное действие: очная консультация клинического генетика.</li>
+          <li>🔬 Целевой ПЦР-скрининг: панель BRCA1/BRCA2 (онко) или F2/F5 (тромбофилия).</li>
+          <li>🏛️ Получите в районной поликлинике направление 057/у для БЕСПЛАТНОЙ сдачи по ОМС в МГНЦ.</li>
+        `;
+      }
+    }
+
+    function resetQuest() {
+      questStep = 1;
+      questScore = 10;
+      questNotes.length = 0;
+      document.getElementById('passportResult').style.display = 'none';
+      document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
+      document.getElementById('step1').classList.add('active');
+      document.getElementById('questTitle').innerText = 'Шаг 1 из 4';
+      document.getElementById('questStepLabel').innerText = 'Анамнез сердечно-сосудистой системы';
+      document.getElementById('questPercent').innerText = '25%';
+      document.getElementById('questBar').style.width = '25%';
+    }
+
+    /* MAP SECTION (STADIA / OPENSMOOTH DARK, NO API KEYS REQUIRED) */
     let map;
     const labMarkers = [];
 
@@ -1003,12 +1154,21 @@
     function initMap() {
       map = L.map('cityMap', { zoomControl: false }).setView([55.7512, 37.6184], 11);
 
-      // HD Retina Dark Tiles от CartoDB (премиальный темный технологичный вид)
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; CartoDB & OpenStreetMap',
+      // Clean OpenStreetMap Tile Server with CSS Dark Invert (100% Free, NO API Keys ever)
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap',
         maxZoom: 19,
-        subdomains: 'abcd'
+        className: 'map-tiles-clean'
       }).addTo(map);
+
+      // Dark filter for OSM tiles so it matches the neon dark design
+      const style = document.createElement('style');
+      style.innerHTML = `
+        .map-tiles-clean {
+          filter: brightness(0.65) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
+        }
+      `;
+      document.head.appendChild(style);
 
       renderLabsForCity('москва');
     }
@@ -1046,7 +1206,6 @@
           radius: 9, fillColor: item.color, color: '#ffffff', weight: 2, opacity: 1, fillOpacity: 0.95
         }).addTo(map);
 
-        // Интерактивный клик по точке на карте
         m.on('click', () => {
           document.getElementById('labBannerName').innerText = item.name;
           document.getElementById('labBannerTag').innerText = item.tag;
@@ -1096,47 +1255,13 @@
       document.getElementById('labRouteBtn').href = `https://yandex.ru/maps/?text=${lat},${lng}`;
     }
 
-    /* 4. КАЛЬКУЛЯТОР */
-    const quizState = { 1: 0, 2: 0, 3: 0 };
-    function pickQuiz(q, val, btn) {
-      quizState[q] = val;
-      btn.parentElement.querySelectorAll('.quiz-btn').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-
-      const sum = 10 + quizState[1] + quizState[2] + quizState[3];
-      const scoreEl = document.getElementById('mobileScore');
-      const statusEl = document.getElementById('mobileRiskStatus');
-      const noteEl = document.getElementById('mobileRiskNote');
-
-      scoreEl.innerText = sum + '%';
-      if (sum < 30) {
-        scoreEl.style.borderColor = '#10b981';
-        scoreEl.style.color = '#10b981';
-        statusEl.innerText = 'Низкий базовый риск';
-        statusEl.style.color = '#10b981';
-        noteEl.innerText = 'Семейный фон спокойный. Достаточно стандартного ежегодного чек-апа.';
-      } else if (sum < 55) {
-        scoreEl.style.borderColor = '#f59e0b';
-        scoreEl.style.color = '#f59e0b';
-        statusEl.innerText = 'Умеренный риск';
-        statusEl.style.color = '#f59e0b';
-        noteEl.innerText = 'Есть умеренные семейные факторы. Рекомендуется базовый анализ на липидный профиль и коагулограмму.';
-      } else {
-        scoreEl.style.borderColor = '#ff5252';
-        scoreEl.style.color = '#ff5252';
-        statusEl.innerText = 'Высокий генетический риск!';
-        statusEl.style.color = '#ff5252';
-        noteEl.innerText = 'Внимание! Обнаружены прямые семейные триггеры. Настоятельно показана консультация клинического генетика!';
-      }
-    }
-
-    /* 5. ГРАФИКИ */
+    /* CHARTS */
     function initCharts() {
       new Chart(document.getElementById('mobileChartBefore'), {
         type: 'doughnut',
         data: {
           labels: ['Не знают рисков (72%)', 'Знают базовые (23%)', 'Сдавали тест (5%)'],
-          datasets: [{ data: [72, 23, 5], backgroundColor: ['#ff5252', '#f59e0b', '#00f2fe'], borderWidth: 0 }]
+          datasets: [{ data: [72, 23, 5], backgroundColor: ['#ff5252', '#f59e0b', '#00d2ff'], borderWidth: 0 }]
         },
         options: {
           responsive: true, maintainAspectRatio: false,
@@ -1150,7 +1275,7 @@
           labels: ['Чек-ап', 'Древо семьи', 'Визит к врачу'],
           datasets: [
             { label: 'До (%)', data: [14, 28, 12], backgroundColor: 'rgba(148, 163, 184, 0.3)', borderRadius: 6 },
-            { label: 'После (%)', data: [79, 92, 74], backgroundColor: '#00f2fe', borderRadius: 6 }
+            { label: 'После (%)', data: [79, 92, 74], backgroundColor: '#00d2ff', borderRadius: 6 }
           ]
         },
         options: {
@@ -1159,7 +1284,7 @@
             y: { beginAtZero: true, max: 100, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
             x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
           },
-          plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 }, boxWidth: 10 } } }
+          plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 } } } }
         }
       });
     }
