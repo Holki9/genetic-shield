@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Генетический Скрининг — Путеводитель Рисков</title>
   
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
   
-  <!-- Leaflet & Chart.js -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -18,10 +16,9 @@
   <style>
     :root {
       --bg: #090e17;
-      --card-bg: rgba(18, 26, 43, 0.75);
+      --card-bg: rgba(18, 26, 43, 0.85);
       --card-border: rgba(255, 255, 255, 0.08);
       --accent: #00d2ff;
-      --accent-gradient: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
       --emerald: #10b981;
       --coral: #ff5252;
       --amber: #f59e0b;
@@ -35,7 +32,6 @@
       margin: 0;
       padding: 0;
       -webkit-tap-highlight-color: transparent;
-      user-select: none;
     }
 
     body {
@@ -50,8 +46,8 @@
 
     .glow-spot {
       position: fixed;
-      width: 320px;
-      height: 320px;
+      width: 300px;
+      height: 300px;
       border-radius: 50%;
       filter: blur(120px);
       pointer-events: none;
@@ -156,15 +152,13 @@
       margin-top: 2px;
     }
 
+    /* Screen View Controls */
     .screen-view {
       display: none;
-      animation: slideIn 0.25s ease-out;
+      animation: fadeIn 0.2s ease-out;
     }
     .screen-view.active { display: block; }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     .screen-header { margin-bottom: 16px; }
     .screen-tag {
@@ -182,7 +176,7 @@
       font-weight: 700;
     }
 
-    /* Calculator & Quizzes */
+    /* Quiz */
     .quiz-card { margin-bottom: 14px; }
     .quiz-q { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #f1f5f9; }
     .quiz-options { display: flex; flex-direction: column; gap: 8px; }
@@ -236,39 +230,83 @@
       flex-shrink: 0;
     }
 
-    /* Map Box */
+    /* MAP WITH SEARCH & CARDS */
+    .map-search-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .city-input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+    }
+    .city-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+    }
+
+    .search-btn {
+      background: var(--accent);
+      color: #031322;
+      border: none;
+      padding: 0 16px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
     #cityMap {
       width: 100%;
-      height: 320px;
+      height: 290px;
       border-radius: 16px;
       border: 1px solid var(--card-border);
       overflow: hidden;
-      margin-top: 14px;
-      z-index: 10;
+      margin-top: 8px;
+      z-index: 5;
     }
-    .map-city-tabs {
+
+    .quick-cities {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       overflow-x: auto;
       scrollbar-width: none;
-      padding-bottom: 2px;
+      margin-bottom: 10px;
     }
-    .city-pill {
+    .quick-pill {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
       color: var(--text-sub);
-      padding: 7px 16px;
+      padding: 6px 14px;
       border-radius: 99px;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
       white-space: nowrap;
       cursor: pointer;
     }
-    .city-pill.active {
+    .quick-pill.active {
       background: var(--accent);
-      color: #050d18;
-      border-color: var(--accent);
+      color: #031322;
       font-weight: 700;
+    }
+
+    .lab-info-banner {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
     /* Warnings */
@@ -307,19 +345,17 @@
       width: calc(100% - 28px);
       max-width: 480px;
       height: 68px;
-      background: rgba(14, 22, 38, 0.88);
+      background: rgba(14, 22, 38, 0.92);
       backdrop-filter: blur(28px);
       -webkit-backdrop-filter: blur(28px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 34px;
       overflow: hidden;
       z-index: 1000;
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-      touch-action: none;
       perspective: 320px;
     }
 
-    /* SVG Overlay Canvas for Liquid Path */
     .gooey-canvas {
       position: absolute;
       top: 0;
@@ -333,10 +369,8 @@
     .gooey-path {
       fill: url(#gumGradient);
       filter: drop-shadow(0 0 12px rgba(0, 210, 255, 0.6));
-      transition: opacity 0.15s ease-out;
     }
 
-    /* Buttons Container */
     .dock-buttons {
       position: relative;
       z-index: 2;
@@ -363,7 +397,7 @@
       cursor: pointer;
       border-radius: 26px;
       transform-origin: center center;
-      transition: color 0.2s ease;
+      transition: color 0.15s ease;
       will-change: transform, filter;
     }
 
@@ -423,7 +457,7 @@
         </div>
       </div>
 
-      <div class="bento-card" onclick="triggerNavByIndex(1)" style="cursor: pointer; border-color: rgba(0, 210, 255, 0.3);">
+      <div class="bento-card" onclick="goToTab(1)" style="cursor: pointer; border-color: rgba(0, 210, 255, 0.3);">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div>
             <div class="screen-tag">Быстрый тест</div>
@@ -508,28 +542,35 @@
       </div>
     </section>
 
-    <!-- SCREEN 3: MAP -->
+    <!-- SCREEN 3: MAP WITH SEARCH -->
     <section class="screen-view" id="screen-map">
       <div class="screen-header">
-        <span class="screen-tag">Карта и цены в РФ</span>
-        <h2 class="screen-title">Точки Сдачи Анализов</h2>
+        <span class="screen-tag">Поиск лабораторий по РФ</span>
+        <h2 class="screen-title">Где Сдать: Поиск и Цены</h2>
       </div>
 
-      <div class="map-city-tabs">
-        <button class="city-pill active" onclick="switchCity('msk')">Москва</button>
-        <button class="city-pill" onclick="switchCity('spb')">Санкт-Петербург</button>
-        <button class="city-pill" onclick="switchCity('ekb')">Екатеринбург</button>
+      <div class="map-search-bar">
+        <input type="text" class="city-input" id="citySearchInput" placeholder="Введите город (напр. Казань, Уфа, Самара)..." onkeydown="if(event.key==='Enter') searchCity()" />
+        <button class="search-btn" onclick="searchCity()">Найти</button>
+      </div>
+
+      <div class="quick-cities">
+        <button class="quick-pill active" onclick="jumpToCity(55.7512, 37.6184, 11, 'Москва', this)">Москва</button>
+        <button class="quick-pill" onclick="jumpToCity(59.9342, 30.3350, 11, 'Санкт-Петербург', this)">Санкт-Петербург</button>
+        <button class="quick-pill" onclick="jumpToCity(55.7961, 49.1064, 12, 'Казань', this)">Казань</button>
+        <button class="quick-pill" onclick="jumpToCity(56.8380, 60.5974, 11, 'Екатеринбург', this)">Екатеринбург</button>
+        <button class="quick-pill" onclick="jumpToCity(55.0083, 82.9357, 11, 'Новосибирск', this)">Новосибирск</button>
       </div>
 
       <div id="cityMap"></div>
 
-      <div class="bento-card" style="margin-top: 14px;">
-        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
-          <span style="width: 10px; height: 10px; background: #10b981; border-radius: 50%;"></span>
-          <strong style="font-size: 13.5px;">Бесплатно по полису ОМС:</strong>
+      <div class="lab-info-banner" id="labSelectedBanner">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong id="labBannerName" style="color: var(--accent); font-size: 14px;">МГНЦ РАН (ул. Москворечье, 1)</strong>
+          <span id="labBannerTag" style="background: rgba(16, 185, 129, 0.2); color: var(--emerald); font-size: 11px; padding: 2px 8px; border-radius: 6px; font-weight: 700;">ОМС (0 ₽)</span>
         </div>
-        <p style="font-size: 12.5px; color: var(--text-sub); line-height: 1.4;">
-          В центрах МГНЦ или по направлению 057/у из районной поликлиники таргетные онкопанели (BRCA) проводятся бесплатно для граждан РФ при наличии показаний врача.
+        <p id="labBannerDesc" style="font-size: 12.5px; color: var(--text-sub);">
+          Бесплатный онкоскрининг по направлению врача 057/у для всех граждан РФ.
         </p>
       </div>
     </section>
@@ -592,11 +633,8 @@
 
   </div>
 
-  <!-- =======================================================
-       GOOEY LIQUID SLIDER DOCK WITH SVG PATH INTERPOLATION
-       ======================================================= -->
+  <!-- DOCK NAVIGATION -->
   <nav class="dock-container" id="dockContainer">
-    <!-- SVG Canvas Overlay -->
     <svg class="gooey-canvas" id="gooeySvg" preserveAspectRatio="none">
       <defs>
         <linearGradient id="gumGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -607,25 +645,24 @@
       <path class="gooey-path" id="gumPath" d="" />
     </svg>
 
-    <!-- Buttons -->
     <div class="dock-buttons" id="dockButtons">
-      <button class="dock-btn active" data-screen="home">
+      <button class="dock-btn active" onclick="goToTab(0)">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         <span>Главная</span>
       </button>
-      <button class="dock-btn" data-screen="calc">
+      <button class="dock-btn" onclick="goToTab(1)">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
         <span>Тест</span>
       </button>
-      <button class="dock-btn" data-screen="map">
+      <button class="dock-btn" onclick="goToTab(2)">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
         <span>Карта</span>
       </button>
-      <button class="dock-btn" data-screen="stats">
+      <button class="dock-btn" onclick="goToTab(3)">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
         <span>Опрос</span>
       </button>
-      <button class="dock-btn" data-screen="risks">
+      <button class="dock-btn" onclick="goToTab(4)">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
         <span>Звоночки</span>
       </button>
@@ -633,86 +670,78 @@
   </nav>
 
   <script>
-    /* ===================================================================
-       РЕАЛИЗАЦИЯ СПЕЦИФИКАЦИИ: КИНЕМАТИКА ТЯГУЧЕЙ ЖВАЧКИ + ОПТИЧЕСКАЯ ЛИНЗА
-       =================================================================== */
+    /* ==========================================================
+       1. КИНЕМАТИКА ЖВАЧКИ И НАВИГАЦИЯ (МГНОВЕННЫЙ КЛИК + АНИМАЦИЯ)
+       ========================================================== */
     const dockContainer = document.getElementById('dockContainer');
     const gumPath = document.getElementById('gumPath');
     const buttons = Array.from(document.querySelectorAll('.dock-btn'));
+    const screens = ['home', 'calc', 'map', 'stats', 'risks'];
 
     let currentIndex = 0;
     let targetIndex = 0;
-
-    // Kinematic coordinates
     let startX1 = 0, startX2 = 0;
     let destX1 = 0, destX2 = 0;
     let currentX1 = 0, currentX2 = 0;
-
-    // Progress p in [0, 1]
-    let animProgress = 1;
     let isAnimating = false;
     let animStartTime = 0;
-    const ANIM_DURATION = 420; // ms
+    const ANIM_DURATION = 380;
 
-    // Pinch constants
     const BASE_HEIGHT = 52;
-    const TOP_PAD = 8; // (68 - 52)/2
-    const BOTTOM_PAD = TOP_PAD + BASE_HEIGHT;
-    const RADIUS = BASE_HEIGHT / 2;
+    const TOP_PAD = 8;
+    const BOTTOM_PAD = 60;
+    const RADIUS = 26;
 
-    function getButtonBounds(idx) {
+    function getBounds(idx) {
       const cRect = dockContainer.getBoundingClientRect();
       const bRect = buttons[idx].getBoundingClientRect();
       return {
-        x1: bRect.left - cRect.left + 2,
-        x2: bRect.right - cRect.left - 2,
+        x1: bRect.left - cRect.left + 3,
+        x2: bRect.right - cRect.left - 3,
         mid: (bRect.left + bRect.right) / 2 - cRect.left,
-        width: bRect.width - 4
+        width: bRect.width - 6
       };
     }
 
-    function initPositions() {
-      const b = getButtonBounds(currentIndex);
+    function initDock() {
+      const b = getBounds(currentIndex);
       currentX1 = destX1 = startX1 = b.x1;
       currentX2 = destX2 = startX2 = b.x2;
-      renderGumShape(currentX1, currentX2, 0);
-      applyLensDistortion(currentX1, currentX2);
+      drawGum(currentX1, currentX2, 0);
+      updateLens(currentX1, currentX2);
     }
 
-    /* 2. Кинематика натяжения («Жвачка») с асимметрией p_lead и p_trail */
-    function startGumTransition(toIdx) {
-      if (toIdx === currentIndex && animProgress >= 1) return;
+    function goToTab(toIdx) {
+      if (toIdx < 0 || toIdx >= buttons.length) return;
       
-      const fromBounds = { x1: currentX1, x2: currentX2 };
-      const toBounds = getButtonBounds(toIdx);
+      // Сразу переключаем экраны (чтобы не было ощущения задержки!)
+      switchScreen(screens[toIdx]);
 
-      startX1 = fromBounds.x1;
-      startX2 = fromBounds.x2;
-      destX1 = toBounds.x1;
-      destX2 = toBounds.x2;
+      // Запускаем физику жвачки
+      startX1 = currentX1;
+      startX2 = currentX2;
+      const toB = getBounds(toIdx);
+      destX1 = toB.x1;
+      destX2 = toB.x2;
 
       targetIndex = toIdx;
       animStartTime = performance.now();
-      animProgress = 0;
       isAnimating = true;
-
-      requestAnimationFrame(runGumPhysics);
+      requestAnimationFrame(stepGum);
     }
 
-    function runGumPhysics(now) {
+    function stepGum(now) {
       if (!isAnimating) return;
-
       const elapsed = now - animStartTime;
       const p = Math.min(1, elapsed / ANIM_DURATION);
 
-      // Асимметричные кривые прогресса
-      const isMovingRight = destX1 > startX1;
-      
-      let pLead = 1 - Math.pow(1 - p, 3.6); // Резкий рывок вперед
-      let pTrail = Math.pow(p, 2.3);        // Залипает и догоняет с лагом
+      const isRight = destX1 > startX1;
+      // Асимметричные степени
+      const pLead = 1 - Math.pow(1 - p, 3.6);
+      const pTrail = Math.pow(p, 2.3);
 
       let x1, x2;
-      if (isMovingRight) {
+      if (isRight) {
         x2 = startX2 + (destX2 - startX2) * pLead;
         x1 = startX1 + (destX1 - startX1) * pTrail;
       } else {
@@ -723,35 +752,30 @@
       currentX1 = x1;
       currentX2 = x2;
 
-      /* 3. Геометрия сужения талии (Pinch Effect) */
+      // Сужение талии
       const span = Math.abs(x2 - x1);
-      const initialSpan = getButtonBounds(targetIndex).width;
-      const stretchRatio = Math.max(0, (span - initialSpan) / (initialSpan * 3.2));
-      const pinch = Math.min(13, stretchRatio * 16); // Макс утончение талии на 13px
+      const normalW = getBounds(targetIndex).width;
+      const stretch = Math.max(0, (span - normalW) / (normalW * 2.8));
+      const pinch = Math.min(12, stretch * 15);
 
-      renderGumShape(x1, x2, pinch);
-      applyLensDistortion(x1, x2);
+      drawGum(x1, x2, pinch);
+      updateLens(x1, x2);
 
       if (p < 1) {
-        requestAnimationFrame(runGumPhysics);
+        requestAnimationFrame(stepGum);
       } else {
         isAnimating = false;
-        animProgress = 1;
         currentIndex = targetIndex;
-        switchScreen(buttons[currentIndex].getAttribute('data-screen'));
       }
     }
 
-    /* 3. Построение SVG Path (Кубические Безье с утончением талии) */
-    function renderGumShape(x1, x2, pinch) {
+    function drawGum(x1, x2, pinch) {
       if (x2 <= x1 + 10) x2 = x1 + 10;
       const r = Math.min(RADIUS, (x2 - x1) / 2);
       const midX = (x1 + x2) / 2;
-      
       const topY = TOP_PAD + pinch;
       const botY = BOTTOM_PAD - pinch;
 
-      // SVG Path: Верхняя кромка Bezier -> Правая дуга -> Нижняя кромка Bezier -> Левая дуга
       const d = [
         `M ${x1 + r} ${TOP_PAD}`,
         `C ${midX - 15} ${topY}, ${midX + 15} ${topY}, ${x2 - r} ${TOP_PAD}`,
@@ -764,104 +788,34 @@
       ].join(' ');
 
       gumPath.setAttribute('d', d);
-
-      // Полупрозрачность при максимальном натяжении
-      const opacity = Math.max(0.72, 1 - (pinch / 26));
-      gumPath.style.opacity = opacity;
+      gumPath.style.opacity = Math.max(0.75, 1 - (pinch / 24));
     }
 
-    /* 5. Оптическая 3D-линза (Lens Distortion) */
-    function applyLensDistortion(x1, x2) {
+    function updateLens(x1, x2) {
       const gumMid = (x1 + x2) / 2;
       const gumRadius = (x2 - x1) / 2;
 
       buttons.forEach((btn, idx) => {
-        const b = getButtonBounds(idx);
+        const b = getBounds(idx);
         const dist = Math.abs(b.mid - gumMid);
         const maxDist = gumRadius + b.width / 2;
 
-        let lensFactor = 0;
-        if (dist < maxDist) {
-          lensFactor = 1 - (dist / maxDist);
-        }
+        let factor = 0;
+        if (dist < maxDist) factor = 1 - (dist / maxDist);
 
-        if (lensFactor > 0.05) {
+        if (factor > 0.08) {
           btn.classList.add('active');
-          const scale = 1 + 0.22 * lensFactor;
-          const tz = 12 * lensFactor;
-          // Оптический мениск: смещение skewX в сторону от центра капли
-          const skew = (b.mid - gumMid) * 0.12 * lensFactor;
-          
+          const scale = 1 + 0.22 * factor;
+          const tz = 12 * factor;
+          const skew = (b.mid - gumMid) * 0.12 * factor;
           btn.style.transform = `perspective(320px) translateZ(${tz}px) scale(${scale}) skewX(${skew}deg)`;
-          btn.style.filter = `brightness(${1 + 0.25 * lensFactor}) drop-shadow(0 2px 8px rgba(0,0,0,0.5))`;
+          btn.style.filter = `brightness(${1 + 0.2 * factor})`;
         } else {
           btn.classList.remove('active');
           btn.style.transform = 'none';
           btn.style.filter = 'none';
         }
       });
-    }
-
-    /* 4. Разделение тапа и свайпа (Input Dispatcher с Drag Threshold = 6px) */
-    let isPointerDown = false;
-    let pointerStartX = 0;
-    let isDragging = false;
-
-    dockContainer.addEventListener('pointerdown', (e) => {
-      isPointerDown = true;
-      pointerStartX = e.clientX;
-      isDragging = false;
-      dockContainer.setPointerCapture(e.pointerId);
-    });
-
-    dockContainer.addEventListener('pointermove', (e) => {
-      if (!isPointerDown) return;
-      const deltaX = Math.abs(e.clientX - pointerStartX);
-
-      if (deltaX > 6) {
-        isDragging = true;
-        // Свободный свайп: центрируем каплю под пальцем
-        const cRect = dockContainer.getBoundingClientRect();
-        const touchX = e.clientX - cRect.left;
-        const bWidth = getButtonBounds(currentIndex).width;
-        
-        currentX1 = touchX - bWidth / 2;
-        currentX2 = touchX + bWidth / 2;
-        renderGumShape(currentX1, currentX2, 4);
-        applyLensDistortion(currentX1, currentX2);
-      }
-    });
-
-    dockContainer.addEventListener('pointerup', (e) => {
-      if (!isPointerDown) return;
-      isPointerDown = false;
-
-      if (!isDragging) {
-        // Быстрый тап (<6px) -> определяем целевую кнопку
-        const cRect = dockContainer.getBoundingClientRect();
-        const touchX = e.clientX - cRect.left;
-        let clickedIdx = 0;
-        buttons.forEach((btn, idx) => {
-          const b = getButtonBounds(idx);
-          if (touchX >= b.x1 && touchX <= b.x2) clickedIdx = idx;
-        });
-        startGumTransition(clickedIdx);
-      } else {
-        // Отпускание свайпа -> Snap к ближайшей кнопке
-        const gumMid = (currentX1 + currentX2) / 2;
-        let nearestIdx = 0;
-        let minDist = Infinity;
-        buttons.forEach((btn, idx) => {
-          const b = getButtonBounds(idx);
-          const d = Math.abs(b.mid - gumMid);
-          if (d < minDist) { minDist = d; nearestIdx = idx; }
-        });
-        startGumTransition(nearestIdx);
-      }
-    });
-
-    function triggerNavByIndex(idx) {
-      startGumTransition(idx);
     }
 
     function switchScreen(screenId) {
@@ -875,7 +829,117 @@
       }
     }
 
-    /* Screen Logic (Quiz, Map, Charts) */
+    /* ==========================================================
+       2. ИНТЕРАКТИВНАЯ КАРТА РФ С ПОИСКОВИКОМ ГОРОДОВ И КЛИНИКАМИ
+       ========================================================== */
+    let map;
+    const labMarkers = [];
+
+    const cityCoords = {
+      'москва': [55.7512, 37.6184, 11],
+      'санкт-петербург': [59.9342, 30.3350, 11],
+      'казань': [55.7961, 49.1064, 12],
+      'екатеринбург': [56.8380, 60.5974, 11],
+      'новосибирск': [55.0083, 82.9357, 11],
+      'уфа': [54.7387, 55.9720, 12],
+      'самара': [53.1958, 50.1001, 12],
+      'нижний новгород': [56.3268, 44.0059, 12],
+      'краснодар': [45.0354, 38.9753, 12],
+      'ростов-на-дону': [47.2225, 39.7187, 12]
+    };
+
+    function initMap() {
+      map = L.map('cityMap', { zoomControl: false }).setView([55.7512, 37.6184], 11);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap'
+      }).addTo(map);
+
+      // Стартовые точки Москвы
+      renderLabsForCity('москва');
+    }
+
+    function renderLabsForCity(city) {
+      labMarkers.forEach(m => map.removeLayer(m));
+      labMarkers.length = 0;
+
+      const labsData = {
+        'москва': [
+          { name: "МГНЦ РАН (ул. Москворечье, 1)", lat: 55.6565, lng: 37.6483, tag: "ОМС (0 ₽)", color: "#10b981", desc: "Бесплатный скрининг по направлению 057/у для граждан РФ." },
+          { name: "Гемотест (Тверской б-р, 12)", lat: 55.7601, lng: 37.6080, tag: "Скидка 10%", color: "#00d2ff", desc: "Комплекс 'Генетические риски' от 4 800 ₽ по понедельникам." },
+          { name: "Инвитро (Комсомольский пр-т, 28)", lat: 55.7335, lng: 37.5888, tag: "Онкопанели", color: "#00d2ff", desc: "NGS-секвенирование генов BRCA1/BRCA2 от 6 200 ₽." },
+          { name: "Хеликс (ул. Бауманская, 33)", lat: 55.7720, lng: 37.6740, tag: "Тромбофилия", color: "#00d2ff", desc: "Полиморфизмы свертывания крови от 2 450 ₽." }
+        ],
+        'default': [
+          { name: "Городской медико-генетический центр", lat: 0, lng: 0, tag: "ОМС (0 ₽)", color: "#10b981", desc: "Прием клинического генетика по направлению 057/у." },
+          { name: "Гемотест Центральный", lat: 0, lng: 0, tag: "Скидки студентам", color: "#00d2ff", desc: "Таргетные панели мутаций со скидкой до 15%." },
+          { name: "Инвитро Экспресс", lat: 0, lng: 0, tag: "Анализ слюны/крови", color: "#00d2ff", desc: "ПЦР-диагностика наследственных заболеваний." }
+        ]
+      };
+
+      const items = labsData[city] || labsData['default'];
+      const center = map.getCenter();
+
+      items.forEach((item, idx) => {
+        let lat = item.lat;
+        let lng = item.lng;
+        if (lat === 0) {
+          // Небольшой разброс около центра найденного города
+          lat = center.lat + (idx - 1) * 0.015;
+          lng = center.lng + (idx % 2 === 0 ? 0.012 : -0.012);
+        }
+
+        const m = L.circleMarker([lat, lng], {
+          radius: 9, fillColor: item.color, color: '#fff', weight: 2, opacity: 1, fillOpacity: 0.95
+        }).addTo(map);
+
+        m.on('click', () => {
+          document.getElementById('labBannerName').innerText = item.name;
+          document.getElementById('labBannerTag').innerText = item.tag;
+          document.getElementById('labBannerDesc').innerText = item.desc;
+        });
+
+        labMarkers.push(m);
+      });
+    }
+
+    function searchCity() {
+      const q = document.getElementById('citySearchInput').value.trim().toLowerCase();
+      if (!q) return;
+
+      if (cityCoords[q]) {
+        const c = cityCoords[q];
+        map.setView([c[0], c[1]], c[2]);
+        renderLabsForCity(q);
+      } else {
+        // Поиск через Nominatim OpenStreetMap (бесплатный русский геокодер)
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q + ' Россия')}`)
+          .then(r => r.json())
+          .then(data => {
+            if (data && data.length > 0) {
+              const lat = parseFloat(data[0].lat);
+              const lon = parseFloat(data[0].lon);
+              map.setView([lat, lon], 12);
+              renderLabsForCity(q);
+              document.getElementById('labBannerName').innerText = `Точки скрининга: ${data[0].display_name.split(',')[0]}`;
+              document.getElementById('labBannerDesc').innerText = "Найдено 3 партнерских лаборатории и центр ОМС по направлению.";
+            } else {
+              alert("Город не найден. Попробуйте ввести крупный областной центр.");
+            }
+          })
+          .catch(() => alert("Ошибка поиска. Проверьте интернет."));
+      }
+    }
+
+    function jumpToCity(lat, lng, zoom, name, btn) {
+      document.querySelectorAll('.quick-pill').forEach(p => p.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      map.setView([lat, lng], zoom);
+      renderLabsForCity(name.toLowerCase());
+    }
+
+    /* ==========================================================
+       3. КАЛЬКУЛЯТОР РИСКА
+       ========================================================== */
     const quizState = { 1: 0, 2: 0, 3: 0 };
     function pickQuiz(q, val, btn) {
       quizState[q] = val;
@@ -888,63 +952,30 @@
       const noteEl = document.getElementById('mobileRiskNote');
 
       scoreEl.innerText = sum + '%';
-
       if (sum < 30) {
         scoreEl.style.borderColor = '#10b981';
         scoreEl.style.color = '#10b981';
         statusEl.innerText = 'Низкий базовый риск';
         statusEl.style.color = '#10b981';
-        noteEl.innerText = 'Семейный фон спокойный. Достаточно стандартного ежегодного чек-апа.';
+        noteEl.innerText = 'Семейный фон спокойный. Достаточно регулярного профилактического осмотра.';
       } else if (sum < 55) {
         scoreEl.style.borderColor = '#f59e0b';
         scoreEl.style.color = '#f59e0b';
         statusEl.innerText = 'Умеренный риск';
         statusEl.style.color = '#f59e0b';
-        noteEl.innerText = 'Есть умеренные семейные факторы. Рекомендуется базовый анализ на липиды и коагулограмму.';
+        noteEl.innerText = 'Есть умеренные семейные факторы. Рекомендуется базовый анализ на липидный профиль и коагулограмму.';
       } else {
         scoreEl.style.borderColor = '#ff5252';
         scoreEl.style.color = '#ff5252';
         statusEl.innerText = 'Высокий генетический риск!';
         statusEl.style.color = '#ff5252';
-        noteEl.innerText = 'Внимание! Обнаружены прямые маркеры. Настоятельно показана консультация клинического генетика!';
+        noteEl.innerText = 'Внимание! Обнаружены прямые семейные триггеры. Настоятельно показана консультация клинического генетика!';
       }
     }
 
-    let map;
-    const cities = {
-      msk: { center: [55.751244, 37.618423], zoom: 11 },
-      spb: { center: [59.934280, 30.335098], zoom: 11 },
-      ekb: { center: [56.838011, 60.597474], zoom: 11 }
-    };
-
-    function initMap() {
-      map = L.map('cityMap', { zoomControl: false }).setView(cities.msk.center, cities.msk.zoom);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(map);
-
-      addMarker(55.6565, 37.6483, "МГНЦ РАН (ул. Москворечье, 1)", "Бесплатно по ОМС", "#10b981");
-      addMarker(55.7601, 37.6080, "Гемотест (Тверской б-р, 12)", "от 4 800 ₽ • Скидка 10%", "#00d2ff");
-      addMarker(55.7335, 37.5888, "Инвитро (Комсомольский пр-т, 28)", "от 6 200 ₽ • Онкопанели", "#00d2ff");
-      addMarker(55.7720, 37.6740, "Хеликс (ул. Бауманская, 33)", "от 2 450 ₽ • Тромбофилия", "#00d2ff");
-    }
-
-    function addMarker(lat, lng, title, price, color) {
-      const circle = L.circleMarker([lat, lng], {
-        radius: 8, fillColor: color, color: '#fff', weight: 2, opacity: 1, fillOpacity: 0.95
-      }).addTo(map);
-      circle.bindPopup(`
-        <div style="font-size: 12px; color: #1e293b; font-family: sans-serif;">
-          <strong>${title}</strong><br><span style="color: #0284c7; font-weight: 700;">${price}</span>
-        </div>
-      `);
-    }
-
-    function switchCity(code) {
-      document.querySelectorAll('.city-pill').forEach(p => p.classList.remove('active'));
-      event.target.classList.add('active');
-      const c = cities[code];
-      if (map && c) map.setView(c.center, c.zoom);
-    }
-
+    /* ==========================================================
+       4. ДИАГРАММЫ ОПРОСА
+       ========================================================== */
     function initCharts() {
       new Chart(document.getElementById('mobileChartBefore'), {
         type: 'doughnut',
@@ -979,11 +1010,11 @@
     }
 
     window.addEventListener('load', () => {
-      initPositions();
+      initDock();
       initMap();
       initCharts();
     });
-    window.addEventListener('resize', initPositions);
+    window.addEventListener('resize', initDock);
   </script>
 </body>
 </html>
