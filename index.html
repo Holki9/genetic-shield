@@ -12,7 +12,8 @@
   <!-- YANDEX MAPS API 2.1 -->
   <script src="https://api-maps.yandex.ru/2.1/?apikey=a4fed755-dd0a-4d72-b630-2b5ab84f3e12&lang=ru_RU" type="text/javascript"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="author_b64.js"></script>
 
   <style>
@@ -1896,124 +1897,153 @@
     }
 
     /* ACTION: GENERATE PROFESSIONAL PDF FOR DOCTOR */
-    function exportPassportPDF() {
+    /* ACTION: GENERATE PROFESSIONAL PDF FOR DOCTOR */
+    async function exportPassportPDF() {
       showToast('Генерация официальной памятки PDF...');
 
       const statusText = document.getElementById('finalStatus').innerText;
       const score = questScore + '%';
       const statusColor = questScore < 32 ? '#059669' : (questScore < 65 ? '#d97706' : '#dc2626');
-      const listItems = Array.from(document.querySelectorAll('#actionList li')).map(li => `<li style="margin-bottom:6px;color:#1e293b;">${li.innerHTML}</li>`).join('');
+      const listItems = Array.from(document.querySelectorAll('#actionList li')).map(li => `<li style="margin-bottom:8px;color:#1e293b;line-height:1.5;">${li.innerHTML}</li>`).join('');
 
-      // Create container attached to DOM with off-screen positioning so html2canvas renders perfectly
+      // Create high-resolution container in DOM with positive coordinates hidden under z-index
       const container = document.createElement('div');
       container.id = 'pdf-render-container';
       container.style.position = 'fixed';
-      container.style.left = '-9999px';
       container.style.top = '0';
+      container.style.left = '0';
       container.style.width = '794px'; // standard A4 pixel width at 96 DPI
       container.style.background = '#ffffff';
       container.style.color = '#0f172a';
       container.style.fontFamily = 'Arial, Helvetica, sans-serif';
-      container.style.padding = '36px 42px';
+      container.style.padding = '32px 38px';
       container.style.boxSizing = 'border-box';
-      container.style.zIndex = '-1000';
+      container.style.zIndex = '-99999';
+      container.style.pointerEvents = 'none';
 
       const authorImgSrc = (typeof AUTHOR_BASE64 !== 'undefined' && AUTHOR_BASE64) ? AUTHOR_BASE64 : 'author.png';
 
+      // Visual progress bar percentage
+      const barWidth = Math.min(100, Math.max(10, questScore));
+
       container.innerHTML = `
-        <div style="border-bottom: 2.5px solid #0284c7; padding-bottom: 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-start;">
+        <!-- HEADER -->
+        <div style="border-bottom: 2.5px solid #0284c7; padding-bottom: 12px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: flex-start;">
           <div>
-            <div style="font-size: 10px; font-weight: 800; color: #0284c7; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">ПРОГРАММА ПРЕВЕНТИВНОЙ МЕДИЦИНЫ И ГЕНОМИКИ • 2026</div>
-            <h1 style="font-size: 20px; color: #0f172a; margin: 0 0 4px 0; font-weight: 800; font-family: Arial, sans-serif;">ГЕНЕТИЧЕСКИЙ ЩИТ: МАРШРУТНЫЙ ЛИСТ ПАЦИЕНТА</h1>
-            <div style="font-size: 11px; color: #64748b;">Официальное приложение к первичному приему врача-терапевта / генетика</div>
+            <div style="font-size: 10px; font-weight: 800; color: #0284c7; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px;">НАЦИОНАЛЬНАЯ ПРОГРАММА ПРЕВЕНТИВНОЙ МЕДИЦИНЫ И ГЕНОМИКИ • 2026</div>
+            <h1 style="font-size: 21px; color: #0f172a; margin: 0 0 3px 0; font-weight: 800; font-family: Arial, sans-serif;">ГЕНЕТИЧЕСКИЙ ЩИТ: МАРШРУТНЫЙ ЛИСТ ПАЦИЕНТА</h1>
+            <div style="font-size: 11.5px; color: #64748b;">Официальное экспертное приложение к первичному приему врача-терапевта / генетика</div>
           </div>
-          <div style="text-align: right;">
-            <div style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 4px 10px; border-radius: 6px; font-size: 10px; font-weight: 700; color: #334155;">ФОРМА 057/У-04 (ОМС 0 ₽)</div>
-            <div style="font-size: 9px; color: #94a3b8; margin-top: 4px;">Дата: ${new Date().toLocaleDateString('ru-RU')}</div>
+          <div style="text-align: right; flex-shrink: 0;">
+            <div style="background: #e0f2fe; border: 1.5px solid #0284c7; padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 800; color: #0369a1;">НАПРАВЛЕНИЕ 057/У (ОМС 0 ₽)</div>
+            <div style="font-size: 10px; color: #94a3b8; margin-top: 5px;">Дата выдачи: ${new Date().toLocaleDateString('ru-RU')}</div>
           </div>
         </div>
 
-        <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 14px 18px; margin-bottom: 18px;">
-          <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+        <!-- PATIENT BIOMETRICS & RISK DIAGRAM -->
+        <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 14px 18px; margin-bottom: 16px;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 12px;">
             <tr>
-              <td style="padding: 4px 0; width: 50%;"><strong>Биологический пол:</strong> ${patientData.gender}</td>
-              <td style="padding: 4px 0; width: 50%;"><strong>Возраст:</strong> ${patientData.age}</td>
+              <td style="padding: 3px 0; width: 50%;"><strong>Биологический пол:</strong> <span style="color:#0284c7;font-weight:bold;">${patientData.gender}</span></td>
+              <td style="padding: 3px 0; width: 50%;"><strong>Возрастная категория:</strong> ${patientData.age}</td>
             </tr>
             <tr>
-              <td style="padding: 4px 0;"><strong>Физические параметры:</strong> Рост ${patientData.height} см • Вес ${patientData.weight} кг</td>
-              <td style="padding: 4px 0;"><strong>Индекс массы тела:</strong> ${patientData.bmi} (${patientData.bmiStatus})</td>
-            </tr>
-            <tr>
-              <td colspan="2" style="padding-top: 8px; border-top: 1px dashed #cbd5e1; margin-top: 6px;">
-                <span style="font-size: 13px;"><strong>Индекс риска наследственных патологий:</strong> </span>
-                <span style="font-size: 15px; font-weight: 800; color: ${statusColor};">${score} — ${statusText}</span>
-              </td>
+              <td style="padding: 3px 0;"><strong>Физические параметры:</strong> Рост ${patientData.height} см • Вес ${patientData.weight} кг</td>
+              <td style="padding: 3px 0;"><strong>Индекс массы тела:</strong> ${patientData.bmi} (${patientData.bmiStatus})</td>
             </tr>
           </table>
+
+          <!-- RISK BAR DIAGRAM -->
+          <div style="border-top: 1px dashed #cbd5e1; padding-top: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-size: 12px; font-weight: 700; color: #334155;">Шкала генетического и клинического риска:</span>
+              <span style="font-size: 14px; font-weight: 800; color: ${statusColor};">${score} (${statusText})</span>
+            </div>
+            <div style="width: 100%; height: 10px; background: #e2e8f0; border-radius: 5px; overflow: hidden; display: flex;">
+              <div style="width: ${barWidth}%; height: 100%; background: ${statusColor}; border-radius: 5px;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 9.5px; color: #94a3b8; margin-top: 3px;">
+              <span>0% (Минимальный)</span>
+              <span>35% (Пограничный)</span>
+              <span>65% (Высокий)</span>
+              <span>100% (Критический)</span>
+            </div>
+          </div>
         </div>
 
-        <div style="margin-bottom: 20px;">
-          <h2 style="font-size: 13px; text-transform: uppercase; color: #0284c7; letter-spacing: 0.05em; margin: 0 0 10px 0; border-left: 3.5px solid #0284c7; padding-left: 8px;">
-            Клинический протокол и рекомендованные исследования:
+        <!-- CLINICAL PROTOCOL -->
+        <div style="margin-bottom: 16px;">
+          <h2 style="font-size: 13px; text-transform: uppercase; color: #0284c7; letter-spacing: 0.06em; margin: 0 0 8px 0; border-left: 4px solid #0284c7; padding-left: 8px;">
+            Персональный протокол обследования и маршрутизации:
           </h2>
-          <ul style="padding-left: 20px; font-size: 11.5px; line-height: 1.6; margin: 0;">
+          <ul style="padding-left: 18px; font-size: 11.5px; margin: 0;">
             ${listItems}
           </ul>
         </div>
 
-        <div style="background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 10px; padding: 12px 16px; margin-bottom: 22px;">
-          <strong style="color: #166534; font-size: 11.5px;">Правовое основание на бесплатную сдачу анализов по ОМС (0 ₽):</strong>
-          <div style="font-size: 11px; color: #15803d; margin-top: 3px; line-height: 1.45;">
-            Пациент имеет право на бесплатную консультацию медицинского генетика и сдачу таргетных панелей мутаций (BRCA1/2, F2, F5) в региональных МГНЦ или ФГБНУ им. Бочкова по направлению формы <strong>057/у-04</strong> в рамках Программы государственных гарантий РФ.
+        <!-- LEGAL BASIS FOR OMS 0 RUB -->
+        <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 10px; padding: 10px 14px; margin-bottom: 18px;">
+          <strong style="color: #166534; font-size: 11.5px;">Нормативное правовое основание для сдачи анализов по ОМС (0 ₽):</strong>
+          <div style="font-size: 10.5px; color: #15803d; margin-top: 2px; line-height: 1.45;">
+            Порядки оказания медицинской помощи Минздрава РФ по профилю «медицинская генетика». При наличии ранней отягощенности терапевт или онколог государственной поликлиники обязаны выдать направление по форме <strong>057/у-04</strong> в медико-генетический центр (МГНЦ) для молекулярно-генетического тестирования за счет средств ОМС.
           </div>
         </div>
 
-        <!-- КАРТОЧКА СОЗДАТЕЛЯ ПРОЕКТА С ФОТОГРАФИЕЙ -->
-        <div style="border-top: 2px solid #e2e8f0; padding-top: 16px; margin-top: 20px; display: flex; align-items: center; gap: 18px; background: #fafafa; border-radius: 12px; padding: 14px 18px;">
-          <div style="width: 72px; height: 92px; border-radius: 10px; overflow: hidden; border: 1.5px solid #0284c7; flex-shrink: 0; background: #070c16;">
-            <img src="${authorImgSrc}" alt="Автор" style="width: 100%; height: 100%; object-fit: cover; object-position: center top;" />
+        <!-- CREATOR DOSSIER WITH BIG PROMINENT PHOTO -->
+        <div style="border-top: 2px solid #e2e8f0; padding-top: 14px; display: flex; align-items: center; gap: 20px; background: #f8fafc; border-radius: 14px; padding: 14px 18px; border: 1px solid #e2e8f0;">
+          <div style="width: 105px; height: 135px; border-radius: 12px; overflow: hidden; border: 2.5px solid #0284c7; flex-shrink: 0; background: #070c16; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);">
+            <img src="${authorImgSrc}" alt="Главный Архитектор" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" />
           </div>
-          <div style="flex: 1; font-size: 11px; line-height: 1.5;">
-            <div style="font-size: 9.5px; font-weight: 800; color: #0284c7; text-transform: uppercase; letter-spacing: 0.08em;">Верифицированный исследователь платформы</div>
-            <div style="font-size: 14px; font-weight: 800; color: #0f172a; margin: 2px 0 3px 0;">Главный Архитектор Платформы «Генетический Щит»</div>
-            <div style="color: #475569;">Разработка алгоритмического предиктивного триажа, клинического анализа семейных патологий и интерактивного навигатора медицинских генетических лабораторий РФ.</div>
-            <div style="margin-top: 4px; font-weight: 700; color: #0369a1; font-size: 10.5px;">Telegram: @AangDom • Проект аттестован к официальной защите (2026)</div>
+          <div style="flex: 1; font-size: 11.5px; line-height: 1.5;">
+            <div style="display: inline-block; background: #e0f2fe; color: #0284c7; padding: 2px 8px; border-radius: 6px; font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;">Верифицированный исследователь платформы</div>
+            <div style="font-size: 16px; font-weight: 800; color: #0f172a; margin: 0 0 4px 0;">Главный Архитектор Платформы «Генетический Щит»</div>
+            <div style="color: #334155; font-size: 11px;">
+              Автор концепции и ведущий разработчик интеллектуальной системы популяционного генетического скрининга, алгоритмов триажа мутаций и единого навигатора медико-генетических центров РФ.
+            </div>
+            <div style="margin-top: 6px; padding-top: 6px; border-top: 1px dashed #cbd5e1; font-weight: 700; color: #0284c7; font-size: 11px; display: flex; gap: 16px;">
+              <span>Telegram: @AangDom</span>
+              <span>Личное дело исследователя: #7842</span>
+              <span>Статус: Аттестован (2026)</span>
+            </div>
           </div>
         </div>
 
-        <div style="text-align: center; margin-top: 16px; font-size: 9px; color: #94a3b8;">
-          Документ сформирован автоматически интеллектуальной платформой «Генетический Щит» • Не является окончательным диагнозом, подлежит валидации врачом.
+        <div style="text-align: center; margin-top: 12px; font-size: 9px; color: #94a3b8;">
+          Документ сгенерирован платформой «Генетический Щит» • Имеет рекомендательный характер и предназначен для предоставления врачу.
         </div>
       `;
 
       document.body.appendChild(container);
 
-      const opt = {
-        margin: [8, 8, 8, 8],
-        filename: `Klinicheskiy_Pasport_${patientData.gender}_${patientData.weight}kg.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: {
+      // Give browser one frame to render DOM and image
+      await new Promise(r => setTimeout(r, 200));
+
+      try {
+        const canvas = await html2canvas(container, {
           scale: 2,
           useCORS: true,
           allowTaint: true,
           backgroundColor: '#ffffff',
           logging: false
-        },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
-
-      if (typeof html2pdf !== 'undefined') {
-        html2pdf().set(opt).from(container).save().then(() => {
-          document.body.removeChild(container);
-          showToast('Памятка PDF успешно сохранена!');
-        }).catch(err => {
-          console.error(err);
-          if (document.body.contains(container)) document.body.removeChild(container);
-          showToast('Ошибка при скачивании PDF');
         });
-      } else {
+
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        
+        // Use jsPDF from global window
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save(`Klinicheskiy_Pasport_${patientData.gender}_${patientData.weight}kg.pdf`);
+
+        document.body.removeChild(container);
+        showToast('Памятка PDF успешно сохранена!');
+      } catch (err) {
+        console.error('PDF error:', err);
         if (document.body.contains(container)) document.body.removeChild(container);
-        window.print();
+        showToast('Ошибка при скачивании PDF');
       }
     }
 
