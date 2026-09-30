@@ -44,11 +44,10 @@
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
       line-height: 1.5;
-      padding-bottom: 110px; /* Space for bottom dock */
+      padding-bottom: 120px;
       overflow-x: hidden;
     }
 
-    /* Ambient background gradient spots */
     .glow-spot {
       position: fixed;
       width: 320px;
@@ -70,7 +69,6 @@
       padding: 16px;
     }
 
-    /* Top App Bar */
     .top-bar {
       display: flex;
       justify-content: space-between;
@@ -103,7 +101,6 @@
     }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-    /* Bento Cards */
     .bento-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -132,7 +129,6 @@
       line-height: 1.5;
     }
 
-    /* Quick Stat Chips */
     .stats-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -160,24 +156,17 @@
       margin-top: 2px;
     }
 
-    /* Screen View Control */
     .screen-view {
       display: none;
       animation: slideIn 0.25s ease-out;
     }
-    .screen-view.active {
-      display: block;
-    }
+    .screen-view.active { display: block; }
     @keyframes slideIn {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Section Headers inside screens */
-    .screen-header {
-      margin-bottom: 16px;
-    }
-
+    .screen-header { margin-bottom: 16px; }
     .screen-tag {
       font-size: 11px;
       text-transform: uppercase;
@@ -187,31 +176,16 @@
       display: block;
       margin-bottom: 4px;
     }
-
     .screen-title {
       font-family: 'Outfit', sans-serif;
       font-size: 20px;
       font-weight: 700;
     }
 
-    /* Calculator Step Cards */
-    .quiz-card {
-      margin-bottom: 14px;
-    }
-
-    .quiz-q {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: #f1f5f9;
-    }
-
-    .quiz-options {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
+    /* Calculator & Quizzes */
+    .quiz-card { margin-bottom: 14px; }
+    .quiz-q { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #f1f5f9; }
+    .quiz-options { display: flex; flex-direction: column; gap: 8px; }
     .quiz-btn {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -227,25 +201,15 @@
       justify-content: space-between;
       transition: all 0.15s;
     }
-
-    .quiz-btn:active {
-      transform: scale(0.98);
-    }
-
+    .quiz-btn:active { transform: scale(0.98); }
     .quiz-btn.selected {
       background: rgba(0, 210, 255, 0.12);
       border-color: var(--accent);
       color: #fff;
       font-weight: 600;
     }
+    .quiz-btn.selected::after { content: '✓'; color: var(--accent); font-weight: 800; }
 
-    .quiz-btn.selected::after {
-      content: '✓';
-      color: var(--accent);
-      font-weight: 800;
-    }
-
-    /* Score Summary Banner */
     .score-banner {
       background: linear-gradient(135deg, rgba(0, 210, 255, 0.15), rgba(58, 123, 213, 0.15));
       border: 1px solid rgba(0, 210, 255, 0.3);
@@ -256,7 +220,6 @@
       gap: 16px;
       margin-top: 18px;
     }
-
     .score-circle {
       width: 64px;
       height: 64px;
@@ -283,7 +246,6 @@
       margin-top: 14px;
       z-index: 10;
     }
-
     .map-city-tabs {
       display: flex;
       gap: 8px;
@@ -291,8 +253,6 @@
       scrollbar-width: none;
       padding-bottom: 2px;
     }
-    .map-city-tabs::-webkit-scrollbar { display: none; }
-
     .city-pill {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -304,7 +264,6 @@
       white-space: nowrap;
       cursor: pointer;
     }
-
     .city-pill.active {
       background: var(--accent);
       color: #050d18;
@@ -312,7 +271,7 @@
       font-weight: 700;
     }
 
-    /* Red Flags / Cards */
+    /* Warnings */
     .warning-item {
       display: flex;
       gap: 14px;
@@ -322,7 +281,6 @@
       padding: 14px;
       margin-bottom: 10px;
     }
-
     .warning-icon {
       font-size: 22px;
       width: 40px;
@@ -334,119 +292,96 @@
       justify-content: center;
       flex-shrink: 0;
     }
+    .warning-title { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+    .warning-sub { font-size: 12px; color: var(--text-sub); line-height: 1.4; }
+    .chart-container { position: relative; height: 220px; margin-top: 12px; }
 
-    .warning-title {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 3px;
-    }
-
-    .warning-sub {
-      font-size: 12px;
-      color: var(--text-sub);
-      line-height: 1.4;
-    }
-
-    /* Survey Charts Container */
-    .chart-container {
-      position: relative;
-      height: 220px;
-      margin-top: 12px;
-    }
-
-    /* =========================================
-       NATIVE BOTTOM DOCK NAVIGATION (MOBILE 2026)
-       ========================================= */
-    .dock-bar {
+    /* ==========================================================
+       GOOEY LIQUID SLIDER DOCK (АРХИТЕКТУРА ИЗ СПЕЦИФИКАЦИИ)
+       ========================================================== */
+    .dock-container {
       position: fixed;
       bottom: 16px;
       left: 50%;
       transform: translateX(-50%);
-      width: calc(100% - 32px);
+      width: calc(100% - 28px);
       max-width: 480px;
+      height: 68px;
       background: rgba(14, 22, 38, 0.88);
       backdrop-filter: blur(28px);
       -webkit-backdrop-filter: blur(28px);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 28px;
-      padding: 6px;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
+      border-radius: 34px;
+      overflow: hidden;
       z-index: 1000;
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      touch-action: none;
+      perspective: 320px;
     }
 
-    .dock-item {
+    /* SVG Overlay Canvas for Liquid Path */
+    .gooey-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .gooey-path {
+      fill: url(#gumGradient);
+      filter: drop-shadow(0 0 12px rgba(0, 210, 255, 0.6));
+      transition: opacity 0.15s ease-out;
+    }
+
+    /* Buttons Container */
+    .dock-buttons {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 4px;
+    }
+
+    .dock-btn {
+      flex: 1;
+      height: 52px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       gap: 3px;
       background: transparent;
       border: none;
+      outline: none;
       color: #64748b;
-      padding: 8px 12px;
-      border-radius: 20px;
       cursor: pointer;
-      position: relative;
-      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-      flex: 1;
+      border-radius: 26px;
+      transform-origin: center center;
+      transition: color 0.2s ease;
+      will-change: transform, filter;
     }
 
-    .dock-item svg {
+    .dock-btn svg {
       width: 20px;
       height: 20px;
-      transition: transform 0.2s, stroke 0.2s;
+      stroke: currentColor;
     }
 
-    .dock-item span {
+    .dock-btn span {
       font-size: 10px;
       font-weight: 600;
       letter-spacing: 0.02em;
     }
 
-    .dock-item.active {
-      color: #fff;
-    }
-
-    .dock-item.active svg {
-      transform: scale(1.15) translateY(-2px);
-      stroke: var(--accent);
-    }
-
-    .dock-item.active::after {
-      content: '';
-      position: absolute;
-      bottom: 2px;
-      width: 14px;
-      height: 3px;
-      background: var(--accent);
-      border-radius: 99px;
-      box-shadow: 0 0 10px var(--accent);
-    }
-
-    /* Live Poll Vote Button */
-    .vote-row {
-      display: flex;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .vote-btn {
-      flex: 1;
-      padding: 12px;
-      background: rgba(0, 210, 255, 0.1);
-      border: 1px solid rgba(0, 210, 255, 0.3);
-      border-radius: 12px;
-      color: var(--accent);
-      font-size: 12.5px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .vote-btn:active {
-      background: var(--accent);
-      color: #000;
+    .dock-btn.active {
+      color: #031322;
+      font-weight: 800;
     }
   </style>
 </head>
@@ -468,7 +403,7 @@
       </div>
     </header>
 
-    <!-- SCREEN 1: OVERVIEW / HERO -->
+    <!-- SCREEN 1: HOME -->
     <main class="screen-view active" id="screen-home">
       <div class="bento-card">
         <h1 class="hero-h1">Генетический Щит: Знай Свой Риск</h1>
@@ -488,8 +423,7 @@
         </div>
       </div>
 
-      <!-- Quick Action Cards -->
-      <div class="bento-card" onclick="switchTab('calc')" style="cursor: pointer; border-color: rgba(0, 210, 255, 0.3);">
+      <div class="bento-card" onclick="triggerNavByIndex(1)" style="cursor: pointer; border-color: rgba(0, 210, 255, 0.3);">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div>
             <div class="screen-tag">Быстрый тест</div>
@@ -530,7 +464,7 @@
       </div>
     </main>
 
-    <!-- SCREEN 2: CALCULATOR (SCREENING) -->
+    <!-- SCREEN 2: CALCULATOR -->
     <section class="screen-view" id="screen-calc">
       <div class="screen-header">
         <span class="screen-tag">Интерактивный триаж</span>
@@ -574,7 +508,7 @@
       </div>
     </section>
 
-    <!-- SCREEN 3: MAP OF LABS -->
+    <!-- SCREEN 3: MAP -->
     <section class="screen-view" id="screen-map">
       <div class="screen-header">
         <span class="screen-tag">Карта и цены в РФ</span>
@@ -620,17 +554,6 @@
           <canvas id="mobileChartAfter"></canvas>
         </div>
       </div>
-
-      <div class="bento-card">
-        <h4 style="font-size: 14px; text-align: center;">📊 Экспресс-опрос прямо сейчас</h4>
-        <p style="font-size: 12px; color: var(--text-sub); text-align: center; margin-top: 4px;">
-          Знали ли вы о возможности сдать тест на тромбофилию до этого сайта?
-        </p>
-        <div class="vote-row">
-          <button class="vote-btn" onclick="this.innerText='✓ Спасибо!'; this.style.borderColor='#10b981';">Да, знал(а)</button>
-          <button class="vote-btn" onclick="this.innerText='✓ Спасибо!'; this.style.borderColor='#10b981';">Нет, узнал(а) тут</button>
-        </div>
-      </div>
     </section>
 
     <!-- SCREEN 5: RED FLAGS -->
@@ -669,52 +592,290 @@
 
   </div>
 
-  <!-- NATIVE BOTTOM DOCK (ALWAYS VISIBLE & CONVENIENT FOR THUMB) -->
-  <nav class="dock-bar">
-    <button class="dock-item active" onclick="switchTab('home')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      <span>Главная</span>
-    </button>
-    <button class="dock-item" onclick="switchTab('calc')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
-      <span>Тест</span>
-    </button>
-    <button class="dock-item" onclick="switchTab('map')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-      <span>Карта</span>
-    </button>
-    <button class="dock-item" onclick="switchTab('stats')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
-      <span>Опрос</span>
-    </button>
-    <button class="dock-item" onclick="switchTab('risks')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
-      <span>Звоночки</span>
-    </button>
+  <!-- =======================================================
+       GOOEY LIQUID SLIDER DOCK WITH SVG PATH INTERPOLATION
+       ======================================================= -->
+  <nav class="dock-container" id="dockContainer">
+    <!-- SVG Canvas Overlay -->
+    <svg class="gooey-canvas" id="gooeySvg" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="gumGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#00f2fe" />
+          <stop offset="100%" stop-color="#4facfe" />
+        </linearGradient>
+      </defs>
+      <path class="gooey-path" id="gumPath" d="" />
+    </svg>
+
+    <!-- Buttons -->
+    <div class="dock-buttons" id="dockButtons">
+      <button class="dock-btn active" data-screen="home">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Главная</span>
+      </button>
+      <button class="dock-btn" data-screen="calc">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
+        <span>Тест</span>
+      </button>
+      <button class="dock-btn" data-screen="map">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        <span>Карта</span>
+      </button>
+      <button class="dock-btn" data-screen="stats">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+        <span>Опрос</span>
+      </button>
+      <button class="dock-btn" data-screen="risks">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+        <span>Звоночки</span>
+      </button>
+    </div>
   </nav>
 
   <script>
-    // Tab switching
-    function switchTab(tabId) {
-      document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
-      document.querySelectorAll('.dock-item').forEach(b => b.classList.remove('active'));
+    /* ===================================================================
+       РЕАЛИЗАЦИЯ СПЕЦИФИКАЦИИ: КИНЕМАТИКА ТЯГУЧЕЙ ЖВАЧКИ + ОПТИЧЕСКАЯ ЛИНЗА
+       =================================================================== */
+    const dockContainer = document.getElementById('dockContainer');
+    const gumPath = document.getElementById('gumPath');
+    const buttons = Array.from(document.querySelectorAll('.dock-btn'));
 
-      const target = document.getElementById(`screen-${tabId}`);
-      if (target) target.classList.add('active');
+    let currentIndex = 0;
+    let targetIndex = 0;
 
-      const btnIndex = { home: 0, calc: 1, map: 2, stats: 3, risks: 4 }[tabId];
-      if (btnIndex !== undefined) {
-        document.querySelectorAll('.dock-item')[btnIndex].classList.add('active');
+    // Kinematic coordinates
+    let startX1 = 0, startX2 = 0;
+    let destX1 = 0, destX2 = 0;
+    let currentX1 = 0, currentX2 = 0;
+
+    // Progress p in [0, 1]
+    let animProgress = 1;
+    let isAnimating = false;
+    let animStartTime = 0;
+    const ANIM_DURATION = 420; // ms
+
+    // Pinch constants
+    const BASE_HEIGHT = 52;
+    const TOP_PAD = 8; // (68 - 52)/2
+    const BOTTOM_PAD = TOP_PAD + BASE_HEIGHT;
+    const RADIUS = BASE_HEIGHT / 2;
+
+    function getButtonBounds(idx) {
+      const cRect = dockContainer.getBoundingClientRect();
+      const bRect = buttons[idx].getBoundingClientRect();
+      return {
+        x1: bRect.left - cRect.left + 2,
+        x2: bRect.right - cRect.left - 2,
+        mid: (bRect.left + bRect.right) / 2 - cRect.left,
+        width: bRect.width - 4
+      };
+    }
+
+    function initPositions() {
+      const b = getButtonBounds(currentIndex);
+      currentX1 = destX1 = startX1 = b.x1;
+      currentX2 = destX2 = startX2 = b.x2;
+      renderGumShape(currentX1, currentX2, 0);
+      applyLensDistortion(currentX1, currentX2);
+    }
+
+    /* 2. Кинематика натяжения («Жвачка») с асимметрией p_lead и p_trail */
+    function startGumTransition(toIdx) {
+      if (toIdx === currentIndex && animProgress >= 1) return;
+      
+      const fromBounds = { x1: currentX1, x2: currentX2 };
+      const toBounds = getButtonBounds(toIdx);
+
+      startX1 = fromBounds.x1;
+      startX2 = fromBounds.x2;
+      destX1 = toBounds.x1;
+      destX2 = toBounds.x2;
+
+      targetIndex = toIdx;
+      animStartTime = performance.now();
+      animProgress = 0;
+      isAnimating = true;
+
+      requestAnimationFrame(runGumPhysics);
+    }
+
+    function runGumPhysics(now) {
+      if (!isAnimating) return;
+
+      const elapsed = now - animStartTime;
+      const p = Math.min(1, elapsed / ANIM_DURATION);
+
+      // Асимметричные кривые прогресса
+      const isMovingRight = destX1 > startX1;
+      
+      let pLead = 1 - Math.pow(1 - p, 3.6); // Резкий рывок вперед
+      let pTrail = Math.pow(p, 2.3);        // Залипает и догоняет с лагом
+
+      let x1, x2;
+      if (isMovingRight) {
+        x2 = startX2 + (destX2 - startX2) * pLead;
+        x1 = startX1 + (destX1 - startX1) * pTrail;
+      } else {
+        x1 = startX1 + (destX1 - startX1) * pLead;
+        x2 = startX2 + (destX2 - startX2) * pTrail;
       }
 
+      currentX1 = x1;
+      currentX2 = x2;
+
+      /* 3. Геометрия сужения талии (Pinch Effect) */
+      const span = Math.abs(x2 - x1);
+      const initialSpan = getButtonBounds(targetIndex).width;
+      const stretchRatio = Math.max(0, (span - initialSpan) / (initialSpan * 3.2));
+      const pinch = Math.min(13, stretchRatio * 16); // Макс утончение талии на 13px
+
+      renderGumShape(x1, x2, pinch);
+      applyLensDistortion(x1, x2);
+
+      if (p < 1) {
+        requestAnimationFrame(runGumPhysics);
+      } else {
+        isAnimating = false;
+        animProgress = 1;
+        currentIndex = targetIndex;
+        switchScreen(buttons[currentIndex].getAttribute('data-screen'));
+      }
+    }
+
+    /* 3. Построение SVG Path (Кубические Безье с утончением талии) */
+    function renderGumShape(x1, x2, pinch) {
+      if (x2 <= x1 + 10) x2 = x1 + 10;
+      const r = Math.min(RADIUS, (x2 - x1) / 2);
+      const midX = (x1 + x2) / 2;
+      
+      const topY = TOP_PAD + pinch;
+      const botY = BOTTOM_PAD - pinch;
+
+      // SVG Path: Верхняя кромка Bezier -> Правая дуга -> Нижняя кромка Bezier -> Левая дуга
+      const d = [
+        `M ${x1 + r} ${TOP_PAD}`,
+        `C ${midX - 15} ${topY}, ${midX + 15} ${topY}, ${x2 - r} ${TOP_PAD}`,
+        `A ${r} ${RADIUS} 0 0 1 ${x2} ${TOP_PAD + RADIUS}`,
+        `A ${r} ${RADIUS} 0 0 1 ${x2 - r} ${BOTTOM_PAD}`,
+        `C ${midX + 15} ${botY}, ${midX - 15} ${botY}, ${x1 + r} ${BOTTOM_PAD}`,
+        `A ${r} ${RADIUS} 0 0 1 ${x1} ${TOP_PAD + RADIUS}`,
+        `A ${r} ${RADIUS} 0 0 1 ${x1 + r} ${TOP_PAD}`,
+        'Z'
+      ].join(' ');
+
+      gumPath.setAttribute('d', d);
+
+      // Полупрозрачность при максимальном натяжении
+      const opacity = Math.max(0.72, 1 - (pinch / 26));
+      gumPath.style.opacity = opacity;
+    }
+
+    /* 5. Оптическая 3D-линза (Lens Distortion) */
+    function applyLensDistortion(x1, x2) {
+      const gumMid = (x1 + x2) / 2;
+      const gumRadius = (x2 - x1) / 2;
+
+      buttons.forEach((btn, idx) => {
+        const b = getButtonBounds(idx);
+        const dist = Math.abs(b.mid - gumMid);
+        const maxDist = gumRadius + b.width / 2;
+
+        let lensFactor = 0;
+        if (dist < maxDist) {
+          lensFactor = 1 - (dist / maxDist);
+        }
+
+        if (lensFactor > 0.05) {
+          btn.classList.add('active');
+          const scale = 1 + 0.22 * lensFactor;
+          const tz = 12 * lensFactor;
+          // Оптический мениск: смещение skewX в сторону от центра капли
+          const skew = (b.mid - gumMid) * 0.12 * lensFactor;
+          
+          btn.style.transform = `perspective(320px) translateZ(${tz}px) scale(${scale}) skewX(${skew}deg)`;
+          btn.style.filter = `brightness(${1 + 0.25 * lensFactor}) drop-shadow(0 2px 8px rgba(0,0,0,0.5))`;
+        } else {
+          btn.classList.remove('active');
+          btn.style.transform = 'none';
+          btn.style.filter = 'none';
+        }
+      });
+    }
+
+    /* 4. Разделение тапа и свайпа (Input Dispatcher с Drag Threshold = 6px) */
+    let isPointerDown = false;
+    let pointerStartX = 0;
+    let isDragging = false;
+
+    dockContainer.addEventListener('pointerdown', (e) => {
+      isPointerDown = true;
+      pointerStartX = e.clientX;
+      isDragging = false;
+      dockContainer.setPointerCapture(e.pointerId);
+    });
+
+    dockContainer.addEventListener('pointermove', (e) => {
+      if (!isPointerDown) return;
+      const deltaX = Math.abs(e.clientX - pointerStartX);
+
+      if (deltaX > 6) {
+        isDragging = true;
+        // Свободный свайп: центрируем каплю под пальцем
+        const cRect = dockContainer.getBoundingClientRect();
+        const touchX = e.clientX - cRect.left;
+        const bWidth = getButtonBounds(currentIndex).width;
+        
+        currentX1 = touchX - bWidth / 2;
+        currentX2 = touchX + bWidth / 2;
+        renderGumShape(currentX1, currentX2, 4);
+        applyLensDistortion(currentX1, currentX2);
+      }
+    });
+
+    dockContainer.addEventListener('pointerup', (e) => {
+      if (!isPointerDown) return;
+      isPointerDown = false;
+
+      if (!isDragging) {
+        // Быстрый тап (<6px) -> определяем целевую кнопку
+        const cRect = dockContainer.getBoundingClientRect();
+        const touchX = e.clientX - cRect.left;
+        let clickedIdx = 0;
+        buttons.forEach((btn, idx) => {
+          const b = getButtonBounds(idx);
+          if (touchX >= b.x1 && touchX <= b.x2) clickedIdx = idx;
+        });
+        startGumTransition(clickedIdx);
+      } else {
+        // Отпускание свайпа -> Snap к ближайшей кнопке
+        const gumMid = (currentX1 + currentX2) / 2;
+        let nearestIdx = 0;
+        let minDist = Infinity;
+        buttons.forEach((btn, idx) => {
+          const b = getButtonBounds(idx);
+          const d = Math.abs(b.mid - gumMid);
+          if (d < minDist) { minDist = d; nearestIdx = idx; }
+        });
+        startGumTransition(nearestIdx);
+      }
+    });
+
+    function triggerNavByIndex(idx) {
+      startGumTransition(idx);
+    }
+
+    function switchScreen(screenId) {
+      document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
+      const sc = document.getElementById(`screen-${screenId}`);
+      if (sc) sc.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      if (tabId === 'map' && map) {
+      if (screenId === 'map' && map) {
         setTimeout(() => map.invalidateSize(), 150);
       }
     }
 
-    // Quiz logic
+    /* Screen Logic (Quiz, Map, Charts) */
     const quizState = { 1: 0, 2: 0, 3: 0 };
     function pickQuiz(q, val, btn) {
       quizState[q] = val;
@@ -749,7 +910,6 @@
       }
     }
 
-    // Russian Map (Leaflet OpenStreetMap with Russian labels)
     let map;
     const cities = {
       msk: { center: [55.751244, 37.618423], zoom: 11 },
@@ -759,13 +919,8 @@
 
     function initMap() {
       map = L.map('cityMap', { zoomControl: false }).setView(cities.msk.center, cities.msk.zoom);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(map);
 
-      // Clean OpenStreetMap Tile Layer
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap'
-      }).addTo(map);
-
-      // Moscow Labs
       addMarker(55.6565, 37.6483, "МГНЦ РАН (ул. Москворечье, 1)", "Бесплатно по ОМС", "#10b981");
       addMarker(55.7601, 37.6080, "Гемотест (Тверской б-р, 12)", "от 4 800 ₽ • Скидка 10%", "#00d2ff");
       addMarker(55.7335, 37.5888, "Инвитро (Комсомольский пр-т, 28)", "от 6 200 ₽ • Онкопанели", "#00d2ff");
@@ -774,18 +929,11 @@
 
     function addMarker(lat, lng, title, price, color) {
       const circle = L.circleMarker([lat, lng], {
-        radius: 8,
-        fillColor: color,
-        color: '#fff',
-        weight: 2,
-        opacity: 1,
-        fillOpacity: 0.95
+        radius: 8, fillColor: color, color: '#fff', weight: 2, opacity: 1, fillOpacity: 0.95
       }).addTo(map);
-
       circle.bindPopup(`
         <div style="font-size: 12px; color: #1e293b; font-family: sans-serif;">
-          <strong>${title}</strong><br>
-          <span style="color: #0284c7; font-weight: 700;">${price}</span>
+          <strong>${title}</strong><br><span style="color: #0284c7; font-weight: 700;">${price}</span>
         </div>
       `);
     }
@@ -794,29 +942,19 @@
       document.querySelectorAll('.city-pill').forEach(p => p.classList.remove('active'));
       event.target.classList.add('active');
       const c = cities[code];
-      if (map && c) {
-        map.setView(c.center, c.zoom);
-      }
+      if (map && c) map.setView(c.center, c.zoom);
     }
 
-    // Chart.js
     function initCharts() {
       new Chart(document.getElementById('mobileChartBefore'), {
         type: 'doughnut',
         data: {
           labels: ['Не знают рисков (72%)', 'Знают базовые (23%)', 'Сдавали тест (5%)'],
-          datasets: [{
-            data: [72, 23, 5],
-            backgroundColor: ['#ff5252', '#f59e0b', '#00d2ff'],
-            borderWidth: 0
-          }]
+          datasets: [{ data: [72, 23, 5], backgroundColor: ['#ff5252', '#f59e0b', '#00d2ff'], borderWidth: 0 }]
         },
         options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 }, boxWidth: 10 } }
-          }
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 }, boxWidth: 10 } } }
         }
       });
 
@@ -830,23 +968,22 @@
           ]
         },
         options: {
-          responsive: true,
-          maintainAspectRatio: false,
+          responsive: true, maintainAspectRatio: false,
           scales: {
             y: { beginAtZero: true, max: 100, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
             x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
           },
-          plugins: {
-            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 }, boxWidth: 10 } }
-          }
+          plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 }, boxWidth: 10 } } }
         }
       });
     }
 
     window.addEventListener('load', () => {
+      initPositions();
       initMap();
       initCharts();
     });
+    window.addEventListener('resize', initPositions);
   </script>
 </body>
 </html>
