@@ -1933,17 +1933,15 @@
 
       items.forEach((item) => {
         const placemark = new ymaps.Placemark([item.lat, item.lng], {
-          balloonContentHeader: `<strong style="color:#031322;font-size:14px;">${item.name}</strong>`,
-          balloonContentBody: `<div style="color:#334155;font-size:12px;margin:4px 0;"><strong>Адрес:</strong> ${item.address}<br><strong>Локация:</strong> ${item.metro}<br>${item.desc}</div>`,
-          balloonContentFooter: `<span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;background:${item.isOms ? '#10b981' : '#00f2fe'};color:#031322;">${item.tag}</span>`,
           hintContent: item.name
         }, {
           preset: item.isOms ? 'islands#darkGreenMedicalIcon' : 'islands#darkBlueMedicalIcon',
-          balloonCloseButton: true,
-          hideIconOnBalloonOpen: false
+          hasBalloon: false,
+          openBalloonOnClick: false
         });
 
-        placemark.events.add('click', () => {
+        placemark.events.add('click', (e) => {
+          e.preventDefault();
           tactileTap();
           selectLabDetails(item);
         });
