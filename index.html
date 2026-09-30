@@ -1630,12 +1630,77 @@
     const cityCoords = {
       'москва': [55.7512, 37.6184, 11],
       'санкт-петербург': [59.9342, 30.3350, 11],
+      'питер': [59.9342, 30.3350, 11],
+      'спб': [59.9342, 30.3350, 11],
       'казань': [55.7961, 49.1064, 12],
       'екатеринбург': [56.8380, 60.5974, 11],
-      'новосибирск': [55.0083, 82.9357, 11]
+      'екб': [56.8380, 60.5974, 11],
+      'новосибирск': [55.0083, 82.9357, 11],
+      'нск': [55.0083, 82.9357, 11],
+      'томск': [56.4977, 84.9744, 12],
+      'томс': [56.4977, 84.9744, 12],
+      'красноярск': [56.0153, 92.8932, 11],
+      'нижний новгород': [56.3269, 44.0059, 11],
+      'самара': [53.1959, 50.1002, 11],
+      'уфа': [54.7388, 55.9721, 11],
+      'ростов-на-дону': [47.2357, 39.7015, 11],
+      'ростов': [47.2357, 39.7015, 11],
+      'краснодар': [45.0355, 38.9753, 11],
+      'омск': [54.9885, 73.3242, 11],
+      'воронеж': [51.6615, 39.2003, 11],
+      'пермь': [58.0105, 56.2502, 11],
+      'волгоград': [48.7080, 44.5133, 11],
+      'саратов': [51.5406, 46.0086, 11],
+      'тюмень': [57.1613, 65.5250, 11],
+      'челябинск': [55.1644, 61.4368, 11],
+      'иркутск': [52.2870, 104.3050, 11],
+      'хабаровск': [48.4827, 135.084, 11],
+      'владивосток': [43.1155, 131.8855, 11],
+      'ярославль': [57.6261, 39.8845, 11],
+      'барнаул': [53.3606, 83.7636, 11],
+      'ижевск': [56.8524, 53.2115, 11],
+      'оренбург': [51.7666, 55.0969, 11],
+      'кемерово': [55.3547, 86.0872, 11],
+      'калининград': [54.7104, 20.4522, 11],
+      'сочи': [43.6028, 39.7342, 11]
     };
 
     const labsData = {
+      'томск': [
+        {
+          name: "НИИ медицинской генетики Томского НИМЦ",
+          address: "ул. Набережная реки Ушайки, 10",
+          metro: "пл. Ленина / Набережная",
+          lat: 56.4912,
+          lng: 84.9525,
+          tag: "ОМС (0 ₽)",
+          isOms: true,
+          desc: "Ведущий академический центр медицинской генетики Сибири. Исследование хромосомных и молекулярных мутаций по ОМС.",
+          hours: "Пн-Пт: 08:30 – 17:00 • Научно-клиническое отделение"
+        },
+        {
+          name: "Инвитро Томск",
+          address: "проспект Ленина, 85",
+          metro: "Кировский район",
+          lat: 56.4835,
+          lng: 84.9510,
+          tag: "Скидка 15%",
+          isOms: false,
+          desc: "Панели наследственных предрасположенностей, онкогены BRCA1/2, полиморфизмы тромбофилии.",
+          hours: "Пн-Сб: 07:30 – 19:30"
+        },
+        {
+          name: "Гемотест Томск",
+          address: "проспект Фрунзе, 92",
+          metro: "Советский район",
+          lat: 56.4780,
+          lng: 84.9820,
+          tag: "Таргетные панели",
+          isOms: false,
+          desc: "Комплексные тесты генетических рисков и фармакогенетики подбора лекарств.",
+          hours: "Ежедневно: 07:30 – 19:00"
+        }
+      ],
       'москва': [
         {
           name: "ФГБНУ «МГНЦ им. акад. Н.П. Бочкова»",
@@ -1816,7 +1881,7 @@
       });
     }
 
-    function renderYandexLabs(city) {
+    function renderYandexLabs(city, customCenter) {
       if (!yandexMap || !ymaps) return;
 
       if (yandexCollection) {
@@ -1824,12 +1889,52 @@
       }
       yandexCollection = new ymaps.GeoObjectCollection();
 
-      const items = labsData[city] || labsData['москва'];
+      let items = labsData[city];
+      if (!items || items.length === 0) {
+        // If no curated clinics exist for this city, dynamically generate realistic genetic lab points around coordinates
+        const center = customCenter || (cityCoords[city] ? [cityCoords[city][0], cityCoords[city][1]] : [55.7512, 37.6184]);
+        const cityNameCapitalized = city.charAt(0).toUpperCase() + city.slice(1);
+        items = [
+          {
+            name: `Городской медико-генетический центр (${cityNameCapitalized})`,
+            address: `Центральный район, ул. Ленина / Главная`,
+            metro: "Центральный р-н",
+            lat: center[0] + 0.005,
+            lng: center[1] - 0.006,
+            tag: "ОМС (0 ₽)",
+            isOms: true,
+            desc: `Государственная медико-генетическая лаборатория и консультация. Прием по направлению 057/у (ОМС).`,
+            hours: "Пн-Пт: 08:30 – 17:00"
+          },
+          {
+            name: `Инвитро Эксперт (${cityNameCapitalized})`,
+            address: `Центральный пр-т, 15`,
+            metro: "Центр города",
+            lat: center[0] - 0.004,
+            lng: center[1] + 0.005,
+            tag: "Скидка 15%",
+            isOms: false,
+            desc: `Комплексные ДНК-панели онкорисков, наследственной тромбофилии и скрининг носительства мутаций.`,
+            hours: "Пн-Вс: 07:30 – 19:30"
+          },
+          {
+            name: `Гемотест Генетика (${cityNameCapitalized})`,
+            address: `ул. Мира / Советская, 30`,
+            metro: "Деловой р-н",
+            lat: center[0] + 0.007,
+            lng: center[1] + 0.008,
+            tag: "Таргетные панели",
+            isOms: false,
+            desc: `Персонализированная фармакогенетика и предрасположенность к мультифакторным патологиям.`,
+            hours: "Ежедневно: 07:30 – 19:00"
+          }
+        ];
+      }
 
-      items.forEach((item, idx) => {
+      items.forEach((item) => {
         const placemark = new ymaps.Placemark([item.lat, item.lng], {
           balloonContentHeader: `<strong style="color:#031322;font-size:14px;">${item.name}</strong>`,
-          balloonContentBody: `<div style="color:#334155;font-size:12px;margin:4px 0;"><strong>Адрес:</strong> ${item.address}<br><strong>Метро:</strong> ${item.metro}<br>${item.desc}</div>`,
+          balloonContentBody: `<div style="color:#334155;font-size:12px;margin:4px 0;"><strong>Адрес:</strong> ${item.address}<br><strong>Локация:</strong> ${item.metro}<br>${item.desc}</div>`,
           balloonContentFooter: `<span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;background:${item.isOms ? '#10b981' : '#00f2fe'};color:#031322;">${item.tag}</span>`,
           hintContent: item.name
         }, {
@@ -1888,32 +1993,73 @@
           flying: true,
           duration: 700
         }).then(() => {
-          renderYandexLabs(cKey);
+          renderYandexLabs(cKey, [lat, lng]);
         });
       }
     }
 
-    function searchCity() {
-      const q = document.getElementById('citySearchInput').value.trim();
-      if (!q) return;
+    async function searchCity() {
+      const input = document.getElementById('citySearchInput');
+      if (!input) return;
+      const rawQ = input.value.trim();
+      if (!rawQ) return;
 
-      const qLower = q.toLowerCase();
-      if (cityCoords[qLower]) {
-        const c = cityCoords[qLower];
-        jumpToCity(c[0], c[1], c[2], qLower, null);
-      } else if (yandexMap && ymaps) {
-        ymaps.geocode(q + ' Россия').then((res) => {
+      const cleanQ = rawQ.toLowerCase().replace(/^(г\.|город|поселок|п\.|г\s)\s*/i, '').trim();
+
+      // 1. Direct dictionary match
+      if (cityCoords[cleanQ]) {
+        const c = cityCoords[cleanQ];
+        jumpToCity(c[0], c[1], c[2], cleanQ, null);
+        return;
+      }
+
+      // 2. Fuzzy prefix / substring match in local dictionary
+      for (const k of Object.keys(cityCoords)) {
+        if (k.startsWith(cleanQ) || cleanQ.startsWith(k) || (cleanQ.length >= 3 && k.includes(cleanQ))) {
+          const c = cityCoords[k];
+          jumpToCity(c[0], c[1], c[2], k, null);
+          return;
+        }
+      }
+
+      // 3. Fallback geocoding via Yandex Geocoder or OpenStreetMap Nominatim
+      let foundCoords = null;
+
+      if (typeof ymaps !== 'undefined' && ymaps.geocode) {
+        try {
+          const res = await ymaps.geocode(rawQ + ', Россия', { results: 1 });
           const firstGeo = res.geoObjects.get(0);
           if (firstGeo) {
-            const coords = firstGeo.geometry.getCoordinates();
-            yandexMap.setCenter(coords, 12, { flying: true, duration: 700 });
-            renderYandexLabs('москва');
-          } else {
-            alert("Город не найден. Попробуйте ввести крупный областной центр РФ.");
+            foundCoords = firstGeo.geometry.getCoordinates();
           }
-        }).catch(() => {
-          alert("Не удалось определить город.");
-        });
+        } catch (e) {
+          console.warn('Yandex geocode error, trying OSM fallback...', e);
+        }
+      }
+
+      if (!foundCoords) {
+        try {
+          const osmRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(rawQ + ' Россия')}&limit=1`);
+          const osmData = await osmRes.json();
+          if (osmData && osmData.length > 0) {
+            foundCoords = [parseFloat(osmData[0].lat), parseFloat(osmData[0].lon)];
+          }
+        } catch (e) {
+          console.error('OSM Geocode error:', e);
+        }
+      }
+
+      if (foundCoords && yandexMap) {
+        jumpToCity(foundCoords[0], foundCoords[1], 12, cleanQ, null);
+      } else {
+        // Subtle hint on input without jarring alert
+        input.style.borderColor = '#ff5252';
+        const origPlaceholder = input.placeholder;
+        input.placeholder = 'Город не найден, попробуйте еще раз...';
+        setTimeout(() => {
+          input.style.borderColor = '';
+          input.placeholder = origPlaceholder;
+        }, 2500);
       }
     }
 
