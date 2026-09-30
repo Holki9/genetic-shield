@@ -232,6 +232,106 @@
       border: 1px solid rgba(0, 242, 254, 0.25);
     }
 
+    /* AUTHOR HOLOGRAPHIC DOSSIER STYLES */
+    .author-interactive-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      perspective: 800px;
+      transition: border-color 0.3s ease;
+    }
+    .author-interactive-card:hover {
+      border-color: rgba(0, 242, 254, 0.4);
+    }
+    .author-avatar-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .author-interactive-card.opened .author-avatar-wrap {
+      transform: translateY(-8px) scale(0.92);
+    }
+    .author-img {
+      width: 140px;
+      height: 175px;
+      object-fit: cover;
+      border-radius: 20px;
+      display: block;
+      /* Clean blend without artificial outline */
+      mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+      transition: filter 0.3s;
+    }
+    .author-interactive-card.opened .author-img {
+      filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.4));
+    }
+    .author-tap-hint {
+      margin-top: 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      font-weight: 700;
+      background: rgba(0, 242, 254, 0.1);
+      padding: 4px 12px;
+      border-radius: 99px;
+      border: 1px solid rgba(0, 242, 254, 0.25);
+    }
+    .author-hud-panel {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+      background: rgba(7, 13, 24, 0.88);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      border-radius: 16px;
+      padding: 0 16px;
+      backdrop-filter: blur(16px);
+      box-shadow: inset 0 0 20px rgba(0, 242, 254, 0.08);
+    }
+    .author-interactive-card.opened .author-hud-panel {
+      max-height: 300px;
+      opacity: 1;
+      margin-top: 16px;
+      padding: 16px;
+    }
+    .hud-glitch-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(0, 242, 254, 0.2);
+      padding-bottom: 6px;
+    }
+    .hud-status-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent);
+      animation: pulse 1.2s infinite;
+    }
+    .hud-type-content {
+      font-family: monospace;
+      font-size: 12.5px;
+      color: #e2e8f0;
+      line-height: 1.6;
+      white-space: pre-line;
+      min-height: 70px;
+    }
+
     /* MAP SECTION (CLEAN ORIGINAL OPENSTREETMAP) */
     .map-search-bar { display: flex; gap: 8px; margin-bottom: 12px; }
     .city-input {
@@ -600,6 +700,29 @@
           <span class="badge-pill">Форма 057/у</span>
           <span class="badge-pill">Госгарантии РФ</span>
           <p>Терапевт в районной поликлинике обязан выдать направление по форме 057/у в медико-генетический научный центр, если в роду зафиксированы ранние онкологии или тяжелые сосудистые катастрофы.</p>
+        </div>
+      </div>
+
+      <!-- HOLOGRAPHIC AUTHOR DOSSIER (CYBER HUD WITH TYPEWRITER) -->
+      <div class="screen-header" style="margin-top: 24px;">
+        <span class="screen-tag">Разработка и Исследование</span>
+        <h3 style="font-size: 17px; font-weight: 700;">Создатель проекта</h3>
+      </div>
+
+      <div class="author-interactive-card" id="authorCard" onclick="toggleAuthorHud()">
+        <div class="author-avatar-wrap">
+          <img src="author.jpg" alt="Создатель проекта" class="author-img" id="authorImg">
+          <div class="author-tap-hint">Нажми на досье</div>
+        </div>
+
+        <div class="author-hud-panel" id="authorHud">
+          <div class="hud-glitch-header">
+            <span class="hud-status-dot"></span>
+            <span>SYSTEM DOSSIER // VERIFIED 2026</span>
+          </div>
+          <div class="hud-type-content" id="hudTypewriter">
+            <!-- Populated via typewriter JS -->
+          </div>
         </div>
       </div>
     </main>
@@ -1305,6 +1428,41 @@
           plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 } } } }
         }
       });
+    }
+
+    /* AUTHOR HUD DOSSIER TYPEWRITER LOGIC */
+    let isHudOpened = false;
+    let typeTimer = null;
+    const hudBioText = `> ИДЕНТИФИКАЦИЯ: ПОДТВЕРЖДЕНА
+> РОЛЬ: Lead Developer & Data Architect
+> ПРОЕКТ: Генетический Щит (РФ • 2026)
+> СТЕК: Bio-Informatics, Interactive UI, ML Risk Triage
+> СТАТУС: Проект готов к защите перед комиссией.`;
+
+    function toggleAuthorHud() {
+      tactileTap();
+      const card = document.getElementById('authorCard');
+      const textEl = document.getElementById('hudTypewriter');
+      isHudOpened = !isHudOpened;
+
+      if (isHudOpened) {
+        card.classList.add('opened');
+        textEl.innerText = '';
+        let i = 0;
+        clearInterval(typeTimer);
+        typeTimer = setInterval(() => {
+          if (i < hudBioText.length) {
+            textEl.innerText += hudBioText.charAt(i);
+            i++;
+          } else {
+            clearInterval(typeTimer);
+          }
+        }, 18);
+      } else {
+        card.classList.remove('opened');
+        clearInterval(typeTimer);
+        textEl.innerText = '';
+      }
     }
 
     window.addEventListener('load', () => {
