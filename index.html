@@ -12,6 +12,7 @@
   <!-- YANDEX MAPS API 2.1 -->
   <script src="https://api-maps.yandex.ru/2.1/?apikey=a4fed755-dd0a-4d72-b630-2b5ab84f3e12&lang=ru_RU" type="text/javascript"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
   <style>
     :root {
@@ -782,6 +783,50 @@
       border: 1px solid rgba(255,255,255,0.05);
     }
 
+    /* Biometrics Selector Chips */
+    .bio-chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .bio-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-sub);
+      padding: 9px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      flex: 1;
+      min-width: 90px;
+      text-align: center;
+    }
+    .bio-chip.active {
+      background: rgba(0, 242, 254, 0.18);
+      border-color: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(0, 242, 254, 0.3);
+    }
+    .bio-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: #ffffff;
+      font-size: 14px;
+      outline: none;
+      margin-bottom: 14px;
+      font-family: inherit;
+    }
+    .bio-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+    }
+
     .print-btn {
       width: 100%;
       background: linear-gradient(135deg, var(--accent), var(--accent-blue));
@@ -797,8 +842,73 @@
       justify-content: center;
       gap: 8px;
       transition: transform 0.12s;
+      margin-bottom: 8px;
     }
     .print-btn:active { transform: scale(0.97); }
+
+    .map-jump-btn {
+      width: 100%;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #10b981;
+      padding: 13px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.12s, background-color 0.15s;
+      margin-bottom: 8px;
+    }
+    .map-jump-btn:active { transform: scale(0.97); background: rgba(16, 185, 129, 0.25); }
+
+    .copy-btn {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text);
+      padding: 12px;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 12.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.12s;
+    }
+    .copy-btn:active { transform: scale(0.97); }
+
+    /* Floating Toast Notification */
+    .toast-msg {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-30px);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1.5px solid var(--accent);
+      color: #ffffff;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 30px rgba(0, 242, 254, 0.35);
+      z-index: 100000;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast-msg.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
 
     /* Dock Bar */
     .dock-container {
@@ -1008,101 +1118,164 @@
         </div>
       </div>
 
-      <!-- Step 1 -->
+      <!-- Step 1: Biometrics & Gender -->
       <div class="bento-card step-card active" id="step1">
+        <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700;">
+          Укажите ваш биологический пол и возрастную категорию:
+        </div>
+        <div style="font-size: 12px; color: var(--text-sub); margin-bottom: 8px;">Биологический пол:</div>
+        <div class="bio-chip-group">
+          <div class="bio-chip active" id="bioGenderF" onclick="tactileTap(); selectBioGender('Женский')">Женский (риск BRCA1/2, КОК)</div>
+          <div class="bio-chip" id="bioGenderM" onclick="tactileTap(); selectBioGender('Мужской')">Мужской (кардио-профиль)</div>
+        </div>
+        <div style="font-size: 12px; color: var(--text-sub); margin-bottom: 8px;">Возрастная группа:</div>
+        <div class="bio-chip-group">
+          <div class="bio-chip active" id="bioAge1" onclick="tactileTap(); selectBioAge('До 25 лет')">18 – 25 лет</div>
+          <div class="bio-chip" id="bioAge2" onclick="tactileTap(); selectBioAge('26 – 40 лет')">26 – 40 лет</div>
+          <div class="bio-chip" id="bioAge3" onclick="tactileTap(); selectBioAge('41+ год')">41+ год</div>
+        </div>
+        <button class="quest-btn" style="margin-top: 10px; background: rgba(0, 242, 254, 0.12); border-color: var(--accent); color: #fff;" onclick="tactileTap(); nextQuest(1, 0)">
+          <span>Продолжить к анамнезу</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+      </div>
+
+      <!-- Step 2: Cardiovascular -->
+      <div class="bento-card step-card" id="step2">
         <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
           Были ли у близких родственников (родители, бабушки/дедушки) инфаркты, инсульты или тромбозы в возрасте до 50 лет?
         </div>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(1, 0)">
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(2, 0)">
           <span>Нет, таких случаев не зафиксировано</span>
           <span class="quest-btn-arrow">➔</span>
         </button>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(1, 20)">
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(2, 18)">
           <span>У 1 родственника (после 45-50 лет)</span>
           <span class="quest-btn-arrow">➔</span>
         </button>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(1, 40)">
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(2, 35)">
           <span>У 2+ родственников в молодом возрасте</span>
           <span class="quest-btn-arrow">➔</span>
         </button>
       </div>
 
-      <!-- Step 2 -->
-      <div class="bento-card step-card" id="step2">
+      <!-- Step 3: Oncology -->
+      <div class="bento-card step-card" id="step3">
         <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
-          Фиксировался ли рак груди, яичников или кишечника у прямых родственниц моложе 45-50 лет?
+          Фиксировался ли рак груди, яичников, простаты или кишечника у прямых родственников моложе 50 лет?
         </div>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(2, 0)">
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(3, 0)">
           <span>Случаев онкологии в семье не было</span>
           <span class="quest-btn-arrow">➔</span>
         </button>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(2, 25)">
-          <span>1 случай у тети или бабушки</span>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(3, 20)">
+          <span>1 случай у тети, дяди или бабушки</span>
           <span class="quest-btn-arrow">➔</span>
         </button>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(2, 45)">
-          <span>Множественные случаи у матери или сестры</span>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(3, 40)">
+          <span>Множественные случаи у матери, отца или сестры</span>
           <span class="quest-btn-arrow">➔</span>
         </button>
       </div>
 
-      <!-- Step 3 -->
-      <div class="bento-card step-card" id="step3">
+      <!-- Step 4: Metabolic / Endocrine -->
+      <div class="bento-card step-card" id="step4">
         <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
-          Сахарный диабет 2 типа или узловой зоб щитовидной железы у старшего поколения?
+          Сахарный диабет 2 типа, подагра или тяжелые нарушения липидного обмена в семье?
         </div>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(3, 0)">
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(4, 0)">
           <span>Нет или не диагностировали</span>
           <span class="quest-btn-arrow">➔</span>
         </button>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(3, 15)">
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(4, 15)">
           <span>Да, у бабушек или дедушек</span>
           <span class="quest-btn-arrow">➔</span>
         </button>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(3, 25)">
-          <span>Да, у обоих прямых родителей</span>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(4, 25)">
+          <span>Да, у прямых родителей (одного или обоих)</span>
           <span class="quest-btn-arrow">➔</span>
         </button>
       </div>
 
-      <!-- Step 4 -->
-      <div class="bento-card step-card" id="step4">
+      <!-- Step 5: Symptoms & Lifestyle Risks -->
+      <div class="bento-card step-card" id="step5">
+        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
+          Беспокоят ли вас эпизоды скачков давления, необъяснимые синяки или тяжесть в ногах?
+        </div>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(5, 0)">
+          <span>Нет, самочувствие стабильное</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(5, 15)">
+          <span>Иногда бывает (усталость, отечность, варикоз)</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(5, 25)">
+          <span>Да, есть стойкие скачки давления или варикоз</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+      </div>
+
+      <!-- Step 6: Lab tests history -->
+      <div class="bento-card step-card" id="step6">
         <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
           Сдавали ли вы когда-нибудь профильные генетические панели или коагулограмму?
         </div>
-        <button class="quest-btn" onclick="tactileTap(); finishQuest(0)">
+        <button class="quest-btn" onclick="tactileTap(); finishQuest(5)">
           <span>Ни разу не сдавал(а) (скрытый статус)</span>
           <span class="quest-btn-arrow">➔</span>
         </button>
         <button class="quest-btn" onclick="tactileTap(); finishQuest(-10)">
-          <span>Сдавал(а) ранее, патологий не обнаружено</span>
+          <span>Сдавал(а) ранее, значимых мутаций не обнаружено</span>
           <span class="quest-btn-arrow">➔</span>
         </button>
       </div>
 
       <!-- FINAL PASSPORT OUTCOME -->
       <div class="passport-result" id="passportResult">
-        <div class="passport-header">
+        <div class="passport-header" id="passportPdfArea">
           <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 700;">
-            Персональный отчет скрининга
+            Персональный клинический маршрут
           </span>
           <div class="passport-score-val" id="finalPercent">65%</div>
           <strong id="finalStatus" style="font-size: 16px; color: #ff5252;">Умеренно-высокий риск</strong>
+          <div id="patientMetaTag" style="font-size: 12px; color: var(--text-sub); margin-top: 6px;">Пациент: Женский • 18-25 лет</div>
         </div>
 
         <div class="bento-card">
           <h4 style="font-size: 14px; margin-bottom: 8px;">Ваш персональный протокол действий:</h4>
           <ul class="action-checklist" id="actionList"></ul>
 
-          <button class="print-btn" onclick="tactileTap(); alert('Отчет зафиксирован. Рекомендуется предъявить терапевту.')">
-            Сохранить персональную памятку
+          <!-- ACTION BUTTON 1: DOWNLOAD PDF -->
+          <button class="print-btn" onclick="tactileTap(); exportPassportPDF()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Скачать официальную PDF-памятку для врача</span>
           </button>
-          <button style="width: 100%; margin-top: 10px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--text-sub); padding: 10px; border-radius: 12px; font-size: 12px; cursor: pointer;" onclick="tactileTap(); resetQuest()">
+
+          <!-- ACTION BUTTON 2: JUMP TO MAP -->
+          <button class="map-jump-btn" onclick="tactileTap(); jumpToMapLab()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+            <span id="mapBtnText">Найти ближайшую лабораторию на карте</span>
+          </button>
+
+          <!-- ACTION BUTTON 3: COPY QUESTIONS FOR DOCTOR -->
+          <button class="copy-btn" onclick="tactileTap(); copyDoctorQuestions()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>Скопировать готовые вопросы терапевту</span>
+          </button>
+
+          <button style="width: 100%; margin-top: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--text-sub); padding: 10px; border-radius: 12px; font-size: 12px; cursor: pointer;" onclick="tactileTap(); resetQuest()">
             Пройти заново
           </button>
         </div>
       </div>
     </section>
+
+    <!-- FLOATING TOAST -->
+    <div id="toastMessage" class="toast-msg">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      <span id="toastText">Готово</span>
+    </div>
 
     <!-- SCREEN 3: MAP (ORIGINAL CLEAN OPENSTREETMAP) -->
     <section class="screen-view" id="screen-map">
@@ -1542,34 +1715,55 @@
       }
     }
 
-    /* STEPPER QUEST */
+    /* STEPPER QUEST WITH BIOMETRICS & CLINICAL PROTOCOL */
     let questStep = 1;
+    const TOTAL_QUEST_STEPS = 6;
     let questScore = 10;
+    let patientData = {
+      gender: 'Женский',
+      age: '18 – 25 лет'
+    };
+
+    function selectBioGender(gender) {
+      patientData.gender = gender;
+      document.getElementById('bioGenderF').classList.toggle('active', gender === 'Женский');
+      document.getElementById('bioGenderM').classList.toggle('active', gender === 'Мужской');
+    }
+
+    function selectBioAge(age) {
+      patientData.age = age;
+      document.getElementById('bioAge1').classList.toggle('active', age === 'До 25 лет');
+      document.getElementById('bioAge2').classList.toggle('active', age === '26 – 40 лет');
+      document.getElementById('bioAge3').classList.toggle('active', age === '41+ год');
+    }
 
     function nextQuest(step, points) {
       questScore += points;
       document.getElementById(`step${step}`).classList.remove('active');
       questStep = step + 1;
 
-      document.getElementById('questTitle').innerText = `Шаг ${questStep} из 4`;
+      document.getElementById('questTitle').innerText = `Шаг ${questStep} из ${TOTAL_QUEST_STEPS}`;
       const titles = [
         "",
+        "Биометрические данные",
         "Анамнез сердечно-сосудистой системы",
-        "Онкогенетический скрининг (BRCA)",
+        "Онкогенетический скрининг (BRCA/Полипы)",
         "Эндокринный и метаболический профиль",
+        "Симптомы и сосудистые риски",
         "Лабораторный статус"
       ];
       document.getElementById('questStepLabel').innerText = titles[questStep];
-      document.getElementById('questPercent').innerText = `${questStep * 25}%`;
-      document.getElementById('questBar').style.width = `${questStep * 25}%`;
+      const pct = Math.round((questStep / TOTAL_QUEST_STEPS) * 100);
+      document.getElementById('questPercent').innerText = `${pct}%`;
+      document.getElementById('questBar').style.width = `${pct}%`;
 
       document.getElementById(`step${questStep}`).classList.add('active');
     }
 
     function finishQuest(finalBonus) {
-      questScore = Math.min(95, Math.max(12, questScore + finalBonus));
-      document.getElementById('step4').classList.remove('active');
-      document.getElementById('questTitle').innerText = "Готово! Результат анализа";
+      questScore = Math.min(96, Math.max(12, questScore + finalBonus));
+      document.getElementById(`step${TOTAL_QUEST_STEPS}`).classList.remove('active');
+      document.getElementById('questTitle').innerText = "Клинический маршрутный лист";
       document.getElementById('questBar').style.width = '100%';
       document.getElementById('questPercent').innerText = '100%';
 
@@ -1579,33 +1773,44 @@
 
       const statusEl = document.getElementById('finalStatus');
       const listEl = document.getElementById('actionList');
+      const metaEl = document.getElementById('patientMetaTag');
+      if (metaEl) {
+        metaEl.innerText = `Пациент: ${patientData.gender} • Возраст: ${patientData.age} • Дата: ${new Date().toLocaleDateString('ru-RU')}`;
+      }
+
       listEl.innerHTML = '';
 
-      if (questScore < 30) {
-        statusEl.innerText = "Низкий базовый риск";
+      if (questScore < 32) {
+        statusEl.innerText = "Низкий генетический риск";
         statusEl.style.color = "#10b981";
         listEl.innerHTML = `
-          <li>Семейный фон благоприятный. Специфических мутаций не предполагается.</li>
-          <li>Рекомендован плановый профилактический осмотр у терапевта раз в год.</li>
-          <li>Стандартный клинический анализ крови и базовый уровень холестерина.</li>
+          <li><strong>Благоприятный семейный анамнез:</strong> Значимых ранних хромосомных или мутационных триггеров не выявлено.</li>
+          <li><strong>Базовый чекап:</strong> Ежегодная диспансеризация по ОМС (общий анализ крови, биохимия, уровень холестерина и глюкозы).</li>
+          <li><strong>Здоровый образ жизни:</strong> Мониторинг веса и артериального давления раз в полгода. Специфическое ДНК-тестирование сейчас не требуется.</li>
         `;
-      } else if (questScore < 60) {
-        statusEl.innerText = "Умеренный генетический риск";
+      } else if (questScore < 65) {
+        statusEl.innerText = "Умеренный предиктивный риск";
         statusEl.style.color = "#f59e0b";
+        const genderNote = patientData.gender === 'Женский' 
+          ? 'Перед приемом оральных контрацептивов (КОК) или планированием беременности сдайте ПЦР-тест на мутацию Лейдена (ген F5) и ген F2 (протромбин).'
+          : 'Сдайте расширенную липидограмму (ЛПНП, ЛПВП, триглицериды, индекс атерогенности) для раннего исключения сосудистых бляшек.';
         listEl.innerHTML = `
-          <li>Обнаружены косвенные семейные факторы предрасположенности.</li>
-          <li>Рекомендуется сдать расширенную липидограмму и коагулограмму (свертываемость).</li>
-          <li>Женщинам перед приемом КОК обязательно сдать тест на мутацию Лейдена (ген F5).</li>
-          <li>Обсудить результаты с терапевтом для получения направления в центр превенции.</li>
+          <li><strong>Косвенные семейные триггеры:</strong> Зафиксированы случаи ранних сосудистых или метаболических нарушений.</li>
+          <li><strong>Таргетный гемостаз:</strong> ${genderNote}</li>
+          <li><strong>Консультация терапевта:</strong> Запросите скрининг факторов сердечно-сосудистого риска и уровня гликированного гемоглобина (HbA1c).</li>
+          <li><strong>Бесплатный маршрут:</strong> Запросите направление в Центр здоровья вашей поликлиники по полису ОМС (0 ₽).</li>
         `;
       } else {
         statusEl.innerText = "Высокий клинический риск!";
         statusEl.style.color = "#ff5252";
+        const targetDna = patientData.gender === 'Женский'
+          ? 'Панель наследственного рака молочной железы и яичников (BRCA1, BRCA2, CHEK2) + полиморфизмы тромбофилии (F2, F5, MTHFR).'
+          : 'Кардиогенетическая панель полиморфизмов (риск раннего инфаркта и тромбозов F2/F5) + онкоскрининг ЖКТ и простаты.';
         listEl.innerHTML = `
-          <li>Присутствуют яркие семейные триггеры ранних патологий.</li>
-          <li>Первоочередное действие: очная консультация клинического генетика.</li>
-          <li>Целевой ПЦР-скрининг: панель BRCA1/BRCA2 (онко) или F2/F5 (тромбофилия).</li>
-          <li>Получите в районной поликлинике направление 057/у для бесплатной сдачи по ОМС в МГНЦ.</li>
+          <li><strong>Критический семейный анамнез:</strong> Присутствуют явные маркеры ранних семейных патологий или мутаций.</li>
+          <li><strong>Первоочередное действие:</strong> Очная медико-генетическая консультация врача-генетика в профильном НИИ или МГНЦ.</li>
+          <li><strong>Целевой ДНК-тест:</strong> ${targetDna}</li>
+          <li><strong>Право на ОМС (0 ₽):</strong> В районной поликлинике терапевт или онколог обязаны оформить направление по <strong>форме 057/у</strong> для бесплатного прохождения в МГНЦ.</li>
         `;
       }
     }
@@ -1616,10 +1821,102 @@
       document.getElementById('passportResult').style.display = 'none';
       document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
       document.getElementById('step1').classList.add('active');
-      document.getElementById('questTitle').innerText = 'Шаг 1 из 4';
-      document.getElementById('questStepLabel').innerText = 'Анамнез сердечно-сосудистой системы';
-      document.getElementById('questPercent').innerText = '25%';
-      document.getElementById('questBar').style.width = '25%';
+      document.getElementById('questTitle').innerText = `Шаг 1 из ${TOTAL_QUEST_STEPS}`;
+      document.getElementById('questStepLabel').innerText = 'Биометрические данные';
+      const pct = Math.round((1 / TOTAL_QUEST_STEPS) * 100);
+      document.getElementById('questPercent').innerText = `${pct}%`;
+      document.getElementById('questBar').style.width = `${pct}%`;
+    }
+
+    /* ACTION: GENERATE PROFESSIONAL PDF FOR DOCTOR */
+    function exportPassportPDF() {
+      showToast('Генерация официальной памятки PDF...');
+      
+      const element = document.createElement('div');
+      element.style.padding = '24px';
+      element.style.background = '#0a101d';
+      element.style.color = '#ffffff';
+      element.style.fontFamily = 'Arial, sans-serif';
+      element.style.fontSize = '12px';
+      element.style.lineHeight = '1.5';
+      element.style.borderRadius = '8px';
+
+      const statusText = document.getElementById('finalStatus').innerText;
+      const score = questScore + '%';
+      const listItems = Array.from(document.querySelectorAll('#actionList li')).map(li => `<li style="margin-bottom:8px;">${li.innerHTML}</li>`).join('');
+
+      element.innerHTML = `
+        <div style="border-bottom: 2px solid #00f2fe; padding-bottom: 12px; margin-bottom: 16px;">
+          <h2 style="color: #00f2fe; font-size: 18px; margin: 0 0 4px 0;">ГЕНЕТИЧЕСКИЙ ЩИТ: КЛИНИЧЕСКИЙ ПАСПОРТ ПАЦИЕНТА</h2>
+          <div style="font-size: 11px; color: #94a3b8;">Памятка для лечащего врача-терапевта / генетика поликлиники РФ</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px; margin-bottom: 14px;">
+          <div><strong>Пациент:</strong> ${patientData.gender} (${patientData.age})</div>
+          <div><strong>Дата формирования:</strong> ${new Date().toLocaleDateString('ru-RU')}</div>
+          <div><strong>Расчетный индекс риска:</strong> <span style="color:#00f2fe;font-weight:bold;">${score}</span> (${statusText})</div>
+        </div>
+        <h3 style="font-size: 13px; color: #10b981; margin: 12px 0 8px 0;">РЕКОМЕНДОВАННЫЙ ПРОТОКОЛ ОБСЛЕДОВАНИЯ:</h3>
+        <ul style="padding-left: 18px; color: #e2e8f0;">
+          ${listItems}
+        </ul>
+        <div style="margin-top: 20px; padding: 10px; background: rgba(0, 242, 254, 0.1); border-left: 3px solid #00f2fe; font-size: 11px; color: #cbd5e1;">
+          <strong>Основание для направления по ОМС (0 ₽):</strong> Приказ Минздрава РФ о порядке оказания медицинской помощи пациентам с врожденными и наследственными заболеваниями. Направление по форме 057/у-04 в МГНЦ или региональный медико-генетический центр.
+        </div>
+      `;
+
+      const opt = {
+        margin: [10, 10, 10, 10],
+        filename: `Klinicheskiy_Marshrut_${patientData.gender}_${new Date().toISOString().slice(0,10)}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#0a101d' },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+
+      if (typeof html2pdf !== 'undefined') {
+        html2pdf().set(opt).from(element).save().then(() => {
+          showToast('Памятка PDF успешно сохранена!');
+        }).catch(err => {
+          console.error(err);
+          showToast('Ошибка при скачивании PDF');
+        });
+      } else {
+        window.print();
+      }
+    }
+
+    /* ACTION: JUMP TO MAP AND FOCUS LAB */
+    function jumpToMapLab() {
+      goToTab(2); // Tab 2 is Map in dock
+      showToast('Открываем навигатор по лабораториям');
+    }
+
+    /* ACTION: COPY DOCTOR QUESTIONS */
+    function copyDoctorQuestions() {
+      const qText = `Здравствуйте, доктор! По результатам скрининга семейного анамнеза у меня выявлен ${document.getElementById('finalStatus').innerText} (${questScore}%). Прошу рассмотреть возможность выдачи направления по форме 057/у в медико-генетический центр (МГНЦ) на консультацию генетика и таргетную панель (мутации факторов свертываемости F2/F5 и BRCA) по полису ОМС.`;
+      
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(qText).then(() => {
+          showToast('Вопросы врачу скопированы в буфер!');
+        }).catch(() => {
+          prompt('Скопируйте текст вопросов для врача:', qText);
+        });
+      } else {
+        prompt('Скопируйте текст вопросов для врача:', qText);
+      }
+    }
+
+    /* TOAST NOTIFICATION */
+    let toastTimeout = null;
+    function showToast(text) {
+      const toast = document.getElementById('toastMessage');
+      const toastText = document.getElementById('toastText');
+      if (!toast || !toastText) return;
+      toastText.innerText = text;
+      toast.classList.add('show');
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2800);
     }
 
     /* YANDEX MAPS 2.1 ENGINE WITH CLINIC SELECTOR */
