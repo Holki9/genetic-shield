@@ -1118,23 +1118,42 @@
         </div>
       </div>
 
-      <!-- Step 1: Biometrics & Gender -->
+      <!-- Step 1: Biometrics & Gender & Weight -->
       <div class="bento-card step-card active" id="step1">
         <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700;">
-          Укажите ваш биологический пол и возрастную категорию:
+          Укажите ваши персональные биометрические данные:
         </div>
-        <div style="font-size: 12px; color: var(--text-sub); margin-bottom: 8px;">Биологический пол:</div>
+        
+        <div style="font-size: 12px; color: var(--text-sub); margin-bottom: 6px;">Биологический пол:</div>
         <div class="bio-chip-group">
           <div class="bio-chip active" id="bioGenderF" onclick="tactileTap(); selectBioGender('Женский')">Женский (риск BRCA1/2, КОК)</div>
           <div class="bio-chip" id="bioGenderM" onclick="tactileTap(); selectBioGender('Мужской')">Мужской (кардио-профиль)</div>
         </div>
-        <div style="font-size: 12px; color: var(--text-sub); margin-bottom: 8px;">Возрастная группа:</div>
+
+        <div style="font-size: 12px; color: var(--text-sub); margin-bottom: 6px;">Возрастная категория:</div>
         <div class="bio-chip-group">
-          <div class="bio-chip active" id="bioAge1" onclick="tactileTap(); selectBioAge('До 25 лет')">18 – 25 лет</div>
+          <div class="bio-chip active" id="bioAge1" onclick="tactileTap(); selectBioAge('18 – 25 лет')">18 – 25 лет</div>
           <div class="bio-chip" id="bioAge2" onclick="tactileTap(); selectBioAge('26 – 40 лет')">26 – 40 лет</div>
           <div class="bio-chip" id="bioAge3" onclick="tactileTap(); selectBioAge('41+ год')">41+ год</div>
         </div>
-        <button class="quest-btn" style="margin-top: 10px; background: rgba(0, 242, 254, 0.12); border-color: var(--accent); color: #fff;" onclick="tactileTap(); nextQuest(1, 0)">
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px;">
+          <div>
+            <div style="font-size: 12px; color: var(--text-sub); margin-bottom: 6px;">Рост (см):</div>
+            <input type="number" id="bioHeightInput" class="bio-input" value="175" min="120" max="230" placeholder="175" oninput="updateBmiLive()" />
+          </div>
+          <div>
+            <div style="font-size: 12px; color: var(--text-sub); margin-bottom: 6px;">Вес (кг):</div>
+            <input type="number" id="bioWeightInput" class="bio-input" value="70" min="35" max="200" placeholder="70" oninput="updateBmiLive()" />
+          </div>
+        </div>
+
+        <div id="bmiInfoBox" style="background: rgba(0, 242, 254, 0.08); border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 10px; padding: 8px 12px; font-size: 12px; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;">
+          <span>Индекс массы тела (ИМТ): <strong id="bmiVal">22.9</strong></span>
+          <span id="bmiStatus" style="font-weight:700; color: #10b981;">Норма</span>
+        </div>
+
+        <button class="quest-btn" style="margin-top: 4px; background: rgba(0, 242, 254, 0.12); border-color: var(--accent); color: #fff;" onclick="tactileTap(); proceedFromStep1()">
           <span>Продолжить к анамнезу</span>
           <span class="quest-btn-arrow">➔</span>
         </button>
@@ -1721,8 +1740,48 @@
     let questScore = 10;
     let patientData = {
       gender: 'Женский',
-      age: '18 – 25 лет'
+      age: '18 – 25 лет',
+      height: 175,
+      weight: 70,
+      bmi: 22.9,
+      bmiStatus: 'Норма'
     };
+
+    function updateBmiLive() {
+      const h = parseFloat(document.getElementById('bioHeightInput').value) || 170;
+      const w = parseFloat(document.getElementById('bioWeightInput').value) || 65;
+      patientData.height = h;
+      patientData.weight = w;
+
+      const hM = h / 100;
+      const bmi = (w / (hM * hM)).toFixed(1);
+      patientData.bmi = bmi;
+
+      const bmiValEl = document.getElementById('bmiVal');
+      const bmiStatusEl = document.getElementById('bmiStatus');
+      if (bmiValEl) bmiValEl.innerText = bmi;
+
+      if (bmi < 18.5) {
+        patientData.bmiStatus = 'Дефицит массы';
+        if (bmiStatusEl) { bmiStatusEl.innerText = 'Дефицит массы'; bmiStatusEl.style.color = '#f59e0b'; }
+      } else if (bmi <= 24.9) {
+        patientData.bmiStatus = 'Норма';
+        if (bmiStatusEl) { bmiStatusEl.innerText = 'Норма'; bmiStatusEl.style.color = '#10b981'; }
+      } else if (bmi <= 29.9) {
+        patientData.bmiStatus = 'Избыточный вес';
+        if (bmiStatusEl) { bmiStatusEl.innerText = 'Избыточный вес'; bmiStatusEl.style.color = '#f59e0b'; }
+      } else {
+        patientData.bmiStatus = 'Ожирение (метаболический риск)';
+        if (bmiStatusEl) { bmiStatusEl.innerText = 'Ожирение'; bmiStatusEl.style.color = '#ff5252'; }
+      }
+    }
+
+    function proceedFromStep1() {
+      updateBmiLive();
+      // If BMI indicates obesity, add subtle metabolic predisposition factor (+5)
+      const bmiBonus = patientData.bmi >= 30 ? 6 : (patientData.bmi >= 25 ? 3 : 0);
+      nextQuest(1, bmiBonus);
+    }
 
     function selectBioGender(gender) {
       patientData.gender = gender;
@@ -1732,7 +1791,7 @@
 
     function selectBioAge(age) {
       patientData.age = age;
-      document.getElementById('bioAge1').classList.toggle('active', age === 'До 25 лет');
+      document.getElementById('bioAge1').classList.toggle('active', age === '18 – 25 лет');
       document.getElementById('bioAge2').classList.toggle('active', age === '26 – 40 лет');
       document.getElementById('bioAge3').classList.toggle('active', age === '41+ год');
     }
@@ -1775,16 +1834,21 @@
       const listEl = document.getElementById('actionList');
       const metaEl = document.getElementById('patientMetaTag');
       if (metaEl) {
-        metaEl.innerText = `Пациент: ${patientData.gender} • Возраст: ${patientData.age} • Дата: ${new Date().toLocaleDateString('ru-RU')}`;
+        metaEl.innerText = `Пациент: ${patientData.gender} • ${patientData.age} • Вес: ${patientData.weight} кг (ИМТ: ${patientData.bmi} — ${patientData.bmiStatus})`;
       }
 
       listEl.innerHTML = '';
+
+      const bmiRecommendation = patientData.bmi >= 25 
+        ? `<li><strong>Метаболический статус (ИМТ ${patientData.bmi}):</strong> Присутствует фактор нагрузки на углеводный и липидный обмен. Рекомендован контроль индекса HOMA-IR и уровня инсулина в крови.</li>`
+        : '';
 
       if (questScore < 32) {
         statusEl.innerText = "Низкий генетический риск";
         statusEl.style.color = "#10b981";
         listEl.innerHTML = `
           <li><strong>Благоприятный семейный анамнез:</strong> Значимых ранних хромосомных или мутационных триггеров не выявлено.</li>
+          ${bmiRecommendation}
           <li><strong>Базовый чекап:</strong> Ежегодная диспансеризация по ОМС (общий анализ крови, биохимия, уровень холестерина и глюкозы).</li>
           <li><strong>Здоровый образ жизни:</strong> Мониторинг веса и артериального давления раз в полгода. Специфическое ДНК-тестирование сейчас не требуется.</li>
         `;
@@ -1796,6 +1860,7 @@
           : 'Сдайте расширенную липидограмму (ЛПНП, ЛПВП, триглицериды, индекс атерогенности) для раннего исключения сосудистых бляшек.';
         listEl.innerHTML = `
           <li><strong>Косвенные семейные триггеры:</strong> Зафиксированы случаи ранних сосудистых или метаболических нарушений.</li>
+          ${bmiRecommendation}
           <li><strong>Таргетный гемостаз:</strong> ${genderNote}</li>
           <li><strong>Консультация терапевта:</strong> Запросите скрининг факторов сердечно-сосудистого риска и уровня гликированного гемоглобина (HbA1c).</li>
           <li><strong>Бесплатный маршрут:</strong> Запросите направление в Центр здоровья вашей поликлиники по полису ОМС (0 ₽).</li>
@@ -1808,6 +1873,7 @@
           : 'Кардиогенетическая панель полиморфизмов (риск раннего инфаркта и тромбозов F2/F5) + онкоскрининг ЖКТ и простаты.';
         listEl.innerHTML = `
           <li><strong>Критический семейный анамнез:</strong> Присутствуют явные маркеры ранних семейных патологий или мутаций.</li>
+          ${bmiRecommendation}
           <li><strong>Первоочередное действие:</strong> Очная медико-генетическая консультация врача-генетика в профильном НИИ или МГНЦ.</li>
           <li><strong>Целевой ДНК-тест:</strong> ${targetDna}</li>
           <li><strong>Право на ОМС (0 ₽):</strong> В районной поликлинике терапевт или онколог обязаны оформить направление по <strong>форме 057/у</strong> для бесплатного прохождения в МГНЦ.</li>
@@ -1852,6 +1918,7 @@
         </div>
         <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px; margin-bottom: 14px;">
           <div><strong>Пациент:</strong> ${patientData.gender} (${patientData.age})</div>
+          <div><strong>Физические параметры:</strong> Рост ${patientData.height} см • Вес ${patientData.weight} кг (ИМТ: ${patientData.bmi} — ${patientData.bmiStatus})</div>
           <div><strong>Дата формирования:</strong> ${new Date().toLocaleDateString('ru-RU')}</div>
           <div><strong>Расчетный индекс риска:</strong> <span style="color:#00f2fe;font-weight:bold;">${score}</span> (${statusText})</div>
         </div>
