@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- YANDEX MAPS API 2.1 -->
+  <script src="https://api-maps.yandex.ru/2.1/?apikey=a4fed755-dd0a-4d72-b630-2b5ab84f3e12&lang=ru_RU" type="text/javascript"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
@@ -575,12 +575,13 @@
 
     #cityMap {
       width: 100%;
-      height: 310px;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      height: 330px;
+      border-radius: 18px;
+      border: 1.5px solid rgba(0, 242, 254, 0.35);
       overflow: hidden;
       margin-top: 8px;
-      z-index: 5;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 242, 254, 0.1);
+      position: relative;
     }
 
     .quick-cities {
@@ -603,31 +604,84 @@
     }
     .quick-pill.active { background: var(--accent); color: #031322; font-weight: 700; }
 
+    /* СТИЛИЗАЦИЯ ИНФО-ПАНЕЛИ ВЫБРАННОЙ КЛИНИКИ */
     .lab-info-banner {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      padding: 14px;
-      margin-top: 12px;
+      background: linear-gradient(165deg, rgba(15, 23, 42, 0.95) 0%, rgba(8, 14, 28, 0.98) 100%);
+      border: 1.5px solid rgba(0, 242, 254, 0.3);
+      border-radius: 18px;
+      padding: 16px 14px;
+      margin-top: 14px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 7px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      transition: all 0.25s ease;
     }
-
+    .lab-info-banner.highlight {
+      border-color: var(--accent);
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.35);
+    }
+    .lab-banner-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .lab-banner-name {
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+    .lab-banner-tag {
+      font-size: 10.5px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      white-space: nowrap;
+      letter-spacing: 0.04em;
+    }
+    .lab-banner-metro {
+      font-size: 12px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 600;
+    }
+    .lab-banner-desc {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.45;
+      margin: 2px 0;
+    }
+    .lab-banner-hours {
+      font-size: 11px;
+      color: #64748b;
+      font-family: monospace;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
     .route-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      background: rgba(0, 242, 254, 0.15);
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.18), rgba(79, 172, 254, 0.24));
       border: 1px solid var(--accent);
-      color: var(--accent);
+      color: #ffffff;
       text-decoration: none;
-      padding: 8px 14px;
-      border-radius: 10px;
-      font-size: 12px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 13px;
       font-weight: 700;
       margin-top: 6px;
+      box-shadow: 0 4px 15px rgba(0, 242, 254, 0.2);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .route-btn:active {
+      transform: scale(0.97);
     }
 
     /* STEPPER QUEST WITH TACTILE HAPTIC FEEDBACK & RIPPLE */
@@ -1073,15 +1127,23 @@
       <div id="cityMap"></div>
 
       <div class="lab-info-banner" id="labSelectedBanner">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <strong id="labBannerName" style="color: var(--accent); font-size: 14px;">МГНЦ РАН (ул. Москворечье, 1)</strong>
-          <span id="labBannerTag" style="background: rgba(16, 185, 129, 0.2); color: var(--emerald); font-size: 11px; padding: 2px 8px; border-radius: 6px; font-weight: 700;">ОМС (0 ₽)</span>
+        <div class="lab-banner-header">
+          <div class="lab-banner-name" id="labBannerName">ФГБНУ «МГНЦ им. акад. Н.П. Бочкова»</div>
+          <span class="lab-banner-tag" id="labBannerTag" style="background: rgba(16, 185, 129, 0.2); color: var(--emerald);">ОМС (0 ₽)</span>
         </div>
-        <p id="labBannerDesc" style="font-size: 12.5px; color: var(--text-sub);">
-          Бесплатный онкоскрининг по направлению врача 057/у для всех граждан РФ.
+        <div class="lab-banner-metro" id="labBannerMetro">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          ул. Москворечье, 1 • м. Каширская
+        </div>
+        <p class="lab-banner-desc" id="labBannerDesc">
+          Главный федеральный медико-генетический центр РФ. Государственный онкоскрининг и кариотипирование по форме 057/у.
         </p>
-        <a id="labRouteBtn" class="route-btn" href="https://yandex.ru/maps/?text=55.6565,37.6483" target="_blank">
-          Построить маршрут в Яндекс.Картах
+        <div class="lab-banner-hours" id="labBannerHours">
+          Пн-Пт: 08:30 – 17:00 • Регистратура ОМС
+        </div>
+        <a id="labRouteBtn" class="route-btn" href="https://yandex.ru/maps/?rtext=~55.6565,37.6483&rtt=auto" target="_blank" onclick="tactileTap()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          <span>Построить маршрут в Яндекс.Картах</span>
         </a>
       </div>
     </section>
@@ -1475,8 +1537,8 @@
       if (sc) sc.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      if (screenId === 'map' && map) {
-        setTimeout(() => map.invalidateSize(), 150);
+      if (screenId === 'map' && yandexMap) {
+        setTimeout(() => yandexMap.container.fitToViewport(), 150);
       }
     }
 
@@ -1560,9 +1622,10 @@
       document.getElementById('questBar').style.width = '25%';
     }
 
-    /* ORIGINAL CLEAN OPENSTREETMAP (СВЕТЛАЯ, БЕЗ ТЕМНЫХ ИСКАЖЕНИЙ) */
-    let map;
-    const labMarkers = [];
+    /* YANDEX MAPS 2.1 ENGINE WITH CLINIC SELECTOR */
+    let yandexMap = null;
+    let yandexCollection = null;
+    let currentCity = 'москва';
 
     const cityCoords = {
       'москва': [55.7512, 37.6184, 11],
@@ -1572,99 +1635,286 @@
       'новосибирск': [55.0083, 82.9357, 11]
     };
 
-    function initMap() {
-      map = L.map('cityMap', { zoomControl: false }).setView([55.7512, 37.6184], 11);
-
-      // Оригинальный чистый OpenStreetMap (светлый, контрастный, без API ключей)
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap',
-        maxZoom: 19
-      }).addTo(map);
-
-      renderLabsForCity('москва');
-    }
-
-    function renderLabsForCity(city) {
-      labMarkers.forEach(m => map.removeLayer(m));
-      labMarkers.length = 0;
-
-      const labsData = {
-        'москва': [
-          { name: "МГНЦ РАН (ул. Москворечье, 1)", lat: 55.6565, lng: 37.6483, tag: "ОМС (0 ₽)", color: "#10b981", desc: "Бесплатный скрининг по направлению 057/у для граждан РФ." },
-          { name: "Гемотест (Тверской б-р, 12)", lat: 55.7601, lng: 37.6080, tag: "Скидка 10%", color: "#00f2fe", desc: "Комплекс 'Генетические риски' от 4 800 ₽ по понедельникам." },
-          { name: "Инвитро (Комсомольский пр-т, 28)", lat: 55.7335, lng: 37.5888, tag: "Онкопанели", color: "#00f2fe", desc: "NGS-секвенирование генов BRCA1/BRCA2 от 6 200 ₽." },
-          { name: "Хеликс (ул. Бауманская, 33)", lat: 55.7720, lng: 37.6740, tag: "Тромбофилия", color: "#00f2fe", desc: "Полиморфизмы свертывания крови от 2 450 ₽." }
-        ],
-        'default': [
-          { name: "Городской медико-генетический центр", lat: 0, lng: 0, tag: "ОМС (0 ₽)", color: "#10b981", desc: "Консультация генетика по направлению 057/у." },
-          { name: "Гемотест Лаборатория", lat: 0, lng: 0, tag: "Скидки студентам", color: "#00f2fe", desc: "Таргетные панели мутаций со скидкой до 15%." },
-          { name: "Инвитро Экспресс", lat: 0, lng: 0, tag: "Анализ слюны/крови", color: "#00f2fe", desc: "ПЦР-диагностика наследственных мутаций." }
-        ]
-      };
-
-      const items = labsData[city] || labsData['default'];
-      const center = map.getCenter();
-
-      items.forEach((item, idx) => {
-        let lat = item.lat;
-        let lng = item.lng;
-        if (lat === 0) {
-          lat = center.lat + (idx - 1) * 0.016;
-          lng = center.lng + (idx % 2 === 0 ? 0.014 : -0.014);
+    const labsData = {
+      'москва': [
+        {
+          name: "ФГБНУ «МГНЦ им. акад. Н.П. Бочкова»",
+          address: "ул. Москворечье, 1",
+          metro: "м. Каширская (10 мин)",
+          lat: 55.6565,
+          lng: 37.6483,
+          tag: "ОМС (0 ₽)",
+          isOms: true,
+          desc: "Главный медико-генетический центр РФ. Сдача таргетных панелей мутаций и кариотипирование по госгарантиям (направление 057/у).",
+          hours: "Пн-Пт: 08:30 – 17:00 • Регистратура ОМС"
+        },
+        {
+          name: "НМИЦ онкологии им. Н.Н. Блохина",
+          address: "Каширское шоссе, 23",
+          metro: "м. Каширская",
+          lat: 55.6601,
+          lng: 37.6588,
+          tag: "Онкопанели 0 ₽",
+          isOms: true,
+          desc: "Клиническая лаборатория медицинской генетики. Онкопанели BRCA1/BRCA2, CHEK2, EGFR, KRAS.",
+          hours: "Пн-Пт: 09:00 – 18:00 • Отделение клинической генетики"
+        },
+        {
+          name: "Гемотест Флагман",
+          address: "Тверской бульвар, 12",
+          metro: "м. Тверская / Пушкинская",
+          lat: 55.7601,
+          lng: 37.6080,
+          tag: "Скидка 15%",
+          isOms: false,
+          desc: "Комплексные панели наследственных предрасположенностей, полиморфизмы сердечно-сосудистых рисков.",
+          hours: "Ежедневно: 07:30 – 19:30 • Выдача результатов в приложении"
+        },
+        {
+          name: "Инвитро Эксперт",
+          address: "Комсомольский проспект, 28",
+          metro: "м. Фрунзенская",
+          lat: 55.7335,
+          lng: 37.5888,
+          tag: "NGS-тесты",
+          isOms: false,
+          desc: "Секвенирование нового поколения (NGS), фармакогенетика индивидуального подбора препаратов.",
+          hours: "Пн-Вс: 07:00 – 20:00"
+        },
+        {
+          name: "Хеликс Диагностика",
+          address: "ул. Бауманская, 33",
+          metro: "м. Бауманская",
+          lat: 55.7720,
+          lng: 37.6740,
+          tag: "Тромбофилия",
+          isOms: false,
+          desc: "Скрининг риска тромбозов (мутации факторов Лейдена F2, F5, MTHFR) по спецтарифу для студентов.",
+          hours: "Пн-Сб: 08:00 – 19:00"
         }
+      ],
+      'санкт-петербург': [
+        {
+          name: "СПб ГКУЗ «Медико-генетический центр»",
+          address: "ул. Тобольская, 5",
+          metro: "м. Выборгская",
+          lat: 59.9723,
+          lng: 30.3411,
+          tag: "ОМС (0 ₽)",
+          isOms: true,
+          desc: "Городской медико-генетический центр СПб. Государственная пренатальная и предиктивная диагностика по ОМС.",
+          hours: "Пн-Пт: 09:00 – 18:00"
+        },
+        {
+          name: "Инвитро Клиникал",
+          address: "Московский пр-т, 195",
+          metro: "м. Московская",
+          lat: 59.8550,
+          lng: 30.3204,
+          tag: "Скидка 10%",
+          isOms: false,
+          desc: "Таргетные онкопанели мутаций, тест на микроделеции и полиморфизмы свертываемости крови.",
+          hours: "Пн-Вс: 07:30 – 20:00"
+        }
+      ],
+      'казань': [
+        {
+          name: "Медико-генетическая консультация РКБ",
+          address: "Оренбургский тракт, 138",
+          metro: "м. Проспект Победы",
+          lat: 55.7345,
+          lng: 49.1712,
+          tag: "ОМС (0 ₽)",
+          isOms: true,
+          desc: "Республиканский центр клинической генетики Татарстана. Бесплатный прием по направлению 057/у.",
+          hours: "Пн-Пт: 08:00 – 16:30"
+        },
+        {
+          name: "Гемотест Казань Центр",
+          address: "ул. Баумана, 51",
+          metro: "м. Кремлевская",
+          lat: 55.7903,
+          lng: 49.1175,
+          tag: "Скидка студентам",
+          isOms: false,
+          desc: "Таргетное ПЦР-тестирование мутаций BRCA1/2 и гемостаза.",
+          hours: "Ежедневно: 07:30 – 19:00"
+        }
+      ],
+      'екатеринбург': [
+        {
+          name: "КДЦ «Охрана здоровья матери и ребенка»",
+          address: "ул. Флотская, 52",
+          metro: "р-н Центр",
+          lat: 56.8450,
+          lng: 60.6200,
+          tag: "ОМС (0 ₽)",
+          isOms: true,
+          desc: "Главный центр генетической диагностики Свердловской области (по полису ОМС бесплатно).",
+          hours: "Пн-Пт: 08:00 – 17:00"
+        },
+        {
+          name: "Инвитро Урал",
+          address: "пр-т Ленина, 48",
+          metro: "м. Площадь 1905 года",
+          lat: 56.8398,
+          lng: 60.6180,
+          tag: "Таргетные панели",
+          isOms: false,
+          desc: "Генетическая панель факторов сердечно-сосудистого риска и рака груди.",
+          hours: "Пн-Вс: 07:30 – 19:30"
+        }
+      ],
+      'новосибирск': [
+        {
+          name: "Медико-генетическое отделение НМИЦ",
+          address: "Красный проспект, 52",
+          metro: "м. Красный проспект",
+          lat: 55.0350,
+          lng: 82.9180,
+          tag: "ОМС (0 ₽)",
+          isOms: true,
+          desc: "Федеральный научный центр. Молекулярно-генетическая диагностика по квотам и ОМС.",
+          hours: "Пн-Пт: 09:00 – 16:30"
+        },
+        {
+          name: "Гемотест Сибирь",
+          address: "Красный проспект, 65",
+          metro: "м. Гагаринская",
+          lat: 55.0410,
+          lng: 82.9150,
+          tag: "Скидка 15%",
+          isOms: false,
+          desc: "Комплексные генетические паспорта здоровья, риск тромбофилии и диабета.",
+          hours: "Ежедневно: 07:30 – 19:00"
+        }
+      ]
+    };
 
-        const m = L.circleMarker([lat, lng], {
-          radius: 9, fillColor: item.color, color: '#031322', weight: 2, opacity: 1, fillOpacity: 0.95
-        }).addTo(map);
+    function initMap() {
+      if (typeof ymaps === 'undefined') {
+        setTimeout(initMap, 200);
+        return;
+      }
 
-        m.on('click', () => {
-          tactileTap();
-          document.getElementById('labBannerName').innerText = item.name;
-          document.getElementById('labBannerTag').innerText = item.tag;
-          document.getElementById('labBannerDesc').innerText = item.desc;
-          document.getElementById('labRouteBtn').href = `https://yandex.ru/maps/?text=${lat},${lng}`;
-          m.openPopup();
+      ymaps.ready(() => {
+        if (yandexMap) return;
+
+        yandexMap = new ymaps.Map('cityMap', {
+          center: [55.7512, 37.6184],
+          zoom: 11,
+          controls: ['zoomControl']
+        }, {
+          searchControlProvider: 'yandex#search',
+          suppressMapOpenBlock: true
         });
 
-        m.bindPopup(`<strong style="color:#031322">${item.name}</strong><br><span style="color:#0284c7;font-weight:700">${item.tag}</span>`);
-        labMarkers.push(m);
+        // Touch gestures for mobile
+        yandexMap.behaviors.enable(['drag', 'multiTouch']);
+
+        renderYandexLabs('москва');
       });
     }
 
-    function searchCity() {
-      const q = document.getElementById('citySearchInput').value.trim().toLowerCase();
-      if (!q) return;
+    function renderYandexLabs(city) {
+      if (!yandexMap || !ymaps) return;
 
-      if (cityCoords[q]) {
-        const c = cityCoords[q];
-        map.setView([c[0], c[1]], c[2]);
-        renderLabsForCity(q);
-      } else {
-        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q + ' Россия')}`)
-          .then(r => r.json())
-          .then(data => {
-            if (data && data.length > 0) {
-              const lat = parseFloat(data[0].lat);
-              const lon = parseFloat(data[0].lon);
-              map.setView([lat, lon], 12);
-              renderLabsForCity(q);
-              document.getElementById('labBannerName').innerText = `Клиники: ${data[0].display_name.split(',')[0]}`;
-              document.getElementById('labBannerDesc').innerText = "Найдено 3 партнерских лаборатории и центр ОМС по направлению.";
-              document.getElementById('labRouteBtn').href = `https://yandex.ru/maps/?text=${lat},${lon}`;
-            } else {
-              alert("Город не найден. Попробуйте ввести крупный областной центр.");
-            }
-          })
-          .catch(() => alert("Ошибка поиска сети."));
+      if (yandexCollection) {
+        yandexMap.geoObjects.remove(yandexCollection);
+      }
+      yandexCollection = new ymaps.GeoObjectCollection();
+
+      const items = labsData[city] || labsData['москва'];
+
+      items.forEach((item, idx) => {
+        const placemark = new ymaps.Placemark([item.lat, item.lng], {
+          balloonContentHeader: `<strong style="color:#031322;font-size:14px;">${item.name}</strong>`,
+          balloonContentBody: `<div style="color:#334155;font-size:12px;margin:4px 0;"><strong>Адрес:</strong> ${item.address}<br><strong>Метро:</strong> ${item.metro}<br>${item.desc}</div>`,
+          balloonContentFooter: `<span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;background:${item.isOms ? '#10b981' : '#00f2fe'};color:#031322;">${item.tag}</span>`,
+          hintContent: item.name
+        }, {
+          preset: item.isOms ? 'islands#darkGreenMedicalIcon' : 'islands#darkBlueMedicalIcon',
+          balloonCloseButton: true,
+          hideIconOnBalloonOpen: false
+        });
+
+        placemark.events.add('click', () => {
+          tactileTap();
+          selectLabDetails(item);
+        });
+
+        yandexCollection.add(placemark);
+      });
+
+      yandexMap.geoObjects.add(yandexCollection);
+
+      // Select primary clinic in banner
+      if (items.length > 0) {
+        selectLabDetails(items[0]);
       }
     }
 
-    function jumpToCity(lat, lng, zoom, name, btn) {
+    function selectLabDetails(item) {
+      const banner = document.getElementById('labSelectedBanner');
+      if (banner) {
+        banner.classList.add('highlight');
+        setTimeout(() => banner.classList.remove('highlight'), 350);
+      }
+      document.getElementById('labBannerName').innerText = item.name;
+      document.getElementById('labBannerTag').innerText = item.tag;
+      if (item.isOms) {
+        document.getElementById('labBannerTag').style.background = 'rgba(16, 185, 129, 0.2)';
+        document.getElementById('labBannerTag').style.color = '#10b981';
+      } else {
+        document.getElementById('labBannerTag').style.background = 'rgba(0, 242, 254, 0.2)';
+        document.getElementById('labBannerTag').style.color = '#00f2fe';
+      }
+      document.getElementById('labBannerMetro').innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> ${item.address} • ${item.metro}`;
+      document.getElementById('labBannerDesc').innerText = item.desc;
+      document.getElementById('labBannerHours').innerText = item.hours;
+      document.getElementById('labRouteBtn').href = `https://yandex.ru/maps/?rtext=~${item.lat},${item.lng}&rtt=auto`;
+    }
+
+    function jumpToCity(lat, lng, zoom, cityName, btn) {
+      tactileTap();
       document.querySelectorAll('.quick-pill').forEach(p => p.classList.remove('active'));
       if (btn) btn.classList.add('active');
-      map.setView([lat, lng], zoom);
-      renderLabsForCity(name.toLowerCase());
-      document.getElementById('labRouteBtn').href = `https://yandex.ru/maps/?text=${lat},${lng}`;
+
+      const cKey = cityName.toLowerCase();
+      currentCity = cKey;
+
+      if (yandexMap) {
+        yandexMap.setCenter([lat, lng], zoom, {
+          flying: true,
+          duration: 700
+        }).then(() => {
+          renderYandexLabs(cKey);
+        });
+      }
+    }
+
+    function searchCity() {
+      const q = document.getElementById('citySearchInput').value.trim();
+      if (!q) return;
+
+      const qLower = q.toLowerCase();
+      if (cityCoords[qLower]) {
+        const c = cityCoords[qLower];
+        jumpToCity(c[0], c[1], c[2], qLower, null);
+      } else if (yandexMap && ymaps) {
+        ymaps.geocode(q + ' Россия').then((res) => {
+          const firstGeo = res.geoObjects.get(0);
+          if (firstGeo) {
+            const coords = firstGeo.geometry.getCoordinates();
+            yandexMap.setCenter(coords, 12, { flying: true, duration: 700 });
+            renderYandexLabs('москва');
+          } else {
+            alert("Город не найден. Попробуйте ввести крупный областной центр РФ.");
+          }
+        }).catch(() => {
+          alert("Не удалось определить город.");
+        });
+      }
     }
 
     /* CHARTS */
