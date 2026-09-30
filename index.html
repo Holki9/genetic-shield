@@ -269,14 +269,14 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(4, 9, 20, 0.94);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      z-index: 2000;
+      background: rgba(3, 7, 18, 0.96);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      z-index: 99999;
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 16px;
+      padding: 16px 16px 40px 16px;
       overflow-y: auto;
       animation: fadeIn 0.25s ease;
     }
@@ -492,11 +492,12 @@
       font-weight: 700;
     }
     .data-val {
-      font-size: 12.5px;
+      font-size: 13px;
       font-weight: 600;
       color: #f1f5f9;
-      line-height: 1.35;
-      min-height: 17px;
+      line-height: 1.4;
+      min-height: 18px;
+      white-space: pre-wrap;
       word-break: break-word;
     }
     .data-val.accent {
@@ -934,67 +935,6 @@
           <div class="passport-arrow">➔</div>
         </div>
       </div>
-
-      <!-- ПОЛНОЭКРАННОЕ КИБЕР-ДОСЬЕ РАЗРАБОТЧИКА -->
-      <div class="author-modal-overlay" id="authorModal" onclick="closeAuthorModal(event)">
-        <div class="id-passport-card" onclick="event.stopPropagation()">
-          <button class="close-modal-btn" onclick="closeAuthorModal()">✕</button>
-          
-          <div class="passport-top-header">
-            <div class="passport-chip">
-              <span class="pulse-dot"></span>
-              ЕДИНЫЙ РЕЕСТР ИССЛЕДОВАТЕЛЕЙ • 2026
-            </div>
-            <span class="passport-serial">ЛИЧНОЕ ДЕЛО #7842</span>
-          </div>
-
-          <!-- СВЕРХУ: ПОРТРЕТ С КИБЕР-ФОНОМ СЗАДИ И ОСНОВНОЙ СТАТУС -->
-          <div class="passport-profile-header">
-            <div class="passport-photo-frame">
-              <div class="photo-bg-grid"></div>
-              <div class="photo-bg-glow"></div>
-              <!-- Истинный прозрачный PNG, сетка СТРОГО СЗАДИ -->
-              <img src="author.png" alt="Создатель" class="passport-big-img">
-            </div>
-            <div class="passport-title-wrap">
-              <div class="bio-verified-badge"><span class="pulse-dot" style="background:#10b981;box-shadow:0 0 8px #10b981;width:6px;height:6px;"></span> ВЕРИФИЦИРОВАННЫЙ РАЗРАБОТЧИК</div>
-              <h3 class="author-real-name">Главный Архитектор Платформы</h3>
-              <p class="author-real-sub">Ведущий разработчик интеллектуальной системы предиктивного генетического триажа и ГИС-карты</p>
-            </div>
-          </div>
-
-          <!-- ПОДРОБНАЯ ТАБЛИЦА СВЕДЕНИЙ (ТЕКСТ БОЛЬШЕ НЕ СЛИПАЕТСЯ И НЕ ВЫЛЕЗАЕТ) -->
-          <div class="passport-data-table">
-            <div class="data-row">
-              <span class="data-key">Научный проект:</span>
-              <span class="data-val" id="termProject"></span>
-            </div>
-            <div class="data-row">
-              <span class="data-key">Специализация:</span>
-              <span class="data-val" id="termTopic"></span>
-            </div>
-            <div class="data-row">
-              <span class="data-key">Стек платформы:</span>
-              <span class="data-val" id="termTech"></span>
-            </div>
-            <div class="data-row">
-              <span class="data-key">Аттестация:</span>
-              <span class="data-val accent" id="termStatus"></span>
-            </div>
-          </div>
-
-          <!-- КРЕАТИВНАЯ КНОПКА СВЯЗИ С РАЗРАБОТЧИКОМ -->
-          <a href="https://t.me/AangDom" target="_blank" class="passport-tg-btn" onclick="tactileTap()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
-            <span>Связаться с разработчиком</span>
-          </a>
-
-          <div class="passport-footer">
-            <div class="passport-barcode">||| | |||| | ||| |||| | |||||| || |</div>
-            <span style="font-size: 10px; color: var(--text-sub); font-family: monospace;">ВЕРИФИКАЦИЯ 2026 // ДОСТУП РАЗРЕШЕН</span>
-          </div>
-        </div>
-      </div>
     </main>
 
     <!-- SCREEN 2: DYNAMIC STEPPER QUEST -->
@@ -1258,6 +1198,67 @@
       </button>
     </div>
   </nav>
+
+  <!-- ПОЛНОЭКРАННОЕ КИБЕР-ДОСЬЕ РАЗРАБОТЧИКА (КОРНЕВОЙ УРОВЕНЬ BODY) -->
+  <div class="author-modal-overlay" id="authorModal" onclick="closeAuthorModal(event)">
+    <div class="id-passport-card" onclick="event.stopPropagation()">
+      <button class="close-modal-btn" onclick="closeAuthorModal()">✕</button>
+      
+      <div class="passport-top-header">
+        <div class="passport-chip">
+          <span class="pulse-dot"></span>
+          ЕДИНЫЙ РЕЕСТР ИССЛЕДОВАТЕЛЕЙ • 2026
+        </div>
+        <span class="passport-serial">ЛИЧНОЕ ДЕЛО #7842</span>
+      </div>
+
+      <!-- СВЕРХУ: ПОРТРЕТ С КИБЕР-ФОНОМ СЗАДИ И ОСНОВНОЙ СТАТУС -->
+      <div class="passport-profile-header">
+        <div class="passport-photo-frame">
+          <div class="photo-bg-grid"></div>
+          <div class="photo-bg-glow"></div>
+          <!-- Истинный прозрачный PNG, сетка СТРОГО СЗАДИ -->
+          <img src="author.png" alt="Создатель" class="passport-big-img">
+        </div>
+        <div class="passport-title-wrap">
+          <div class="bio-verified-badge"><span class="pulse-dot" style="background:#10b981;box-shadow:0 0 8px #10b981;width:6px;height:6px;"></span> ВЕРИФИЦИРОВАННЫЙ РАЗРАБОТЧИК</div>
+          <h3 class="author-real-name">Главный Архитектор Платформы</h3>
+          <p class="author-real-sub">Ведущий разработчик интеллектуальной системы предиктивного генетического триажа и ГИС-карты</p>
+        </div>
+      </div>
+
+      <!-- ПОДРОБНАЯ ТАБЛИЦА СВЕДЕНИЙ (ТЕКСТ БОЛЬШЕ НЕ СЛИПАЕТСЯ И НЕ ВЫЛЕЗАЕТ) -->
+      <div class="passport-data-table">
+        <div class="data-row">
+          <span class="data-key">Научный проект:</span>
+          <span class="data-val" id="termProject"></span>
+        </div>
+        <div class="data-row">
+          <span class="data-key">Специализация:</span>
+          <span class="data-val" id="termTopic"></span>
+        </div>
+        <div class="data-row">
+          <span class="data-key">Стек платформы:</span>
+          <span class="data-val" id="termTech"></span>
+        </div>
+        <div class="data-row">
+          <span class="data-key">Аттестация:</span>
+          <span class="data-val accent" id="termStatus"></span>
+        </div>
+      </div>
+
+      <!-- КРЕАТИВНАЯ КНОПКА СВЯЗИ С РАЗРАБОТЧИКОМ -->
+      <a href="https://t.me/AangDom" target="_blank" class="passport-tg-btn" onclick="tactileTap()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+        <span>Связаться с разработчиком</span>
+      </a>
+
+      <div class="passport-footer">
+        <div class="passport-barcode">||| | |||| | ||| |||| | |||||| || |</div>
+        <span style="font-size: 10px; color: var(--text-sub); font-family: monospace;">ВЕРИФИКАЦИЯ 2026 // ДОСТУП РАЗРЕШЕН</span>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Tactile Vibration on mobile
@@ -1744,12 +1745,12 @@
       fields.forEach((f, idx) => {
         const el = document.getElementById(f.id);
         if (!el) return;
-        el.innerText = '';
+        el.textContent = '';
         const timeoutId = setTimeout(() => {
           let charIndex = 0;
           const timer = setInterval(() => {
             if (charIndex < f.text.length) {
-              el.innerText += f.text.charAt(charIndex);
+              el.textContent += f.text.charAt(charIndex);
               charIndex++;
             } else {
               clearInterval(timer);
