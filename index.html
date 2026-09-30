@@ -172,7 +172,7 @@
       font-weight: 700;
     }
 
-    /* Dynamic Accordion Cards */
+    /* Accordion Cards with Clean SVG Icons */
     .dynamic-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -189,6 +189,12 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
+    }
+    .card-svg-icon {
+      width: 22px;
+      height: 22px;
+      stroke: var(--accent);
+      flex-shrink: 0;
     }
     .dynamic-arrow {
       font-size: 14px;
@@ -226,7 +232,7 @@
       border: 1px solid rgba(0, 242, 254, 0.25);
     }
 
-    /* MAP SECTION (CLEAN DARK RETINA NO API KEYS) */
+    /* MAP SECTION (CLEAN ORIGINAL OPENSTREETMAP) */
     .map-search-bar { display: flex; gap: 8px; margin-bottom: 12px; }
     .city-input {
       flex: 1;
@@ -262,7 +268,6 @@
       overflow: hidden;
       margin-top: 8px;
       z-index: 5;
-      background: #111a2e;
     }
 
     .quick-cities {
@@ -312,10 +317,8 @@
       margin-top: 6px;
     }
 
-    /* STEPPER / DYNAMIC QUIZ QUEST WITH REAL OUTCOME */
-    .quest-progress-box {
-      margin-bottom: 16px;
-    }
+    /* STEPPER QUEST WITH TACTILE HAPTIC FEEDBACK & RIPPLE */
+    .quest-progress-box { margin-bottom: 16px; }
     .quest-bar-wrap {
       width: 100%;
       height: 6px;
@@ -331,42 +334,51 @@
       transition: width 0.3s ease;
     }
 
-    .step-card {
-      display: none;
-      animation: fadeIn 0.25s ease;
-    }
+    .step-card { display: none; animation: fadeIn 0.25s ease; }
     .step-card.active { display: block; }
 
+    /* Tactile Interactive Buttons */
     .quest-btn {
+      position: relative;
+      overflow: hidden;
       width: 100%;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
       color: #cbd5e1;
-      padding: 14px 16px;
+      padding: 15px 18px;
       border-radius: 14px;
       font-size: 13.5px;
       font-weight: 500;
       text-align: left;
       cursor: pointer;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: all 0.15s;
+      transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s, background-color 0.15s, box-shadow 0.15s;
+      user-select: none;
     }
+
     .quest-btn:active {
-      transform: scale(0.98);
-      background: rgba(0, 242, 254, 0.15);
+      transform: scale(0.96);
+      background: rgba(0, 242, 254, 0.2);
       border-color: var(--accent);
-      color: #fff;
+      color: #ffffff;
+      box-shadow: 0 0 16px rgba(0, 242, 254, 0.4);
     }
 
-    /* Final Clinical Recommendation Passport */
-    .passport-result {
-      display: none;
-      animation: fadeIn 0.35s ease;
+    .quest-btn-arrow {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 16px;
+      transition: transform 0.15s;
+    }
+    .quest-btn:active .quest-btn-arrow {
+      transform: translateX(4px);
     }
 
+    /* Passport Result */
+    .passport-result { display: none; animation: fadeIn 0.35s ease; }
     .passport-header {
       background: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(79, 172, 254, 0.2));
       border: 1px solid rgba(0, 242, 254, 0.4);
@@ -375,7 +387,6 @@
       text-align: center;
       margin-bottom: 16px;
     }
-
     .passport-score-val {
       font-family: 'Outfit', sans-serif;
       font-size: 42px;
@@ -409,7 +420,7 @@
       background: linear-gradient(135deg, var(--accent), var(--accent-blue));
       color: #031322;
       border: none;
-      padding: 13px;
+      padding: 14px;
       border-radius: 14px;
       font-weight: 800;
       font-size: 13.5px;
@@ -418,7 +429,9 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      transition: transform 0.12s;
     }
+    .print-btn:active { transform: scale(0.97); }
 
     /* Dock Bar */
     .dock-container {
@@ -536,7 +549,7 @@
             <h3 style="font-size: 16px; font-weight: 700;">Пройти персональный чек-ап</h3>
             <p style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">Пошаговый расчет и получение паспорта здоровья</p>
           </div>
-          <div style="font-size: 22px; color: var(--accent);">➔</div>
+          <div style="font-size: 20px; color: var(--accent);">➔</div>
         </div>
       </div>
 
@@ -548,7 +561,7 @@
       <div class="dynamic-card open" onclick="toggleCard(this)">
         <div class="dynamic-header">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 18px;">🌳</span>
+            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
             <strong style="font-size: 14px;">1. Семейное генеалогическое древо</strong>
           </div>
           <span class="dynamic-arrow">▼</span>
@@ -563,7 +576,7 @@
       <div class="dynamic-card" onclick="toggleCard(this)">
         <div class="dynamic-header">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 18px;">🩺</span>
+            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
             <strong style="font-size: 14px;">2. Консультация клинического генетика</strong>
           </div>
           <span class="dynamic-arrow">▼</span>
@@ -578,7 +591,7 @@
       <div class="dynamic-card" onclick="toggleCard(this)">
         <div class="dynamic-header">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 18px;">🏥</span>
+            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
             <strong style="font-size: 14px;">3. Бесплатная сдача по ОМС</strong>
           </div>
           <span class="dynamic-arrow">▼</span>
@@ -591,7 +604,7 @@
       </div>
     </main>
 
-    <!-- SCREEN 2: DYNAMIC STEPPER QUEST (ВМЕСТО СТАТИЧНЫХ ВОПРОСОВ) -->
+    <!-- SCREEN 2: DYNAMIC STEPPER QUEST -->
     <section class="screen-view" id="screen-calc">
       <div class="screen-header">
         <span class="screen-tag">Пошаговый скрининг</span>
@@ -610,66 +623,77 @@
 
       <!-- Step 1 -->
       <div class="bento-card step-card active" id="step1">
-        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px;">
-          🫀 Были ли у близких родственников (родители, бабушки/дедушки) инфаркты, инсульты или тромбозы в возрасте до 50 лет?
+        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
+          Были ли у близких родственников (родители, бабушки/дедушки) инфаркты, инсульты или тромбозы в возрасте до 50 лет?
         </div>
-        <button class="quest-btn" onclick="nextQuest(1, 0, 'Сердце: спокойный фон')">
-          <span>Нет, таких случаев не помню</span> ➔
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(1, 0)">
+          <span>Нет, таких случаев не зафиксировано</span>
+          <span class="quest-btn-arrow">➔</span>
         </button>
-        <button class="quest-btn" onclick="nextQuest(1, 20, 'Сердце: умеренный фактор')">
-          <span>У 1 родственника (после 45 лет)</span> ➔
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(1, 20)">
+          <span>У 1 родственника (после 45-50 лет)</span>
+          <span class="quest-btn-arrow">➔</span>
         </button>
-        <button class="quest-btn" onclick="nextQuest(1, 40, 'Сердце: критический маркер тромбофилии')">
-          <span>У 2+ родственников в раннем возрасте</span> ➔
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(1, 40)">
+          <span>У 2+ родственников в молодом возрасте</span>
+          <span class="quest-btn-arrow">➔</span>
         </button>
       </div>
 
       <!-- Step 2 -->
       <div class="bento-card step-card" id="step2">
-        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px;">
-          🧬 Фиксировался ли рак груди, яичников или кишечника у прямых родственников моложе 45-50 лет?
+        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
+          Фиксировался ли рак груди, яичников или кишечника у прямых родственниц моложе 45-50 лет?
         </div>
-        <button class="quest-btn" onclick="nextQuest(2, 0, 'Онко: чистый анамнез')">
-          <span>Случаев онкологии не было</span> ➔
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(2, 0)">
+          <span>Случаев онкологии в семье не было</span>
+          <span class="quest-btn-arrow">➔</span>
         </button>
-        <button class="quest-btn" onclick="nextQuest(2, 25, 'Онко: 1 случай BRCA риска')">
-          <span>1 случай у тети / бабушки</span> ➔
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(2, 25)">
+          <span>1 случай у тети или бабушки</span>
+          <span class="quest-btn-arrow">➔</span>
         </button>
-        <button class="quest-btn" onclick="nextQuest(2, 45, 'Онко: высокий риск синдрома Линча/BRCA')">
-          <span>Множественные случаи у матери/сестры</span> ➔
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(2, 45)">
+          <span>Множественные случаи у матери или сестры</span>
+          <span class="quest-btn-arrow">➔</span>
         </button>
       </div>
 
       <!-- Step 3 -->
       <div class="bento-card step-card" id="step3">
-        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px;">
-          🩺 Сахарный диабет 2 типа или узловой зоб щитовидной железы у старшего поколения?
+        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
+          Сахарный диабет 2 типа или узловой зоб щитовидной железы у старшего поколения?
         </div>
-        <button class="quest-btn" onclick="nextQuest(3, 0, 'Метаболизм: норма')">
-          <span>Нет / Не диагностировали</span> ➔
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(3, 0)">
+          <span>Нет или не диагностировали</span>
+          <span class="quest-btn-arrow">➔</span>
         </button>
-        <button class="quest-btn" onclick="nextQuest(3, 15, 'Метаболизм: предрасположенность к диабету')">
-          <span>Да, у бабушек или дедушек</span> ➔
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(3, 15)">
+          <span>Да, у бабушек или дедушек</span>
+          <span class="quest-btn-arrow">➔</span>
         </button>
-        <button class="quest-btn" onclick="nextQuest(3, 25, 'Метаболизм: прямой семейный диабет')">
-          <span>Да, у обоих родителей</span> ➔
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(3, 25)">
+          <span>Да, у обоих прямых родителей</span>
+          <span class="quest-btn-arrow">➔</span>
         </button>
       </div>
 
       <!-- Step 4 -->
       <div class="bento-card step-card" id="step4">
-        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px;">
-          📋 Сдавали ли вы когда-нибудь генетические панели или коагулограмму?
+        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
+          Сдавали ли вы когда-нибудь профильные генетические панели или коагулограмму?
         </div>
-        <button class="quest-btn" onclick="finishQuest(0)">
-          <span>Ни разу не сдавал(а) (скрытый статус)</span> ➔
+        <button class="quest-btn" onclick="tactileTap(); finishQuest(0)">
+          <span>Ни разу не сдавал(а) (скрытый статус)</span>
+          <span class="quest-btn-arrow">➔</span>
         </button>
-        <button class="quest-btn" onclick="finishQuest(-10)">
-          <span>Сдавал(а), мутаций не обнаружено</span> ➔
+        <button class="quest-btn" onclick="tactileTap(); finishQuest(-10)">
+          <span>Сдавал(а) ранее, патологий не обнаружено</span>
+          <span class="quest-btn-arrow">➔</span>
         </button>
       </div>
 
-      <!-- FINAL OUTCOME: PERSONAL HEALTH PASSPORT -->
+      <!-- FINAL PASSPORT OUTCOME -->
       <div class="passport-result" id="passportResult">
         <div class="passport-header">
           <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 700;">
@@ -680,22 +704,20 @@
         </div>
 
         <div class="bento-card">
-          <h4 style="font-size: 14px; margin-bottom: 8px;">🎯 Ваш персональный протокол действий:</h4>
-          <ul class="action-checklist" id="actionList">
-            <!-- Populated via JS -->
-          </ul>
+          <h4 style="font-size: 14px; margin-bottom: 8px;">Ваш персональный протокол действий:</h4>
+          <ul class="action-checklist" id="actionList"></ul>
 
-          <button class="print-btn" onclick="alert('✅ Отчет сохранен в историю браузера! Распечатайте или покажите терапевту.')">
-            📥 Сохранить персональную памятку
+          <button class="print-btn" onclick="tactileTap(); alert('Отчет зафиксирован. Рекомендуется предъявить терапевту.')">
+            Сохранить персональную памятку
           </button>
-          <button style="width: 100%; margin-top: 10px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--text-sub); padding: 10px; border-radius: 12px; font-size: 12px; cursor: pointer;" onclick="resetQuest()">
-            🔄 Пройти заново
+          <button style="width: 100%; margin-top: 10px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--text-sub); padding: 10px; border-radius: 12px; font-size: 12px; cursor: pointer;" onclick="tactileTap(); resetQuest()">
+            Пройти заново
           </button>
         </div>
       </div>
     </section>
 
-    <!-- SCREEN 3: MAP (БЕЗ API КЛЮЧЕЙ, ЧИСТЫЙ СТИЛЬ) -->
+    <!-- SCREEN 3: MAP (ORIGINAL CLEAN OPENSTREETMAP) -->
     <section class="screen-view" id="screen-map">
       <div class="screen-header">
         <span class="screen-tag">Навигатор по лабораториям РФ</span>
@@ -704,15 +726,15 @@
 
       <div class="map-search-bar">
         <input type="text" class="city-input" id="citySearchInput" placeholder="Введите город (напр. Казань, Уфа, Самара)..." onkeydown="if(event.key==='Enter') searchCity()" />
-        <button class="search-btn" onclick="searchCity()">Найти</button>
+        <button class="search-btn" onclick="tactileTap(); searchCity()">Найти</button>
       </div>
 
       <div class="quick-cities">
-        <button class="quick-pill active" onclick="jumpToCity(55.7512, 37.6184, 11, 'Москва', this)">Москва</button>
-        <button class="quick-pill" onclick="jumpToCity(59.9342, 30.3350, 11, 'Санкт-Петербург', this)">Санкт-Петербург</button>
-        <button class="quick-pill" onclick="jumpToCity(55.7961, 49.1064, 12, 'Казань', this)">Казань</button>
-        <button class="quick-pill" onclick="jumpToCity(56.8380, 60.5974, 11, 'Екатеринбург', this)">Екатеринбург</button>
-        <button class="quick-pill" onclick="jumpToCity(55.0083, 82.9357, 11, 'Новосибирск', this)">Новосибирск</button>
+        <button class="quick-pill active" onclick="tactileTap(); jumpToCity(55.7512, 37.6184, 11, 'Москва', this)">Москва</button>
+        <button class="quick-pill" onclick="tactileTap(); jumpToCity(59.9342, 30.3350, 11, 'Санкт-Петербург', this)">Санкт-Петербург</button>
+        <button class="quick-pill" onclick="tactileTap(); jumpToCity(55.7961, 49.1064, 12, 'Казань', this)">Казань</button>
+        <button class="quick-pill" onclick="tactileTap(); jumpToCity(56.8380, 60.5974, 11, 'Екатеринбург', this)">Екатеринбург</button>
+        <button class="quick-pill" onclick="tactileTap(); jumpToCity(55.0083, 82.9357, 11, 'Новосибирск', this)">Новосибирск</button>
       </div>
 
       <div id="cityMap"></div>
@@ -726,7 +748,7 @@
           Бесплатный онкоскрининг по направлению врача 057/у для всех граждан РФ.
         </p>
         <a id="labRouteBtn" class="route-btn" href="https://yandex.ru/maps/?text=55.6565,37.6483" target="_blank">
-          📍 Построить маршрут в Яндекс.Картах
+          Построить маршрут в Яндекс.Картах
         </a>
       </div>
     </section>
@@ -763,7 +785,7 @@
       <div class="dynamic-card open" onclick="toggleCard(this)">
         <div class="dynamic-header">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 20px;">🧬</span>
+            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
             <strong style="font-size: 14px;">Ранний рак молочной железы или яичников</strong>
           </div>
           <span class="dynamic-arrow">▼</span>
@@ -778,7 +800,7 @@
       <div class="dynamic-card" onclick="toggleCard(this)">
         <div class="dynamic-header">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 20px;">🫀</span>
+            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
             <strong style="font-size: 14px;">Тромбозы и инфаркты в молодом возрасте</strong>
           </div>
           <span class="dynamic-arrow">▼</span>
@@ -793,7 +815,7 @@
       <div class="dynamic-card" onclick="toggleCard(this)">
         <div class="dynamic-header">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 20px;">🩺</span>
+            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
             <strong style="font-size: 14px;">Множественные эндокринные нарушения</strong>
           </div>
           <span class="dynamic-arrow">▼</span>
@@ -845,7 +867,17 @@
   </nav>
 
   <script>
-    function toggleCard(card) { card.classList.toggle('open'); }
+    // Tactile Vibration on mobile
+    function tactileTap() {
+      if (navigator.vibrate) {
+        navigator.vibrate(22);
+      }
+    }
+
+    function toggleCard(card) {
+      tactileTap();
+      card.classList.toggle('open');
+    }
 
     /* DOCK NAVIGATION & SWIPE */
     const dockContainer = document.getElementById('dockContainer');
@@ -886,6 +918,7 @@
 
     function goToTab(toIdx) {
       if (toIdx < 0 || toIdx >= buttons.length) return;
+      tactileTap();
       switchScreen(screens[toIdx]);
 
       startX1 = currentX1;
@@ -1053,15 +1086,12 @@
       }
     }
 
-    /* STEPPER QUEST LOGIC (ДИНАМИКА И ЦЕЛЬ) */
+    /* STEPPER QUEST */
     let questStep = 1;
     let questScore = 10;
-    const questNotes = [];
 
-    function nextQuest(step, points, note) {
+    function nextQuest(step, points) {
       questScore += points;
-      if (points > 0) questNotes.push(note);
-
       document.getElementById(`step${step}`).classList.remove('active');
       questStep = step + 1;
 
@@ -1082,7 +1112,6 @@
 
     function finishQuest(finalBonus) {
       questScore = Math.min(95, Math.max(12, questScore + finalBonus));
-
       document.getElementById('step4').classList.remove('active');
       document.getElementById('questTitle').innerText = "Готово! Результат анализа";
       document.getElementById('questBar').style.width = '100%';
@@ -1090,7 +1119,6 @@
 
       const passport = document.getElementById('passportResult');
       passport.style.display = 'block';
-
       document.getElementById('finalPercent').innerText = questScore + '%';
 
       const statusEl = document.getElementById('finalStatus');
@@ -1101,27 +1129,27 @@
         statusEl.innerText = "Низкий базовый риск";
         statusEl.style.color = "#10b981";
         listEl.innerHTML = `
-          <li>✅ Семейный фон благоприятный. Специфических мутаций не предполагается.</li>
-          <li>🩺 Рекомендован плановый профилактический осмотр у терапевта раз в год.</li>
-          <li>🩸 Стандартный клинический анализ крови и базовый уровень холестерина.</li>
+          <li>Семейный фон благоприятный. Специфических мутаций не предполагается.</li>
+          <li>Рекомендован плановый профилактический осмотр у терапевта раз в год.</li>
+          <li>Стандартный клинический анализ крови и базовый уровень холестерина.</li>
         `;
       } else if (questScore < 60) {
         statusEl.innerText = "Умеренный генетический риск";
         statusEl.style.color = "#f59e0b";
         listEl.innerHTML = `
-          <li>⚠️ Обнаружены косвенные семейные факторы предрасположенности.</li>
-          <li>🧪 Рекомендуется сдать расширенную липидограмму и коагулограмму (свертываемость).</li>
-          <li>💊 Женщинам перед приемом КОК обязательно сдать тест на мутацию Лейдена (ген F5).</li>
-          <li>🏥 Обсудить результаты с терапевтом для получения направления в центр превенции.</li>
+          <li>Обнаружены косвенные семейные факторы предрасположенности.</li>
+          <li>Рекомендуется сдать расширенную липидограмму и коагулограмму (свертываемость).</li>
+          <li>Женщинам перед приемом КОК обязательно сдать тест на мутацию Лейдена (ген F5).</li>
+          <li>Обсудить результаты с терапевтом для получения направления в центр превенции.</li>
         `;
       } else {
         statusEl.innerText = "Высокий клинический риск!";
         statusEl.style.color = "#ff5252";
         listEl.innerHTML = `
-          <li>🚨 Присутствуют яркие семейные триггеры ранних патологий.</li>
-          <li>🧬 Первоочередное действие: очная консультация клинического генетика.</li>
-          <li>🔬 Целевой ПЦР-скрининг: панель BRCA1/BRCA2 (онко) или F2/F5 (тромбофилия).</li>
-          <li>🏛️ Получите в районной поликлинике направление 057/у для БЕСПЛАТНОЙ сдачи по ОМС в МГНЦ.</li>
+          <li>Присутствуют яркие семейные триггеры ранних патологий.</li>
+          <li>Первоочередное действие: очная консультация клинического генетика.</li>
+          <li>Целевой ПЦР-скрининг: панель BRCA1/BRCA2 (онко) или F2/F5 (тромбофилия).</li>
+          <li>Получите в районной поликлинике направление 057/у для бесплатной сдачи по ОМС в МГНЦ.</li>
         `;
       }
     }
@@ -1129,7 +1157,6 @@
     function resetQuest() {
       questStep = 1;
       questScore = 10;
-      questNotes.length = 0;
       document.getElementById('passportResult').style.display = 'none';
       document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
       document.getElementById('step1').classList.add('active');
@@ -1139,7 +1166,7 @@
       document.getElementById('questBar').style.width = '25%';
     }
 
-    /* MAP SECTION (STADIA / OPENSMOOTH DARK, NO API KEYS REQUIRED) */
+    /* ORIGINAL CLEAN OPENSTREETMAP (СВЕТЛАЯ, БЕЗ ТЕМНЫХ ИСКАЖЕНИЙ) */
     let map;
     const labMarkers = [];
 
@@ -1154,21 +1181,11 @@
     function initMap() {
       map = L.map('cityMap', { zoomControl: false }).setView([55.7512, 37.6184], 11);
 
-      // Clean OpenStreetMap Tile Server with CSS Dark Invert (100% Free, NO API Keys ever)
+      // Оригинальный чистый OpenStreetMap (светлый, контрастный, без API ключей)
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap',
-        maxZoom: 19,
-        className: 'map-tiles-clean'
+        maxZoom: 19
       }).addTo(map);
-
-      // Dark filter for OSM tiles so it matches the neon dark design
-      const style = document.createElement('style');
-      style.innerHTML = `
-        .map-tiles-clean {
-          filter: brightness(0.65) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
-        }
-      `;
-      document.head.appendChild(style);
 
       renderLabsForCity('москва');
     }
@@ -1203,10 +1220,11 @@
         }
 
         const m = L.circleMarker([lat, lng], {
-          radius: 9, fillColor: item.color, color: '#ffffff', weight: 2, opacity: 1, fillOpacity: 0.95
+          radius: 9, fillColor: item.color, color: '#031322', weight: 2, opacity: 1, fillOpacity: 0.95
         }).addTo(map);
 
         m.on('click', () => {
+          tactileTap();
           document.getElementById('labBannerName').innerText = item.name;
           document.getElementById('labBannerTag').innerText = item.tag;
           document.getElementById('labBannerDesc').innerText = item.desc;
@@ -1261,7 +1279,7 @@
         type: 'doughnut',
         data: {
           labels: ['Не знают рисков (72%)', 'Знают базовые (23%)', 'Сдавали тест (5%)'],
-          datasets: [{ data: [72, 23, 5], backgroundColor: ['#ff5252', '#f59e0b', '#00d2ff'], borderWidth: 0 }]
+          datasets: [{ data: [72, 23, 5], backgroundColor: ['#ff5252', '#f59e0b', '#00f2fe'], borderWidth: 0 }]
         },
         options: {
           responsive: true, maintainAspectRatio: false,
@@ -1275,7 +1293,7 @@
           labels: ['Чек-ап', 'Древо семьи', 'Визит к врачу'],
           datasets: [
             { label: 'До (%)', data: [14, 28, 12], backgroundColor: 'rgba(148, 163, 184, 0.3)', borderRadius: 6 },
-            { label: 'После (%)', data: [79, 92, 74], backgroundColor: '#00d2ff', borderRadius: 6 }
+            { label: 'После (%)', data: [79, 92, 74], backgroundColor: '#00f2fe', borderRadius: 6 }
           ]
         },
         options: {
