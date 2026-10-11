@@ -1472,32 +1472,33 @@
       </div>
 
       <div class="quick-cities">
-        <button class="quick-pill active" onclick="tactileTap(); jumpToCity(55.7512, 37.6184, 11, 'Москва', this)">Москва</button>
+        <button class="quick-pill active" onclick="tactileTap(); jumpToCity(61.2540, 73.3962, 12, 'Сургут', this)">📍 Сургут</button>
+        <button class="quick-pill" onclick="tactileTap(); jumpToCity(55.7512, 37.6184, 11, 'Москва', this)">Москва</button>
         <button class="quick-pill" onclick="tactileTap(); jumpToCity(59.9342, 30.3350, 11, 'Санкт-Петербург', this)">Санкт-Петербург</button>
         <button class="quick-pill" onclick="tactileTap(); jumpToCity(55.7961, 49.1064, 12, 'Казань', this)">Казань</button>
         <button class="quick-pill" onclick="tactileTap(); jumpToCity(56.8380, 60.5974, 11, 'Екатеринбург', this)">Екатеринбург</button>
         <button class="quick-pill" onclick="tactileTap(); jumpToCity(55.0083, 82.9357, 11, 'Новосибирск', this)">Новосибирск</button>
-        <button class="quick-pill" onclick="tactileTap(); jumpToCity(61.2540, 73.3962, 12, 'Сургут', this)">Сургут</button>
+        
       </div>
 
       <div id="cityMap"></div>
 
       <div class="lab-info-banner" id="labSelectedBanner">
         <div class="lab-banner-header">
-          <div class="lab-banner-name" id="labBannerName">ФГБНУ «МГНЦ им. акад. Н.П. Бочкова»</div>
+          <div class="lab-banner-name" id="labBannerName">Медицинский центр «Полимедика»</div>
           <span class="lab-banner-tag" id="labBannerTag" style="background: rgba(16, 185, 129, 0.2); color: var(--emerald);">ОМС (0 ₽)</span>
         </div>
         <div class="lab-banner-metro" id="labBannerMetro">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          ул. Москворечье, 1 • м. Каширская
+          ул. 30 лет Победы, 44а • Северо-Восточный р-н
         </div>
         <p class="lab-banner-desc" id="labBannerDesc">
-          Главный федеральный медико-генетический центр РФ. Государственный онкоскрининг и кариотипирование по форме 057/у.
+          Бесплатный приём и забор анализов по полису ОМС. Выдача направлений к врачу-генетику и базовые клинические панели.
         </p>
         <div class="lab-banner-hours" id="labBannerHours">
-          Пн-Пт: 08:30 – 17:00 • Регистратура ОМС
+          Пн-Пт: 08:00 – 20:00 • Сб: 09:00 – 16:00
         </div>
-        <a id="labRouteBtn" class="route-btn" href="https://yandex.ru/maps/?rtext=~55.6565,37.6483&rtt=auto" target="_blank" onclick="tactileTap()">
+        <a id="labRouteBtn" class="route-btn" href="https://yandex.ru/maps/?rtext=~61.2612,73.4478&rtt=auto" target="_blank" onclick="tactileTap()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
           <span>Построить маршрут в Яндекс.Картах</span>
         </a>
@@ -2612,7 +2613,7 @@
         if (yandexMap) return;
 
         yandexMap = new ymaps.Map('cityMap', {
-          center: [55.7512, 37.6184],
+          center: [61.2540, 73.3962],
           zoom: 11,
           controls: ['zoomControl']
         }, {
@@ -2623,7 +2624,7 @@
         // Touch gestures for mobile
         yandexMap.behaviors.enable(['drag', 'multiTouch']);
 
-        renderYandexLabs('москва');
+        renderYandexLabs('сургут');
       });
     }
 
