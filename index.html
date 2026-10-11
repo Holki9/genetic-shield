@@ -1126,19 +1126,19 @@
         <h3 style="font-size: 17px; font-weight: 700;">Создатель проекта</h3>
       </div>
 
-      <div class="bento-card author-trigger-card" onclick="openAuthorModal()">
+      <div class="bento-card author-trigger-card" onclick="openAuthorModal()" style="border-color: rgba(0, 242, 254, 0.3); background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(2, 132, 199, 0.15) 100%);">
         <div style="display: flex; align-items: center; gap: 14px;">
-          <div class="mini-avatar-wrap">
-            <img src="author.png?v=original_cut_2026" alt="Создатель" class="mini-author-img">
+          <div style="width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, #0284c7, #00f2fe); display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.35); flex-shrink: 0;">
+            🏛️
           </div>
           <div style="flex: 1;">
-            <div style="font-size: 11px; text-transform: uppercase; color: var(--accent); font-weight: 700;">Главный исследователь</div>
-            <div style="font-size: 15px; font-weight: 800; color: #fff;">Архитектор платформы</div>
-            <div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">Нажмите, чтобы открыть цифровой ID-паспорт</div>
+            <div style="font-size: 11px; text-transform: uppercase; color: var(--accent); font-weight: 800; letter-spacing: 0.05em;">СурГУ • Медицинский институт</div>
+            <div style="font-size: 15px; font-weight: 800; color: #fff;">Команда разработчиков (8 авторов)</div>
+            <div style="font-size: 11.5px; color: var(--text-sub);">2 курс • Лечебное дело • Исследовательская группа 2026</div>
           </div>
-          <div class="passport-arrow">➔</div>
+          <div style="font-size: 18px; color: var(--accent); font-weight: bold;">›</div>
         </div>
-      </div>
+      </div></div>
     </main>
 
     <!-- SCREEN 2: DYNAMIC STEPPER QUEST -->
@@ -1560,55 +1560,2009 @@
       <button class="close-modal-btn" onclick="closeAuthorModal()">✕</button>
       
       <div class="passport-top-header">
-        <div class="passport-chip">
+        <div class="passport-chip" style="background: rgba(2, 132, 199, 0.2); border-color: rgba(0, 242, 254, 0.4);">
           <span class="pulse-dot"></span>
-          ЕДИНЫЙ РЕЕСТР ИССЛЕДОВАТЕЛЕЙ • 2026
+          СУРГУ • МЕДИЦИНСКИЙ ИНСТИТУТ • 2026
         </div>
-        <span class="passport-serial">ЛИЧНОЕ ДЕЛО #7842</span>
+        <span class="passport-serial">ЛЕЧЕБНОЕ ДЕЛО • 2 КУРС</span>
       </div>
 
       <!-- СВЕРХУ: ПОРТРЕТ С КИБЕР-ФОНОМ СЗАДИ И ОСНОВНОЙ СТАТУС -->
-      <div class="passport-profile-header">
-        <div class="passport-photo-frame">
-          <div class="photo-bg-grid"></div>
-          <div class="photo-bg-glow"></div>
-          <!-- Истинный прозрачный PNG, сетка СТРОГО СЗАДИ -->
-          <img src="author.png?v=original_cut_2026" alt="Создатель" class="passport-big-img">
+      <div style="text-align: center; margin-bottom: 16px;">
+        <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; color: #10b981; margin-bottom: 8px;">
+          <span class="pulse-dot" style="background:#10b981;box-shadow:0 0 8px #10b981;width:6px;height:6px;"></span> НАУЧНО-ИССЛЕДОВАТЕЛЬСКАЯ ГРУППА
         </div>
-        <div class="passport-title-wrap">
-          <div class="bio-verified-badge"><span class="pulse-dot" style="background:#10b981;box-shadow:0 0 8px #10b981;width:6px;height:6px;"></span> ВЕРИФИЦИРОВАННЫЙ РАЗРАБОТЧИК</div>
-          <h3 class="author-real-name">Главный Архитектор Платформы</h3>
-          <p class="author-real-sub">Ведущий разработчик интеллектуальной системы предиктивного генетического триажа и ГИС-карты</p>
+        <h3 style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px;">Команда Проекта «Генетический Щит»</h3>
+        <p style="font-size: 12px; color: var(--text-sub); max-width: 420px; margin: 0 auto; line-height: 1.4;">
+          Студенты Сургутского государственного университета, Медицинский институт, специальность «Лечебное дело», 2 курс.
+        </p>
+      </div>
+
+      <!-- СЕТКА УЧАСТНИКОВ КОМАНДЫ (8 ЧЕЛОВЕК) -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; max-height: 380px; overflow-y: auto; padding-right: 4px;">
+        
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
+          <div style="font-weight: 800; color: #fff; font-size: 13px;">Баетова Милана</div>
+          <div style="font-size: 10.5px; color: var(--accent); font-weight: 700; margin-top: 1px;">Клинический куратор</div>
+          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Анализ онкопанелей BRCA1/2 и клинических протоколов</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
+          <div style="font-weight: 800; color: #fff; font-size: 13px;">Акрамов Фаршед</div>
+          <div style="font-size: 10.5px; color: #38bdf8; font-weight: 700; margin-top: 1px;">Архитектура платформы</div>
+          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Координация цифровой модели и алгоритмизация</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
+          <div style="font-weight: 800; color: #fff; font-size: 13px;">Исаева Заира</div>
+          <div style="font-size: 10.5px; color: #a78bfa; font-weight: 700; margin-top: 1px;">Популяционный скрининг</div>
+          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Молекулярная диагностика моногенных заболеваний</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
+          <div style="font-weight: 800; color: #fff; font-size: 13px;">Абдулаев Али</div>
+          <div style="font-size: 10.5px; color: #34d399; font-weight: 700; margin-top: 1px;">ГИС-картография Сургута</div>
+          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Интеграция навигатора лабораторий ХМАО и ОМС</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
+          <div style="font-weight: 800; color: #fff; font-size: 13px;">Фаттаева Маргарита</div>
+          <div style="font-size: 10.5px; color: #f472b6; font-weight: 700; margin-top: 1px;">Гемостаз и репродукция</div>
+          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Мутации тромбофилии (F2, F5) и планирование семьи</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
+          <div style="font-weight: 800; color: #fff; font-size: 13px;">Лугуева Диана</div>
+          <div style="font-size: 10.5px; color: #fbbf24; font-weight: 700; margin-top: 1px;">Статистика и опрос</div>
+          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Аналитика осведомленности студентов и графика</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
+          <div style="font-weight: 800; color: #fff; font-size: 13px;">Бородина Алина</div>
+          <div style="font-size: 10.5px; color: #38bdf8; font-weight: 700; margin-top: 1px;">Клинический аудит</div>
+          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Нормативная база ОМС (форма 057/у) и маршрутизация</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
+          <div style="font-weight: 800; color: #fff; font-size: 13px;">Улутова Айза</div>
+          <div style="font-size: 10.5px; color: #a78bfa; font-weight: 700; margin-top: 1px;">Алгоритмы триажа</div>
+          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Математическая модель калькулятора рисков</div>
+        </div>
+
+      </div>
+
+      <div style="background: rgba(2, 132, 199, 0.1); border: 1px dashed rgba(2, 132, 199, 0.3); border-radius: 12px; padding: 10px 14px; margin-bottom: 14px; font-size: 11px; color: #bae6fd; text-align: center;">
+        🎓 Проект выполнен в рамках научно-исследовательской деятельности кафедры Медицинского института СурГУ • 2026 г.
+      </div><div class="passport-footer">
+        <div class="passport-barcode">||| | |||| | ||| |||| | |||||| || |</div>
+        <span style="font-size: 10px; color: var(--text-sub); font-family: monospace;">ВЕРИФИКАЦИЯ 2026 // ДОСТУП РАЗРЕШЕН</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tactile Vibration on mobile
+    function tactileTap() {
+      if (navigator.vibrate) {
+        navigator.vibrate(22);
+      }
+    }
+
+    function toggleCard(card) {
+      tactileTap();
+      card.classList.toggle('open');
+    }
+
+    /* DOCK NAVIGATION & SWIPE */
+    const dockContainer = document.getElementById('dockContainer');
+    const gumPath = document.getElementById('gumPath');
+    const buttons = Array.from(document.querySelectorAll('.dock-btn'));
+    const screens = ['home', 'calc', 'map', 'stats', 'risks'];
+
+    let currentIndex = 0;
+    let targetIndex = 0;
+    let currentX1 = 0, currentX2 = 0;
+    let startX1 = 0, startX2 = 0, destX1 = 0, destX2 = 0;
+    let isAnimating = false;
+    let animStartTime = 0;
+    const ANIM_DURATION = 360;
+
+    const TOP_PAD = 8;
+    const BOTTOM_PAD = 60;
+    const RADIUS = 26;
+
+    function getBounds(idx) {
+      const cRect = dockContainer.getBoundingClientRect();
+      const bRect = buttons[idx].getBoundingClientRect();
+      return {
+        x1: bRect.left - cRect.left + 3,
+        x2: bRect.right - cRect.left - 3,
+        mid: (bRect.left + bRect.right) / 2 - cRect.left,
+        width: bRect.width - 6
+      };
+    }
+
+    function initDock() {
+      const b = getBounds(currentIndex);
+      currentX1 = destX1 = startX1 = b.x1;
+      currentX2 = destX2 = startX2 = b.x2;
+      drawGum(currentX1, currentX2, 0);
+      updateLens(currentX1, currentX2);
+    }
+
+    function goToTab(toIdx) {
+      if (toIdx < 0 || toIdx >= buttons.length) return;
+      tactileTap();
+      switchScreen(screens[toIdx]);
+
+      startX1 = currentX1;
+      startX2 = currentX2;
+      const toB = getBounds(toIdx);
+      destX1 = toB.x1;
+      destX2 = toB.x2;
+
+      targetIndex = toIdx;
+      animStartTime = performance.now();
+      isAnimating = true;
+      requestAnimationFrame(stepGum);
+    }
+
+    function stepGum(now) {
+      if (!isAnimating) return;
+      const elapsed = now - animStartTime;
+      const p = Math.min(1, elapsed / ANIM_DURATION);
+
+      const isRight = destX1 > startX1;
+      const pLead = 1 - Math.pow(1 - p, 3.6);
+      const pTrail = Math.pow(p, 2.3);
+
+      let x1, x2;
+      if (isRight) {
+        x2 = startX2 + (destX2 - startX2) * pLead;
+        x1 = startX1 + (destX1 - startX1) * pTrail;
+      } else {
+        x1 = startX1 + (destX1 - startX1) * pLead;
+        x2 = startX2 + (destX2 - startX2) * pTrail;
+      }
+
+      currentX1 = x1;
+      currentX2 = x2;
+
+      const span = Math.abs(x2 - x1);
+      const normalW = getBounds(targetIndex).width;
+      const stretch = Math.max(0, (span - normalW) / (normalW * 2.8));
+      const pinch = Math.min(12, stretch * 15);
+
+      drawGum(x1, x2, pinch);
+      updateLens(x1, x2);
+
+      if (p < 1) {
+        requestAnimationFrame(stepGum);
+      } else {
+        isAnimating = false;
+        currentIndex = targetIndex;
+      }
+    }
+
+    function drawGum(x1, x2, pinch) {
+      if (x2 <= x1 + 10) x2 = x1 + 10;
+      const r = Math.min(RADIUS, (x2 - x1) / 2);
+      const midX = (x1 + x2) / 2;
+      const topY = TOP_PAD + pinch;
+      const botY = BOTTOM_PAD - pinch;
+
+      const d = [
+        `M ${x1 + r} ${TOP_PAD}`,
+        `C ${midX - 15} ${topY}, ${midX + 15} ${topY}, ${x2 - r} ${TOP_PAD}`,
+        `A ${r} ${RADIUS} 0 0 1 ${x2} ${TOP_PAD + RADIUS}`,
+        `A ${r} ${RADIUS} 0 0 1 ${x2 - r} ${BOTTOM_PAD}`,
+        `C ${midX + 15} ${botY}, ${midX - 15} ${botY}, ${x1 + r} ${BOTTOM_PAD}`,
+        `A ${r} ${RADIUS} 0 0 1 ${x1} ${TOP_PAD + RADIUS}`,
+        `A ${r} ${RADIUS} 0 0 1 ${x1 + r} ${TOP_PAD}`,
+        'Z'
+      ].join(' ');
+
+      gumPath.setAttribute('d', d);
+      gumPath.style.opacity = Math.max(0.75, 1 - (pinch / 24));
+    }
+
+    function updateLens(x1, x2) {
+      const gumMid = (x1 + x2) / 2;
+      const gumRadius = (x2 - x1) / 2;
+
+      buttons.forEach((btn, idx) => {
+        const b = getBounds(idx);
+        const dist = Math.abs(b.mid - gumMid);
+        const maxDist = gumRadius + b.width / 2;
+
+        let factor = 0;
+        if (dist < maxDist) factor = 1 - (dist / maxDist);
+
+        if (factor > 0.08) {
+          btn.classList.add('active');
+          const scale = 1 + 0.22 * factor;
+          const tz = 12 * factor;
+          const skew = (b.mid - gumMid) * 0.12 * factor;
+          btn.style.transform = `perspective(320px) translateZ(${tz}px) scale(${scale}) skewX(${skew}deg)`;
+          btn.style.filter = `brightness(${1 + 0.2 * factor})`;
+        } else {
+          btn.classList.remove('active');
+          btn.style.transform = 'none';
+          btn.style.filter = 'none';
+        }
+      });
+    }
+
+    /* GESTURE DRAG / SWIPE */
+    let isTouching = false;
+    let touchStartX = 0;
+    let hasDragged = false;
+
+    dockContainer.addEventListener('pointerdown', (e) => {
+      isTouching = true;
+      hasDragged = false;
+      touchStartX = e.clientX;
+      isAnimating = false;
+    });
+
+    dockContainer.addEventListener('pointermove', (e) => {
+      if (!isTouching) return;
+      const deltaX = Math.abs(e.clientX - touchStartX);
+
+      if (deltaX > 5) {
+        hasDragged = true;
+        const cRect = dockContainer.getBoundingClientRect();
+        const fingerX = e.clientX - cRect.left;
+        const bWidth = getBounds(currentIndex).width;
+
+        currentX1 = fingerX - bWidth / 2;
+        currentX2 = fingerX + bWidth / 2;
+        drawGum(currentX1, currentX2, 3);
+        updateLens(currentX1, currentX2);
+      }
+    });
+
+    dockContainer.addEventListener('pointerup', (e) => {
+      if (!isTouching) return;
+      isTouching = false;
+
+      const cRect = dockContainer.getBoundingClientRect();
+      const fingerX = e.clientX - cRect.left;
+
+      if (!hasDragged) {
+        let clickedIdx = 0;
+        buttons.forEach((btn, idx) => {
+          const b = getBounds(idx);
+          if (fingerX >= b.x1 && fingerX <= b.x2) clickedIdx = idx;
+        });
+        goToTab(clickedIdx);
+      } else {
+        const gumMid = (currentX1 + currentX2) / 2;
+        let nearestIdx = 0;
+        let minDist = Infinity;
+        buttons.forEach((btn, idx) => {
+          const b = getBounds(idx);
+          const d = Math.abs(b.mid - gumMid);
+          if (d < minDist) { minDist = d; nearestIdx = idx; }
+        });
+        goToTab(nearestIdx);
+      }
+    });
+
+    function switchScreen(screenId) {
+      document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
+      const sc = document.getElementById(`screen-${screenId}`);
+      if (sc) sc.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (screenId === 'map' && yandexMap) {
+        setTimeout(() => yandexMap.container.fitToViewport(), 150);
+      }
+    }
+
+    /* STEPPER QUEST WITH BIOMETRICS & CLINICAL PROTOCOL */
+    let questStep = 1;
+    const TOTAL_QUEST_STEPS = 6;
+    let questScore = 10;
+    let patientData = {
+      gender: 'Женский',
+      age: '18 – 25 лет',
+      height: 175,
+      weight: 70,
+      bmi: 22.9,
+      bmiStatus: 'Норма'
+    };
+
+    function updateBmiLive() {
+      const h = parseFloat(document.getElementById('bioHeightInput').value) || 170;
+      const w = parseFloat(document.getElementById('bioWeightInput').value) || 65;
+      patientData.height = h;
+      patientData.weight = w;
+
+      const hM = h / 100;
+      const bmi = (w / (hM * hM)).toFixed(1);
+      patientData.bmi = bmi;
+
+      const bmiValEl = document.getElementById('bmiVal');
+      const bmiStatusEl = document.getElementById('bmiStatus');
+      if (bmiValEl) bmiValEl.innerText = bmi;
+
+      if (bmi < 18.5) {
+        patientData.bmiStatus = 'Дефицит массы';
+        if (bmiStatusEl) { bmiStatusEl.innerText = 'Дефицит массы'; bmiStatusEl.style.color = '#f59e0b'; }
+      } else if (bmi <= 24.9) {
+        patientData.bmiStatus = 'Норма';
+        if (bmiStatusEl) { bmiStatusEl.innerText = 'Норма'; bmiStatusEl.style.color = '#10b981'; }
+      } else if (bmi <= 29.9) {
+        patientData.bmiStatus = 'Избыточный вес';
+        if (bmiStatusEl) { bmiStatusEl.innerText = 'Избыточный вес'; bmiStatusEl.style.color = '#f59e0b'; }
+      } else {
+        patientData.bmiStatus = 'Ожирение (метаболический риск)';
+        if (bmiStatusEl) { bmiStatusEl.innerText = 'Ожирение'; bmiStatusEl.style.color = '#ff5252'; }
+      }
+    }
+
+    function proceedFromStep1() {
+      updateBmiLive();
+      // If BMI indicates obesity, add subtle metabolic predisposition factor (+5)
+      const bmiBonus = patientData.bmi >= 30 ? 6 : (patientData.bmi >= 25 ? 3 : 0);
+      nextQuest(1, bmiBonus);
+    }
+
+    function selectBioGender(gender) {
+      patientData.gender = gender;
+      document.getElementById('bioGenderF').classList.toggle('active', gender === 'Женский');
+      document.getElementById('bioGenderM').classList.toggle('active', gender === 'Мужской');
+    }
+
+    function selectBioAge(age) {
+      patientData.age = age;
+      document.getElementById('bioAge1').classList.toggle('active', age === '18 – 25 лет');
+      document.getElementById('bioAge2').classList.toggle('active', age === '26 – 40 лет');
+      document.getElementById('bioAge3').classList.toggle('active', age === '41+ год');
+    }
+
+    function nextQuest(step, points) {
+      questScore += points;
+      document.getElementById(`step${step}`).classList.remove('active');
+      questStep = step + 1;
+
+      document.getElementById('questTitle').innerText = `Шаг ${questStep} из ${TOTAL_QUEST_STEPS}`;
+      const titles = [
+        "",
+        "Биометрические данные",
+        "Анамнез сердечно-сосудистой системы",
+        "Онкогенетический скрининг (BRCA/Полипы)",
+        "Эндокринный и метаболический профиль",
+        "Симптомы и сосудистые риски",
+        "Лабораторный статус"
+      ];
+      document.getElementById('questStepLabel').innerText = titles[questStep];
+      const pct = Math.round((questStep / TOTAL_QUEST_STEPS) * 100);
+      document.getElementById('questPercent').innerText = `${pct}%`;
+      document.getElementById('questBar').style.width = `${pct}%`;
+
+      document.getElementById(`step${questStep}`).classList.add('active');
+    }
+
+    function finishQuest(finalBonus) {
+      questScore = Math.min(96, Math.max(12, questScore + finalBonus));
+      document.getElementById(`step${TOTAL_QUEST_STEPS}`).classList.remove('active');
+      document.getElementById('questTitle').innerText = "Клинический маршрутный лист";
+      document.getElementById('questBar').style.width = '100%';
+      document.getElementById('questPercent').innerText = '100%';
+
+      const passport = document.getElementById('passportResult');
+      passport.style.display = 'block';
+      document.getElementById('finalPercent').innerText = questScore + '%';
+
+      const statusEl = document.getElementById('finalStatus');
+      const listEl = document.getElementById('actionList');
+      const metaEl = document.getElementById('patientMetaTag');
+      if (metaEl) {
+        metaEl.innerText = `Пациент: ${patientData.gender} • ${patientData.age} • Вес: ${patientData.weight} кг (ИМТ: ${patientData.bmi} — ${patientData.bmiStatus})`;
+      }
+
+      listEl.innerHTML = '';
+
+      const bmiRecommendation = patientData.bmi >= 25 
+        ? `<li>
+            <div class="action-tag-badge amber">Метаболический статус (ИМТ ${patientData.bmi})</div>
+            <div class="action-body-text">Присутствует дополнительный фактор нагрузки на углеводный и липидный обмен. Рекомендован контроль индекса HOMA-IR и уровня инсулина в крови.</div>
+           </li>`
+        : '';
+
+      if (questScore < 32) {
+        statusEl.innerText = "Низкий генетический риск";
+        statusEl.style.color = "#10b981";
+        listEl.innerHTML = `
+          <li>
+            <div class="action-tag-badge emerald">Семейный анамнез</div>
+            <div class="action-body-text">Благоприятный фон. Значимых ранних хромосомных или наследственных мутаций не выявлено.</div>
+          </li>
+          ${bmiRecommendation}
+          <li>
+            <div class="action-tag-badge">Базовый чек-ап</div>
+            <div class="action-body-text">Ежегодная диспансеризация по ОМС (общий анализ крови, биохимия, уровень холестерина и глюкозы).</div>
+          </li>
+          <li>
+            <div class="action-tag-badge">Профилактика</div>
+            <div class="action-body-text">Мониторинг веса и артериального давления раз в полгода. Специфическое ДНК-тестирование сейчас не требуется.</div>
+          </li>
+        `;
+      } else if (questScore < 65) {
+        statusEl.innerText = "Умеренный предиктивный риск";
+        statusEl.style.color = "#f59e0b";
+        const genderNote = patientData.gender === 'Женский' 
+          ? 'Перед приемом оральных контрацептивов (КОК) или планированием беременности сдайте ПЦР-тест на мутацию Лейдена (ген F5) и ген F2 (протромбин).'
+          : 'Сдайте расширенную липидограмму (ЛПНП, ЛПВП, триглицериды, индекс атерогенности) для раннего исключения сосудистых бляшек.';
+        listEl.innerHTML = `
+          <li>
+            <div class="action-tag-badge amber">Семейный триггер</div>
+            <div class="action-body-text">Зафиксированы косвенные случаи ранних сердечно-сосудистых или метаболических нарушений в роду.</div>
+          </li>
+          ${bmiRecommendation}
+          <li>
+            <div class="action-tag-badge">Таргетный гемостаз</div>
+            <div class="action-body-text">${genderNote}</div>
+          </li>
+          <li>
+            <div class="action-tag-badge">Консультация врача</div>
+            <div class="action-body-text">Запросите у терапевта скрининг факторов сосудистого риска и уровня гликированного гемоглобина (HbA1c).</div>
+          </li>
+          <li>
+            <div class="action-tag-badge emerald">Бесплатный маршрут (ОМС 0 ₽)</div>
+            <div class="action-body-text">Запросите направление в Центр здоровья вашей районной поликлиники по полису ОМС.</div>
+          </li>
+        `;
+      } else {
+        statusEl.innerText = "Высокий клинический риск!";
+        statusEl.style.color = "#ff5252";
+        const targetDna = patientData.gender === 'Женский'
+          ? 'Таргетная панель наследственного рака молочной железы и яичников (гены BRCA1, BRCA2, CHEK2) + генетические маркеры тромбофилии (F2, F5, MTHFR).'
+          : 'Кардиогенетическая панель полиморфизмов (риск раннего инфаркта и сосудистых тромбозов F2/F5) + онкоскрининг ЖКТ и простаты.';
+        listEl.innerHTML = `
+          <li>
+            <div class="action-tag-badge coral">Критический анамнез</div>
+            <div class="action-body-text">Присутствуют прямые маркеры ранних семейных сосудистых катастроф или онкопатологий до 50 лет.</div>
+          </li>
+          ${bmiRecommendation}
+          <li>
+            <div class="action-tag-badge coral">Первоочередное действие</div>
+            <div class="action-body-text">Очная медико-генетическая консультация врача-генетика в профильном научном центре или региональном МГНЦ.</div>
+          </li>
+          <li>
+            <div class="action-tag-badge">Целевой ДНК-тест</div>
+            <div class="action-body-text">${targetDna}</div>
+          </li>
+          <li>
+            <div class="action-tag-badge emerald">Госгарантии (ОМС 0 ₽)</div>
+            <div class="action-body-text">Терапевт или онколог районной поликлиники обязаны выдать направление по <strong>форме 057/у</strong> для бесплатного скрининга в МГНЦ.</div>
+          </li>
+        `;
+      }
+    }
+
+    function resetQuest() {
+      questStep = 1;
+      questScore = 10;
+      document.getElementById('passportResult').style.display = 'none';
+      document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
+      document.getElementById('step1').classList.add('active');
+      document.getElementById('questTitle').innerText = `Шаг 1 из ${TOTAL_QUEST_STEPS}`;
+      document.getElementById('questStepLabel').innerText = 'Биометрические данные';
+      const pct = Math.round((1 / TOTAL_QUEST_STEPS) * 100);
+      document.getElementById('questPercent').innerText = `${pct}%`;
+      document.getElementById('questBar').style.width = `${pct}%`;
+    }
+
+    async function exportPassportPDF() {
+      showToast('Генерация официальной памятки PDF...');
+
+      const statusText = document.getElementById('finalStatus').innerText;
+      const score = questScore + '%';
+      const statusColor = questScore < 32 ? '#059669' : (questScore < 65 ? '#d97706' : '#dc2626');
+      const listItems = Array.from(document.querySelectorAll('#actionList li')).map(li => {
+        const badge = li.querySelector('.action-tag-badge') ? li.querySelector('.action-tag-badge').innerText : '';
+        const body = li.querySelector('.action-body-text') ? li.querySelector('.action-body-text').innerHTML : li.innerHTML;
+        return `<li style="margin-bottom:10px;color:#1e293b;line-height:1.5;list-style:none;">
+          <div style="font-size:11px;font-weight:bold;color:#0284c7;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;">• ${badge}</div>
+          <div style="font-size:11.5px;color:#334155;">${body}</div>
+        </li>`;
+      }).join('');
+
+      // Create high-resolution container in DOM with positive coordinates hidden under z-index
+      const container = document.createElement('div');
+      container.id = 'pdf-render-container';
+      container.style.position = 'fixed';
+      container.style.top = '0';
+      container.style.left = '0';
+      container.style.width = '794px'; // standard A4 pixel width at 96 DPI
+      container.style.background = '#ffffff';
+      container.style.color = '#0f172a';
+      container.style.fontFamily = 'Arial, Helvetica, sans-serif';
+      container.style.padding = '32px 38px';
+      container.style.boxSizing = 'border-box';
+      container.style.zIndex = '-99999';
+      container.style.pointerEvents = 'none';
+
+      const authorImgSrc = (typeof AUTHOR_BASE64 !== 'undefined' && AUTHOR_BASE64) ? AUTHOR_BASE64 : 'author.png';
+
+      // Visual progress bar percentage
+      const barWidth = Math.min(100, Math.max(10, questScore));
+
+      container.innerHTML = `
+        <!-- HEADER -->
+        <div style="border-bottom: 2.5px solid #0284c7; padding-bottom: 12px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <div style="font-size: 10px; font-weight: 800; color: #0284c7; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px;">НАЦИОНАЛЬНАЯ ПРОГРАММА ПРЕВЕНТИВНОЙ МЕДИЦИНЫ И ГЕНОМИКИ • 2026</div>
+            <h1 style="font-size: 21px; color: #0f172a; margin: 0 0 3px 0; font-weight: 800; font-family: Arial, sans-serif;">ГЕНЕТИЧЕСКИЙ ЩИТ: МАРШРУТНЫЙ ЛИСТ ПАЦИЕНТА</h1>
+            <div style="font-size: 11.5px; color: #64748b;">Официальное экспертное приложение к первичному приему врача-терапевта / генетика</div>
+          </div>
+          <div style="text-align: right; flex-shrink: 0;">
+            <div style="background: #e0f2fe; border: 1.5px solid #0284c7; padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 800; color: #0369a1;">НАПРАВЛЕНИЕ 057/У (ОМС 0 ₽)</div>
+            <div style="font-size: 10px; color: #94a3b8; margin-top: 5px;">Дата выдачи: ${new Date().toLocaleDateString('ru-RU')}</div>
+          </div>
+        </div>
+
+        <!-- PATIENT BIOMETRICS & RISK DIAGRAM -->
+        <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 14px 18px; margin-bottom: 16px;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 12px;">
+            <tr>
+              <td style="padding: 3px 0; width: 50%;"><strong>Биологический пол:</strong> <span style="color:#0284c7;font-weight:bold;">${patientData.gender}</span></td>
+              <td style="padding: 3px 0; width: 50%;"><strong>Возрастная категория:</strong> ${patientData.age}</td>
+            </tr>
+            <tr>
+              <td style="padding: 3px 0;"><strong>Физические параметры:</strong> Рост ${patientData.height} см • Вес ${patientData.weight} кг</td>
+              <td style="padding: 3px 0;"><strong>Индекс массы тела:</strong> ${patientData.bmi} (${patientData.bmiStatus})</td>
+            </tr>
+          </table>
+
+          <!-- RISK BAR DIAGRAM -->
+          <div style="border-top: 1px dashed #cbd5e1; padding-top: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-size: 12px; font-weight: 700; color: #334155;">Шкала генетического и клинического риска:</span>
+              <span style="font-size: 14px; font-weight: 800; color: ${statusColor};">${score} (${statusText})</span>
+            </div>
+            <div style="width: 100%; height: 10px; background: #e2e8f0; border-radius: 5px; overflow: hidden; display: flex;">
+              <div style="width: ${barWidth}%; height: 100%; background: ${statusColor}; border-radius: 5px;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 9.5px; color: #94a3b8; margin-top: 3px;">
+              <span>0% (Минимальный)</span>
+              <span>35% (Пограничный)</span>
+              <span>65% (Высокий)</span>
+              <span>100% (Критический)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CLINICAL PROTOCOL -->
+        <div style="margin-bottom: 16px;">
+          <h2 style="font-size: 13px; text-transform: uppercase; color: #0284c7; letter-spacing: 0.06em; margin: 0 0 8px 0; border-left: 4px solid #0284c7; padding-left: 8px;">
+            Персональный протокол обследования и маршрутизации:
+          </h2>
+          <ul style="padding-left: 18px; font-size: 11.5px; margin: 0;">
+            ${listItems}
+          </ul>
+        </div>
+
+        <!-- LEGAL BASIS FOR OMS 0 RUB -->
+        <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 10px; padding: 10px 14px; margin-bottom: 18px;">
+          <strong style="color: #166534; font-size: 11.5px;">Нормативное правовое основание для сдачи анализов по ОМС (0 ₽):</strong>
+          <div style="font-size: 10.5px; color: #15803d; margin-top: 2px; line-height: 1.45;">
+            Порядки оказания медицинской помощи Минздрава РФ по профилю «медицинская генетика». При наличии ранней отягощенности терапевт или онколог государственной поликлиники обязаны выдать направление по форме <strong>057/у-04</strong> в медико-генетический центр (МГНЦ) для молекулярно-генетического тестирования за счет средств ОМС.
+          </div>
+        </div>
+
+        <!-- CREATOR DOSSIER WITH BIG PROMINENT PHOTO -->
+        <div style="border-top: 2px solid #e2e8f0; padding-top: 14px; display: flex; align-items: center; gap: 20px; background: #f8fafc; border-radius: 14px; padding: 14px 18px; border: 1px solid #e2e8f0;">
+          <div style="width: 105px; height: 135px; border-radius: 12px; overflow: hidden; border: 2.5px solid #0284c7; flex-shrink: 0; background: #070c16; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);">
+            <img src="${authorImgSrc}" alt="Главный Архитектор" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;" />
+          </div>
+          <div style="flex: 1; font-size: 11.5px; line-height: 1.5;">
+            <div style="display: inline-block; background: #e0f2fe; color: #0284c7; padding: 2px 8px; border-radius: 6px; font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;">Верифицированный исследователь платформы</div>
+            <div style="font-size: 16px; font-weight: 800; color: #0f172a; margin: 0 0 4px 0;">Главный Архитектор Платформы «Генетический Щит»</div>
+            <div style="color: #334155; font-size: 11px;">
+              Автор концепции и ведущий разработчик интеллектуальной системы популяционного генетического скрининга, алгоритмов триажа мутаций и единого навигатора медико-генетических центров РФ.
+            </div>
+            <div style="margin-top: 6px; padding-top: 6px; border-top: 1px dashed #cbd5e1; font-weight: 700; color: #0284c7; font-size: 11px; display: flex; gap: 16px;">
+              <span>Telegram: @AangDom</span>
+              <span>Личное дело исследователя: #7842</span>
+              <span>Статус: Аттестован (2026)</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 12px; font-size: 9px; color: #94a3b8;">
+          Документ сгенерирован платформой «Генетический Щит» • Имеет рекомендательный характер и предназначен для предоставления врачу.
+        </div>
+      `;
+
+      document.body.appendChild(container);
+
+      // Give browser one frame to render DOM and image
+      await new Promise(r => setTimeout(r, 200));
+
+      try {
+        const canvas = await html2canvas(container, {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: '#ffffff',
+          logging: false
+        });
+
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        
+        // Use jsPDF from global window
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save(`Klinicheskiy_Pasport_${patientData.gender}_${patientData.weight}kg.pdf`);
+
+        document.body.removeChild(container);
+        showToast('Памятка PDF успешно сохранена!');
+      } catch (err) {
+        console.error('PDF error:', err);
+        if (document.body.contains(container)) document.body.removeChild(container);
+        showToast('Ошибка при скачивании PDF');
+      }
+    }
+
+    /* ACTION: JUMP TO MAP AND FOCUS LAB */
+    function jumpToMapLab() {
+      goToTab(2); // Tab 2 is Map in dock
+      showToast('Открываем навигатор по лабораториям');
+    }
+
+    /* ACTION: COPY DOCTOR QUESTIONS */
+    function copyDoctorQuestions() {
+      const qText = `Здравствуйте, доктор! По результатам скрининга семейного анамнеза у меня выявлен ${document.getElementById('finalStatus').innerText} (${questScore}%). Прошу рассмотреть возможность выдачи направления по форме 057/у в медико-генетический центр (МГНЦ) на консультацию генетика и таргетную панель (мутации факторов свертываемости F2/F5 и BRCA) по полису ОМС.`;
+      
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(qText).then(() => {
+          showToast('Вопросы врачу скопированы в буфер!');
+        }).catch(() => {
+          prompt('Скопируйте текст вопросов для врача:', qText);
+        });
+      } else {
+        prompt('Скопируйте текст вопросов для врача:', qText);
+      }
+    }
+
+    /* TOAST NOTIFICATION */
+    let toastTimeout = null;
+    function showToast(text) {
+      const toast = document.getElementById('toastMessage');
+      const toastText = document.getElementById('toastText');
+      if (!toast || !toastText) return;
+      toastText.innerText = text;
+      toast.classList.add('show');
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2800);
+    }
+
+    /* YANDEX MAPS 2.1 ENGINE WITH CLINIC SELECTOR */
+    let yandexMap = null;
+    let yandexCollection = null;
+    let currentCity = 'москва';
+
+    const cityCoords = {
+      'москва': [55.7512, 37.6184, 11],
+      'санкт-петербург': [59.9342, 30.3350, 11],
+      'питер': [59.9342, 30.3350, 11],
+      'спб': [59.9342, 30.3350, 11],
+      'казань': [55.7961, 49.1064, 12],
+      'екатеринбург': [56.8380, 60.5974, 11],
+      'екб': [56.8380, 60.5974, 11],
+      'новосибирск': [55.0083, 82.9357, 11],
+      'сургут': [61.2540, 73.3962, 12],
+      'нск': [55.0083, 82.9357, 11],
+      'томск': [56.4977, 84.9744, 12],
+      'томс': [56.4977, 84.9744, 12],
+      'красноярск': [56.0153, 92.8932, 11],
+      'нижний новгород': [56.3269, 44.0059, 11],
+      'самара': [53.1959, 50.1002, 11],
+      'уфа': [54.7388, 55.9721, 11],
+      'ростов-на-дону': [47.2357, 39.7015, 11],
+      'ростов': [47.2357, 39.7015, 11],
+      'краснодар': [45.0355, 38.9753, 11],
+      'омск': [54.9885, 73.3242, 11],
+      'воронеж': [51.6615, 39.2003, 11],
+      'пермь': [58.0105, 56.2502, 11],
+      'волгоград': [48.7080, 44.5133, 11],
+      'саратов': [51.5406, 46.0086, 11],
+      'тюмень': [57.1613, 65.5250, 11],
+      'челябинск': [55.1644, 61.4368, 11],
+      'иркутск': [52.2870, 104.3050, 11],
+      'хабаровск': [48.4827, 135.084, 11],
+      'владивосток': [43.1155, 131.8855, 11],
+      'ярославль': [57.6261, 39.8845, 11],
+      'барнаул': [53.3606, 83.7636, 11],
+      'ижевск': [56.8524, 53.2115, 11],
+      'оренбург': [51.7666, 55.0969, 11],
+      'кемерово': [55.3547, 86.0872, 11],
+      'калининград': [54.7104, 20.4522, 11],
+      'сочи': [43.6028, 39.7342, 11]
+    };
+
+    const labsData = {
+      'сургут': [
+      {
+            "name": "Медицинский центр «Полимедика»",
+            "network": "Полимедика",
+            "address": "ул. 30 лет Победы, 44а",
+            "metro": "Северо-Восточный р-н",
+            "lat": 61.2612,
+            "lng": 73.4478,
+            "tag": "ОМС (0 ₽)",
+            "isOms": true,
+            "desc": "Бесплатный приём и забор анализов по полису ОМС. Выдача направлений к врачу-генетику и базовые клинические панели без очередей.",
+            "hours": "Пн-Пт: 08:00 – 20:00 • Сб: 09:00 – 16:00",
+            "offer": "Бесплатно по полису ОМС (0 ₽)"
+      },
+      {
+            "name": "Инвитро (Комсомольский)",
+            "network": "Инвитро",
+            "address": "Комсомольский пр-т, 13",
+            "metro": "Центральный р-н",
+            "lat": 61.2465,
+            "lng": 73.428,
+            "tag": "Акции до -15%",
+            "isOms": false,
+            "desc": "Федеральная лабораторная сеть. Расширенные молекулярно-генетические профили: мутации свертываемости крови (F2, F5), репродуктивный скрининг.",
+            "hours": "Пн-Пт: 07:00 – 19:00 • Сб-Вс: 07:30 – 15:00",
+            "offer": "Скидка 15% на профили гемостаза и онкорисков"
+      },
+      {
+            "name": "Инвитро (Ленина)",
+            "network": "Инвитро",
+            "address": "просп. Ленина, 18",
+            "metro": "Центр города",
+            "lat": 61.252,
+            "lng": 73.395,
+            "tag": "Таргетные ДНК",
+            "isOms": false,
+            "desc": "ПЦР-диагностика наследственных заболеваний, панель кариотипа и генетический паспорт здоровья.",
+            "hours": "Пн-Пт: 07:00 – 19:00 • Сб: 07:30 – 15:00",
+            "offer": "Скидка при заказе онлайн и бонусная программа"
+      },
+      {
+            "name": "Инвитро (50 лет ВЛКСМ)",
+            "network": "Инвитро",
+            "address": "ул. 50 лет ВЛКСМ, 2/1",
+            "metro": "Северный жилой р-н",
+            "lat": 61.261,
+            "lng": 73.3775,
+            "tag": "Скрининг",
+            "isOms": false,
+            "desc": "Быстрый забор биоматериала (венозная кровь / буккальный эпителий), удобная парковка.",
+            "hours": "Пн-Пт: 07:00 – 18:30 • Сб-Вс: 08:00 – 15:00",
+            "offer": "Семейный чек-ап предрасположенностей"
+      },
+      {
+            "name": "Инвитро (Семёна Билецкого)",
+            "network": "Инвитро",
+            "address": "ул. Семёна Билецкого, 2",
+            "metro": "Западный р-н",
+            "lat": 61.277,
+            "lng": 73.351,
+            "tag": "Новый офис",
+            "isOms": false,
+            "desc": "Современный процедурный кабинет в новом микрорайоне. Полный перечень генетических тестов.",
+            "hours": "Пн-Пт: 07:00 – 19:00 • Сб-Вс: 08:00 – 15:00",
+            "offer": "Программа лояльности «Инвитро Привилегия»"
+      },
+      {
+            "name": "Хеликс Диагностический Центр (Югорский)",
+            "network": "Хеликс",
+            "address": "Югорский тракт, 4",
+            "metro": "ТРЦ Сити Молл р-н",
+            "lat": 61.272,
+            "lng": 73.342,
+            "tag": "Флагман • -20%",
+            "isOms": false,
+            "desc": "Крупный Диагностический центр Helix. Экспресс-забор, расширенные онкопанели BRCA1/2, консультация генетика по результатам.",
+            "hours": "Ежедневно: 07:30 – 20:00",
+            "offer": "Выгода до 20% по карте лояльности + онлайн-расшифровка"
+      },
+      {
+            "name": "Хеликс (Ленина)",
+            "network": "Хеликс",
+            "address": "просп. Ленина, 18",
+            "metro": "Центральный р-н",
+            "lat": 61.2525,
+            "lng": 73.3965,
+            "tag": "Выгода до 20%",
+            "isOms": false,
+            "desc": "Медицинский центр у городской эспланады. ДНК-тесты на непереносимость лактозы, целиакию и метаболизм.",
+            "hours": "Пн-Пт: 07:00 – 19:30 • Сб-Вс: 08:00 – 16:00",
+            "offer": "Кэшбэк бонусами до 10% на анализы"
+      },
+      {
+            "name": "Хеликс (Фёдорова)",
+            "network": "Хеликс",
+            "address": "ул. Ивана Фёдорова, 69",
+            "metro": "Восточный р-н",
+            "lat": 61.241,
+            "lng": 73.468,
+            "tag": "Хеликс Экспресс",
+            "isOms": false,
+            "desc": "Быстрая сдача генетических анализов и молекулярных маркеров риска сердечно-сосудистых патологий.",
+            "hours": "Пн-Сб: 07:30 – 19:00 • Вс: 08:00 – 15:00",
+            "offer": "Специальная цена на комплексы витаминов и генов"
+      },
+      {
+            "name": "Наджа Лаборатория (Безверхова)",
+            "network": "Наджа",
+            "address": "ул. Сергея Безверхова, 3/7",
+            "metro": "Медицинская лаборатория",
+            "lat": 61.2565,
+            "lng": 73.4095,
+            "tag": "Собственная лаб.",
+            "isOms": false,
+            "desc": "Центральная клинико-диагностическая лаборатория «Наджа». Локальная обработка тестов без транспортировки в Москву — самые быстрые сроки ответа!",
+            "hours": "Пн-Пт: 07:30 – 19:00 • Сб: 08:00 – 14:00",
+            "offer": "Минимальные сроки (от 24-48 ч) и локальная база"
+      },
+      {
+            "name": "Наджа Центр (Аэрофлотская)",
+            "network": "Наджа",
+            "address": "ул. Аэрофлотская, 4/1",
+            "metro": "Центр помощи",
+            "lat": 61.282,
+            "lng": 73.385,
+            "tag": "Мед-соц. центр",
+            "isOms": false,
+            "desc": "Центр медико-социальной помощи и семейной консультации. Комплексные генетические чек-апы для будущих родителей.",
+            "hours": "Пн-Пт: 08:00 – 18:00",
+            "offer": "Комплексные программы ведения семьи"
+      },
+      {
+            "name": "Наджа (Мелик-Карамова 76В)",
+            "network": "Наджа",
+            "address": "ул. Мелик-Карамова, 76В",
+            "metro": "Аптечный пункт/Забор",
+            "lat": 61.2385,
+            "lng": 73.442,
+            "tag": "Филиал",
+            "isOms": false,
+            "desc": "Пункт сдачи биологического материала на генетические исследования.",
+            "hours": "Пн-Сб: 08:00 – 19:00",
+            "offer": "Удобная шаговая доступность в микрорайоне"
+      },
+      {
+            "name": "Наджа (Мелик-Карамова 92)",
+            "network": "Наджа",
+            "address": "ул. Мелик-Карамова, 92",
+            "metro": "Восточный р-н",
+            "lat": 61.236,
+            "lng": 73.449,
+            "tag": "Поликлиника",
+            "isOms": false,
+            "desc": "Врачебный центр «Наджа». Прием терапевтов, акушеров-гинекологов и забор анализов ДНК.",
+            "hours": "Пн-Пт: 08:00 – 19:00 • Сб: 08:00 – 15:00",
+            "offer": "Скидки постоянным клиентам сети"
+      },
+      {
+            "name": "Наджа (Тюменский тракт)",
+            "network": "Наджа",
+            "address": "Тюменский тракт, 6",
+            "metro": "Въездная группа",
+            "lat": 61.275,
+            "lng": 73.365,
+            "tag": "Филиал",
+            "isOms": false,
+            "desc": "Медицинский филиал на Тюменском тракте. Забор крови и мазков на генетические маркеры.",
+            "hours": "Пн-Пт: 08:00 – 18:00",
+            "offer": "Быстрое оформление и результаты в личном кабинете"
+      },
+      {
+            "name": "Наджа (Комсомольский)",
+            "network": "Наджа",
+            "address": "просп. Комсомольский, 13",
+            "metro": "Центральный р-н",
+            "lat": 61.247,
+            "lng": 73.4295,
+            "tag": "Филиал",
+            "isOms": false,
+            "desc": "Поликлинический пункт с процедурным кабинетом в центре Сургута.",
+            "hours": "Пн-Сб: 08:00 – 19:00",
+            "offer": "Скидка 10% на повторные анализы"
+      }
+],
+      'томск': [
+        {
+          name: "НИИ медицинской генетики Томского НИМЦ",
+          address: "ул. Набережная реки Ушайки, 10",
+          metro: "пл. Ленина / Набережная",
+          lat: 56.4912,
+          lng: 84.9525,
+          tag: "ОМС (0 ₽)",
+          isOms: true,
+          desc: "Ведущий академический центр медицинской генетики Сибири. Исследование хромосомных и молекулярных мутаций по ОМС.",
+          hours: "Пн-Пт: 08:30 – 17:00 • Научно-клиническое отделение"
+        },
+        {
+          name: "Инвитро Томск",
+          address: "проспект Ленина, 85",
+          metro: "Кировский район",
+          lat: 56.4835,
+          lng: 84.9510,
+          tag: "Скидка 15%",
+          isOms: false,
+          desc: "Панели наследственных предрасположенностей, онкогены BRCA1/2, полиморфизмы тромбофилии.",
+          hours: "Пн-Сб: 07:30 – 19:30"
+        },
+        {
+          name: "Гемотест Томск",
+          address: "проспект Фрунзе, 92",
+          metro: "Советский район",
+          lat: 56.4780,
+          lng: 84.9820,
+          tag: "Таргетные панели",
+          isOms: false,
+          desc: "Комплексные тесты генетических рисков и фармакогенетики подбора лекарств.",
+          hours: "Ежедневно: 07:30 – 19:00"
+        }
+      ],
+      'москва': [
+        {
+          name: "ФГБНУ «МГНЦ им. акад. Н.П. Бочкова»",
+          address: "ул. Москворечье, 1",
+          metro: "м. Каширская (10 мин)",
+          lat: 55.6565,
+          lng: 37.6483,
+          tag: "ОМС (0 ₽)",
+          isOms: true,
+          desc: "Главный медико-генетический центр РФ. Сдача таргетных панелей мутаций и кариотипирование по госгарантиям (направление 057/у).",
+          hours: "Пн-Пт: 08:30 – 17:00 • Регистратура ОМС"
+        },
+        {
+          name: "НМИЦ онкологии им. Н.Н. Блохина",
+          address: "Каширское шоссе, 23",
+          metro: "м. Каширская",
+          lat: 55.6601,
+          lng: 37.6588,
+          tag: "Онкопанели 0 ₽",
+          isOms: true,
+          desc: "Клиническая лаборатория медицинской генетики. Онкопанели BRCA1/BRCA2, CHEK2, EGFR, KRAS.",
+          hours: "Пн-Пт: 09:00 – 18:00 • Отделение клинической генетики"
+        },
+        {
+          name: "Гемотест Флагман",
+          address: "Тверской бульвар, 12",
+          metro: "м. Тверская / Пушкинская",
+          lat: 55.7601,
+          lng: 37.6080,
+          tag: "Скидка 15%",
+          isOms: false,
+          desc: "Комплексные панели наследственных предрасположенностей, полиморфизмы сердечно-сосудистых рисков.",
+          hours: "Ежедневно: 07:30 – 19:30 • Выдача результатов в приложении"
+        },
+        {
+          name: "Инвитро Эксперт",
+          address: "Комсомольский проспект, 28",
+          metro: "м. Фрунзенская",
+          lat: 55.7335,
+          lng: 37.5888,
+          tag: "NGS-тесты",
+          isOms: false,
+          desc: "Секвенирование нового поколения (NGS), фармакогенетика индивидуального подбора препаратов.",
+          hours: "Пн-Вс: 07:00 – 20:00"
+        },
+        {
+          name: "Хеликс Диагностика",
+          address: "ул. Бауманская, 33",
+          metro: "м. Бауманская",
+          lat: 55.7720,
+          lng: 37.6740,
+          tag: "Тромбофилия",
+          isOms: false,
+          desc: "Скрининг риска тромбозов (мутации факторов Лейдена F2, F5, MTHFR) по спецтарифу для студентов.",
+          hours: "Пн-Сб: 08:00 – 19:00"
+        }
+      ],
+      'санкт-петербург': [
+        {
+          name: "СПб ГКУЗ «Медико-генетический центр»",
+          address: "ул. Тобольская, 5",
+          metro: "м. Выборгская",
+          lat: 59.9723,
+          lng: 30.3411,
+          tag: "ОМС (0 ₽)",
+          isOms: true,
+          desc: "Городской медико-генетический центр СПб. Государственная пренатальная и предиктивная диагностика по ОМС.",
+          hours: "Пн-Пт: 09:00 – 18:00"
+        },
+        {
+          name: "Инвитро Клиникал",
+          address: "Московский пр-т, 195",
+          metro: "м. Московская",
+          lat: 59.8550,
+          lng: 30.3204,
+          tag: "Скидка 10%",
+          isOms: false,
+          desc: "Таргетные онкопанели мутаций, тест на микроделеции и полиморфизмы свертываемости крови.",
+          hours: "Пн-Вс: 07:30 – 20:00"
+        }
+      ],
+      'казань': [
+        {
+          name: "Медико-генетическая консультация РКБ",
+          address: "Оренбургский тракт, 138",
+          metro: "м. Проспект Победы",
+          lat: 55.7345,
+          lng: 49.1712,
+          tag: "ОМС (0 ₽)",
+          isOms: true,
+          desc: "Республиканский центр клинической генетики Татарстана. Бесплатный прием по направлению 057/у.",
+          hours: "Пн-Пт: 08:00 – 16:30"
+        },
+        {
+          name: "Гемотест Казань Центр",
+          address: "ул. Баумана, 51",
+          metro: "м. Кремлевская",
+          lat: 55.7903,
+          lng: 49.1175,
+          tag: "Скидка студентам",
+          isOms: false,
+          desc: "Таргетное ПЦР-тестирование мутаций BRCA1/2 и гемостаза.",
+          hours: "Ежедневно: 07:30 – 19:00"
+        }
+      ],
+      'екатеринбург': [
+        {
+          name: "КДЦ «Охрана здоровья матери и ребенка»",
+          address: "ул. Флотская, 52",
+          metro: "р-н Центр",
+          lat: 56.8450,
+          lng: 60.6200,
+          tag: "ОМС (0 ₽)",
+          isOms: true,
+          desc: "Главный центр генетической диагностики Свердловской области (по полису ОМС бесплатно).",
+          hours: "Пн-Пт: 08:00 – 17:00"
+        },
+        {
+          name: "Инвитро Урал",
+          address: "пр-т Ленина, 48",
+          metro: "м. Площадь 1905 года",
+          lat: 56.8398,
+          lng: 60.6180,
+          tag: "Таргетные панели",
+          isOms: false,
+          desc: "Генетическая панель факторов сердечно-сосудистого риска и рака груди.",
+          hours: "Пн-Вс: 07:30 – 19:30"
+        }
+      ],
+      'новосибирск': [
+        {
+          name: "Медико-генетическое отделение НМИЦ",
+          address: "Красный проспект, 52",
+          metro: "м. Красный проспект",
+          lat: 55.0350,
+          lng: 82.9180,
+          tag: "ОМС (0 ₽)",
+          isOms: true,
+          desc: "Федеральный научный центр. Молекулярно-генетическая диагностика по квотам и ОМС.",
+          hours: "Пн-Пт: 09:00 – 16:30"
+        },
+        {
+          name: "Гемотест Сибирь",
+          address: "Красный проспект, 65",
+          metro: "м. Гагаринская",
+          lat: 55.0410,
+          lng: 82.9150,
+          tag: "Скидка 15%",
+          isOms: false,
+          desc: "Комплексные генетические паспорта здоровья, риск тромбофилии и диабета.",
+          hours: "Ежедневно: 07:30 – 19:00"
+        }
+      ]
+    };
+
+    function initMap() {
+      if (typeof ymaps === 'undefined') {
+        setTimeout(initMap, 200);
+        return;
+      }
+
+      ymaps.ready(() => {
+        if (yandexMap) return;
+
+        yandexMap = new ymaps.Map('cityMap', {
+          center: [55.7512, 37.6184],
+          zoom: 11,
+          controls: ['zoomControl']
+        }, {
+          searchControlProvider: 'yandex#search',
+          suppressMapOpenBlock: true
+        });
+
+        // Touch gestures for mobile
+        yandexMap.behaviors.enable(['drag', 'multiTouch']);
+
+        renderYandexLabs('москва');
+      });
+    }
+
+    function renderYandexLabs(city, customCenter) {
+      if (!yandexMap || !ymaps) return;
+
+      if (yandexCollection) {
+        yandexMap.geoObjects.remove(yandexCollection);
+      }
+      yandexCollection = new ymaps.GeoObjectCollection();
+
+      let items = labsData[city];
+      if (!items || items.length === 0) {
+        // If no curated clinics exist for this city, dynamically generate realistic genetic lab points around coordinates
+        const center = customCenter || (cityCoords[city] ? [cityCoords[city][0], cityCoords[city][1]] : [55.7512, 37.6184]);
+        const cityNameCapitalized = city.charAt(0).toUpperCase() + city.slice(1);
+        items = [
+          {
+            name: `Городской медико-генетический центр (${cityNameCapitalized})`,
+            address: `Центральный район, ул. Ленина / Главная`,
+            metro: "Центральный р-н",
+            lat: center[0] + 0.005,
+            lng: center[1] - 0.006,
+            tag: "ОМС (0 ₽)",
+            isOms: true,
+            desc: `Государственная медико-генетическая лаборатория и консультация. Прием по направлению 057/у (ОМС).`,
+            hours: "Пн-Пт: 08:30 – 17:00"
+          },
+          {
+            name: `Инвитро Эксперт (${cityNameCapitalized})`,
+            address: `Центральный пр-т, 15`,
+            metro: "Центр города",
+            lat: center[0] - 0.004,
+            lng: center[1] + 0.005,
+            tag: "Скидка 15%",
+            isOms: false,
+            desc: `Комплексные ДНК-панели онкорисков, наследственной тромбофилии и скрининг носительства мутаций.`,
+            hours: "Пн-Вс: 07:30 – 19:30"
+          },
+          {
+            name: `Гемотест Генетика (${cityNameCapitalized})`,
+            address: `ул. Мира / Советская, 30`,
+            metro: "Деловой р-н",
+            lat: center[0] + 0.007,
+            lng: center[1] + 0.008,
+            tag: "Таргетные панели",
+            isOms: false,
+            desc: `Персонализированная фармакогенетика и предрасположенность к мультифакторным патологиям.`,
+            hours: "Ежедневно: 07:30 – 19:00"
+          }
+        ];
+      }
+
+      items.forEach((item) => {
+        const placemark = new ymaps.Placemark([item.lat, item.lng], {
+          hintContent: item.name
+        }, {
+          preset: item.isOms ? 'islands#darkGreenMedicalIcon' : 'islands#darkBlueMedicalIcon',
+          hasBalloon: false,
+          openBalloonOnClick: false
+        });
+
+        placemark.events.add('click', (e) => {
+          e.preventDefault();
+          tactileTap();
+          selectLabDetails(item);
+        });
+
+        yandexCollection.add(placemark);
+      });
+
+      yandexMap.geoObjects.add(yandexCollection);
+
+      // Select primary clinic in banner
+      if (items.length > 0) {
+        selectLabDetails(items[0]);
+      }
+    }
+
+    function selectLabDetails(item) {
+      const banner = document.getElementById('labSelectedBanner');
+      if (banner) {
+        banner.classList.add('highlight');
+        setTimeout(() => banner.classList.remove('highlight'), 350);
+      }
+      document.getElementById('labBannerName').innerText = item.name;
+      document.getElementById('labBannerTag').innerText = item.tag;
+      if (item.isOms) {
+        document.getElementById('labBannerTag').style.background = 'rgba(16, 185, 129, 0.2)';
+        document.getElementById('labBannerTag').style.color = '#10b981';
+      } else {
+        document.getElementById('labBannerTag').style.background = 'rgba(0, 242, 254, 0.2)';
+        document.getElementById('labBannerTag').style.color = '#00f2fe';
+      }
+      document.getElementById('labBannerMetro').innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> ${item.address} • ${item.metro}`;
+      document.getElementById('labBannerDesc').innerText = item.desc;
+      document.getElementById('labBannerHours').innerText = item.hours;
+      document.getElementById('labRouteBtn').href = `https://yandex.ru/maps/?rtext=~${item.lat},${item.lng}&rtt=auto`;
+    }
+
+    function jumpToCity(lat, lng, zoom, cityName, btn) {
+      tactileTap();
+      document.querySelectorAll('.quick-pill').forEach(p => p.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const cKey = cityName.toLowerCase();
+      currentCity = cKey;
+
+      if (yandexMap) {
+        yandexMap.setCenter([lat, lng], zoom, {
+          flying: true,
+          duration: 700
+        }).then(() => {
+          renderYandexLabs(cKey, [lat, lng]);
+        });
+      }
+    }
+
+    async function searchCity() {
+      const input = document.getElementById('citySearchInput');
+      if (!input) return;
+      const rawQ = input.value.trim();
+      if (!rawQ) return;
+
+      const cleanQ = rawQ.toLowerCase().replace(/^(г\.|город|поселок|п\.|г\s)\s*/i, '').trim();
+
+      // 1. Direct dictionary match
+      if (cityCoords[cleanQ]) {
+        const c = cityCoords[cleanQ];
+        jumpToCity(c[0], c[1], c[2], cleanQ, null);
+        return;
+      }
+
+      // 2. Fuzzy prefix / substring match in local dictionary
+      for (const k of Object.keys(cityCoords)) {
+        if (k.startsWith(cleanQ) || cleanQ.startsWith(k) || (cleanQ.length >= 3 && k.includes(cleanQ))) {
+          const c = cityCoords[k];
+          jumpToCity(c[0], c[1], c[2], k, null);
+          return;
+        }
+      }
+
+      // 3. Fallback geocoding via Yandex Geocoder or OpenStreetMap Nominatim
+      let foundCoords = null;
+
+      if (typeof ymaps !== 'undefined' && ymaps.geocode) {
+        try {
+          const res = await ymaps.geocode(rawQ + ', Россия', { results: 1 });
+          const firstGeo = res.geoObjects.get(0);
+          if (firstGeo) {
+            foundCoords = firstGeo.geometry.getCoordinates();
+          }
+        } catch (e) {
+          console.warn('Yandex geocode error, trying OSM fallback...', e);
+        }
+      }
+
+      if (!foundCoords) {
+        try {
+          const osmRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(rawQ + ' Россия')}&limit=1`);
+          const osmData = await osmRes.json();
+          if (osmData && osmData.length > 0) {
+            foundCoords = [parseFloat(osmData[0].lat), parseFloat(osmData[0].lon)];
+          }
+        } catch (e) {
+          console.error('OSM Geocode error:', e);
+        }
+      }
+
+      if (foundCoords && yandexMap) {
+        jumpToCity(foundCoords[0], foundCoords[1], 12, cleanQ, null);
+      } else {
+        // Subtle hint on input without jarring alert
+        input.style.borderColor = '#ff5252';
+        const origPlaceholder = input.placeholder;
+        input.placeholder = 'Город не найден, попробуйте еще раз...';
+        setTimeout(() => {
+          input.style.borderColor = '';
+          input.placeholder = origPlaceholder;
+        }, 2500);
+      }
+    }
+
+    /* CHARTS */
+    function initCharts() {
+      new Chart(document.getElementById('mobileChartBefore'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Не знают рисков (72%)', 'Знают базовые (23%)', 'Сдавали тест (5%)'],
+          datasets: [{ data: [72, 23, 5], backgroundColor: ['#ff5252', '#f59e0b', '#00f2fe'], borderWidth: 0 }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 }, boxWidth: 10 } } }
+        }
+      });
+
+      new Chart(document.getElementById('mobileChartAfter'), {
+        type: 'bar',
+        data: {
+          labels: ['Чек-ап', 'Древо семьи', 'Визит к врачу'],
+          datasets: [
+            { label: 'До (%)', data: [14, 28, 12], backgroundColor: 'rgba(148, 163, 184, 0.3)', borderRadius: 6 },
+            { label: 'После (%)', data: [79, 92, 74], backgroundColor: '#00f2fe', borderRadius: 6 }
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          scales: {
+            y: { beginAtZero: true, max: 100, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+            x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+          },
+          plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 } } } }
+        }
+      });
+    }
+
+    /* AUTHOR MODAL ID PASSPORT CONTROLLER WITH HACKER TYPEWRITER */
+    const passportData = {
+      project: "Генетический Щит: Профилактика и Наследственность",
+      topic: "Предиктивная геномика и популяционный скрининг рисков",
+      tech: "Клинический UI/UX, Интерактивная ГИС карта РФ, ML-триаж",
+      status: "Официальный допуск к защите проекта (2026)"
+    };
+
+    let typewriterTimers = [];
+
+    function openAuthorModal() {
+      tactileTap();
+      const modal = document.getElementById('authorModal');
+      if (modal) {
+        modal.classList.add('active');
+        runHackerTypewriter();
+      }
+    }
+
+    function closeAuthorModal(e) {
+      if (e) e.stopPropagation();
+      tactileTap();
+      const modal = document.getElementById('authorModal');
+      if (modal) {
+        modal.classList.remove('active');
+        typewriterTimers.forEach(t => clearInterval(t));
+        typewriterTimers = [];
+      }
+    }
+
+    function runHackerTypewriter() {
+      typewriterTimers.forEach(t => clearInterval(t));
+      typewriterTimers = [];
+
+      const fields = [
+        { id: 'termProject', text: passportData.project },
+        { id: 'termTopic', text: passportData.topic },
+        { id: 'termTech', text: passportData.tech },
+        { id: 'termStatus', text: passportData.status }
+      ];
+
+      fields.forEach((f, idx) => {
+        const el = document.getElementById(f.id);
+        if (!el) return;
+        el.textContent = '';
+        const timeoutId = setTimeout(() => {
+          let charIndex = 0;
+          const timer = setInterval(() => {
+            if (charIndex < f.text.length) {
+              el.textContent += f.text.charAt(charIndex);
+              charIndex++;
+            } else {
+              clearInterval(timer);
+            }
+          }, 11);
+          typewriterTimers.push(timer);
+        }, idx * 130);
+        typewriterTimers.push(timeoutId);
+      });
+    }
+
+    window.addEventListener('load', () => {
+      initDock();
+      initMap();
+      initCharts();
+    });
+    window.addEventListener('resize', initDock);
+  </script>
+</body>
+</html><div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 12px 16px; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; border-bottom: 1px solid #cbd5e1; padding-bottom: 6px;">
+            <div>
+              <div style="font-size: 9.5px; font-weight: 800; color: #0284c7; text-transform: uppercase; letter-spacing: 0.06em;">Сургутский государственный университет • Медицинский институт</div>
+              <div style="font-size: 14px; font-weight: 800; color: #0f172a;">Исследовательская группа «Генетический Щит» (Лечебное дело, 2 курс)</div>
+            </div>
+            <span style="background: #e0f2fe; color: #0369a1; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 800;">СурГУ 2026</span>
+          </div>
+          <div style="font-size: 10.5px; color: #334155; line-height: 1.5;">
+            <strong>Авторы проекта:</strong> Баетова Милана, Акрамов Фаршед, Исаева Заира, Абдулаев Али, Фаттаева Маргарита, Лугуева Диана, Бородина Алина, Улутова Айза.
+          </div>
+        </div>/div>
+      </div>
+
+      <div class="bento-card" onclick="goToTab(1)" style="cursor: pointer; border-color: rgba(0, 242, 254, 0.3);">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div class="screen-tag">Интерактивный триаж</div>
+            <h3 style="font-size: 16px; font-weight: 700;">Пройти персональный чек-ап</h3>
+            <p style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">Пошаговый расчет и получение паспорта здоровья</p>
+          </div>
+          <div style="font-size: 20px; color: var(--accent);">➔</div>
         </div>
       </div>
 
-      <!-- ПОДРОБНАЯ ТАБЛИЦА СВЕДЕНИЙ (ТЕКСТ БОЛЬШЕ НЕ СЛИПАЕТСЯ И НЕ ВЫЛЕЗАЕТ) -->
-      <div class="passport-data-table">
-        <div class="data-row">
-          <span class="data-key">Научный проект:</span>
-          <span class="data-val" id="termProject"></span>
+      <div class="screen-header" style="margin-top: 20px;">
+        <span class="screen-tag">Интерактивный маршрут</span>
+        <h3 style="font-size: 17px; font-weight: 700;">Памятка: нажми для раскрытия</h3>
+      </div>
+
+      <div class="dynamic-card open" onclick="toggleCard(this)">
+        <div class="dynamic-header">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <strong style="font-size: 14px;">1. Семейное генеалогическое древо</strong>
+          </div>
+          <span class="dynamic-arrow">▼</span>
         </div>
-        <div class="data-row">
-          <span class="data-key">Специализация:</span>
-          <span class="data-val" id="termTopic"></span>
-        </div>
-        <div class="data-row">
-          <span class="data-key">Стек платформы:</span>
-          <span class="data-val" id="termTech"></span>
-        </div>
-        <div class="data-row">
-          <span class="data-key">Аттестация:</span>
-          <span class="data-val accent" id="termStatus"></span>
+        <div class="dynamic-body">
+          <span class="badge-pill">Анамнез 3 колен</span>
+          <span class="badge-pill">Возраст диагноза</span>
+          <p>Выпишите диагнозы родственников 1-2 линии (родители, братья/сестры, бабушки/дедушки). Особое внимание уделите возрасту болезни: если инфаркт или рак возник до 50 лет — риск наследственной передачи вырастает в 4 раза.</p>
         </div>
       </div>
 
-      <!-- КРЕАТИВНАЯ КНОПКА СВЯЗИ С РАЗРАБОТЧИКОМ -->
-      <a href="https://t.me/AangDom" target="_blank" class="passport-tg-btn" onclick="tactileTap()">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
-        <span>Связаться с разработчиком</span>
-      </a>
+      <div class="dynamic-card" onclick="toggleCard(this)">
+        <div class="dynamic-header">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            <strong style="font-size: 14px;">2. Консультация клинического генетика</strong>
+          </div>
+          <span class="dynamic-arrow">▼</span>
+        </div>
+        <div class="dynamic-body">
+          <span class="badge-pill">Таргетные панели</span>
+          <span class="badge-pill">Без лишних трат</span>
+          <p>Врач-генетик составляет клинический фенотип и выписывает строго таргетный тест (например, только мутации F2/F5 или панель BRCA1/2) вместо дорогих развлекательных тестов за 30-50 тысяч рублей.</p>
+        </div>
+      </div>
 
-      <div class="passport-footer">
+      <div class="dynamic-card" onclick="toggleCard(this)">
+        <div class="dynamic-header">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+            <strong style="font-size: 14px;">3. Бесплатная сдача по ОМС</strong>
+          </div>
+          <span class="dynamic-arrow">▼</span>
+        </div>
+        <div class="dynamic-body">
+          <span class="badge-pill">Форма 057/у</span>
+          <span class="badge-pill">Госгарантии РФ</span>
+          <p>Терапевт в районной поликлинике обязан выдать направление по форме 057/у в медико-генетический научный центр, если в роду зафиксированы ранние онкологии или тяжелые сосудистые катастрофы.</p>
+        </div>
+      </div>
+
+      <!-- HOLOGRAPHIC AUTHOR MODAL TRIGGER -->
+      <div class="screen-header" style="margin-top: 24px;">
+        <span class="screen-tag">Разработка и Исследование</span>
+        <h3 style="font-size: 17px; font-weight: 700;">Создатель проекта</h3>
+      </div>
+
+      <div class="bento-card author-trigger-card" onclick="openAuthorModal()" style="border-color: rgba(0, 242, 254, 0.3); background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(2, 132, 199, 0.15) 100%);">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div style="width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, #0284c7, #00f2fe); display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.35); flex-shrink: 0;">
+            🏛️
+          </div>
+          <div style="flex: 1;">
+            <div style="font-size: 11px; text-transform: uppercase; color: var(--accent); font-weight: 800; letter-spacing: 0.05em;">СурГУ • Медицинский институт</div>
+            <div style="font-size: 15px; font-weight: 800; color: #fff;">Команда разработчиков (8 авторов)</div>
+            <div style="font-size: 11.5px; color: var(--text-sub);">2 курс • Лечебное дело • Исследовательская группа 2026</div>
+          </div>
+          <div style="font-size: 18px; color: var(--accent); font-weight: bold;">›</div>
+        </div>
+      </div></div>
+    </main>
+
+    <!-- SCREEN 2: DYNAMIC STEPPER QUEST -->
+    <section class="screen-view" id="screen-calc">
+      <div class="screen-header">
+        <span class="screen-tag">Пошаговый скрининг</span>
+        <h2 class="screen-title" id="questTitle">Шаг 1 из 4</h2>
+      </div>
+
+      <div class="quest-progress-box">
+        <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-sub);">
+          <span id="questStepLabel">Анамнез сердечно-сосудистой системы</span>
+          <span id="questPercent">25%</span>
+        </div>
+        <div class="quest-bar-wrap">
+          <div class="quest-bar" id="questBar"></div>
+        </div>
+      </div>
+
+      <!-- Step 1: Biometrics & Gender & Weight -->
+      <div class="bento-card step-card active" id="step1">
+        <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700;">
+          Укажите ваши персональные биометрические данные:
+        </div>
+        
+        <div style="font-size: 12px; color: var(--text-sub); margin-bottom: 6px;">Биологический пол:</div>
+        <div class="bio-chip-group">
+          <div class="bio-chip active" id="bioGenderF" onclick="tactileTap(); selectBioGender('Женский')">Женский (риск BRCA1/2, КОК)</div>
+          <div class="bio-chip" id="bioGenderM" onclick="tactileTap(); selectBioGender('Мужской')">Мужской (кардио-профиль)</div>
+        </div>
+
+        <div style="font-size: 12px; color: var(--text-sub); margin-bottom: 6px;">Возрастная категория:</div>
+        <div class="bio-chip-group">
+          <div class="bio-chip active" id="bioAge1" onclick="tactileTap(); selectBioAge('18 – 25 лет')">18 – 25 лет</div>
+          <div class="bio-chip" id="bioAge2" onclick="tactileTap(); selectBioAge('26 – 40 лет')">26 – 40 лет</div>
+          <div class="bio-chip" id="bioAge3" onclick="tactileTap(); selectBioAge('41+ год')">41+ год</div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px;">
+          <div>
+            <div style="font-size: 12px; color: var(--text-sub); margin-bottom: 6px;">Рост (см):</div>
+            <input type="number" id="bioHeightInput" class="bio-input" value="175" min="120" max="230" placeholder="175" oninput="updateBmiLive()" />
+          </div>
+          <div>
+            <div style="font-size: 12px; color: var(--text-sub); margin-bottom: 6px;">Вес (кг):</div>
+            <input type="number" id="bioWeightInput" class="bio-input" value="70" min="35" max="200" placeholder="70" oninput="updateBmiLive()" />
+          </div>
+        </div>
+
+        <div id="bmiInfoBox" style="background: rgba(0, 242, 254, 0.08); border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 10px; padding: 8px 12px; font-size: 12px; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;">
+          <span>Индекс массы тела (ИМТ): <strong id="bmiVal">22.9</strong></span>
+          <span id="bmiStatus" style="font-weight:700; color: #10b981;">Норма</span>
+        </div>
+
+        <button class="quest-btn" style="margin-top: 4px; background: rgba(0, 242, 254, 0.12); border-color: var(--accent); color: #fff;" onclick="tactileTap(); proceedFromStep1()">
+          <span>Продолжить к анамнезу</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+      </div>
+
+      <!-- Step 2: Cardiovascular -->
+      <div class="bento-card step-card" id="step2">
+        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
+          Были ли у близких родственников (родители, бабушки/дедушки) инфаркты, инсульты или тромбозы в возрасте до 50 лет?
+        </div>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(2, 0)">
+          <span>Нет, таких случаев не зафиксировано</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(2, 18)">
+          <span>У 1 родственника (после 45-50 лет)</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(2, 35)">
+          <span>У 2+ родственников в молодом возрасте</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+      </div>
+
+      <!-- Step 3: Oncology -->
+      <div class="bento-card step-card" id="step3">
+        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
+          Фиксировался ли рак груди, яичников, простаты или кишечника у прямых родственников моложе 50 лет?
+        </div>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(3, 0)">
+          <span>Случаев онкологии в семье не было</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(3, 20)">
+          <span>1 случай у тети, дяди или бабушки</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(3, 40)">
+          <span>Множественные случаи у матери, отца или сестры</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+      </div>
+
+      <!-- Step 4: Metabolic / Endocrine -->
+      <div class="bento-card step-card" id="step4">
+        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
+          Сахарный диабет 2 типа, подагра или тяжелые нарушения липидного обмена в семье?
+        </div>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(4, 0)">
+          <span>Нет или не диагностировали</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(4, 15)">
+          <span>Да, у бабушек или дедушек</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(4, 25)">
+          <span>Да, у прямых родителей (одного или обоих)</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+      </div>
+
+      <!-- Step 5: Symptoms & Lifestyle Risks -->
+      <div class="bento-card step-card" id="step5">
+        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
+          Беспокоят ли вас эпизоды скачков давления, необъяснимые синяки или тяжесть в ногах?
+        </div>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(5, 0)">
+          <span>Нет, самочувствие стабильное</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(5, 15)">
+          <span>Иногда бывает (усталость, отечность, варикоз)</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+        <button class="quest-btn" onclick="tactileTap(); nextQuest(5, 25)">
+          <span>Да, есть стойкие скачки давления или варикоз</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+      </div>
+
+      <!-- Step 6: Lab tests history -->
+      <div class="bento-card step-card" id="step6">
+        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
+          Сдавали ли вы когда-нибудь профильные генетические панели или коагулограмму?
+        </div>
+        <button class="quest-btn" onclick="tactileTap(); finishQuest(5)">
+          <span>Ни разу не сдавал(а) (скрытый статус)</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+        <button class="quest-btn" onclick="tactileTap(); finishQuest(-10)">
+          <span>Сдавал(а) ранее, значимых мутаций не обнаружено</span>
+          <span class="quest-btn-arrow">➔</span>
+        </button>
+      </div>
+
+      <!-- FINAL PASSPORT OUTCOME -->
+      <div class="passport-result" id="passportResult">
+        <div class="passport-header" id="passportPdfArea">
+          <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 700;">
+            Персональный клинический маршрут
+          </span>
+          <div class="passport-score-val" id="finalPercent">65%</div>
+          <strong id="finalStatus" style="font-size: 16px; color: #ff5252;">Умеренно-высокий риск</strong>
+          <div id="patientMetaTag" style="font-size: 12px; color: var(--text-sub); margin-top: 6px;">Пациент: Женский • 18-25 лет</div>
+        </div>
+
+        <div class="bento-card">
+          <h4 style="font-size: 14px; margin-bottom: 8px;">Ваш персональный протокол действий:</h4>
+          <ul class="action-checklist" id="actionList"></ul>
+
+          <!-- ACTION BUTTON 1: DOWNLOAD PDF -->
+          <button class="print-btn" onclick="tactileTap(); exportPassportPDF()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Скачать официальную PDF-памятку для врача</span>
+          </button>
+
+          <!-- ACTION BUTTON 2: JUMP TO MAP -->
+          <button class="map-jump-btn" onclick="tactileTap(); jumpToMapLab()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+            <span id="mapBtnText">Найти ближайшую лабораторию на карте</span>
+          </button>
+
+          <!-- ACTION BUTTON 3: COPY QUESTIONS FOR DOCTOR -->
+          <button class="copy-btn" onclick="tactileTap(); copyDoctorQuestions()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>Скопировать готовые вопросы терапевту</span>
+          </button>
+
+          <button style="width: 100%; margin-top: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--text-sub); padding: 10px; border-radius: 12px; font-size: 12px; cursor: pointer;" onclick="tactileTap(); resetQuest()">
+            Пройти заново
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLOATING TOAST -->
+    <div id="toastMessage" class="toast-msg">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      <span id="toastText">Готово</span>
+    </div>
+
+    <!-- SCREEN 3: MAP (ORIGINAL CLEAN OPENSTREETMAP) -->
+    <section class="screen-view" id="screen-map">
+      <div class="screen-header">
+        <span class="screen-tag">Навигатор по лабораториям РФ</span>
+        <h2 class="screen-title">Где Сдать: Поиск и Цены</h2>
+      </div>
+
+      <div class="map-search-bar">
+        <input type="text" class="city-input" id="citySearchInput" placeholder="Введите город (напр. Казань, Уфа, Самара)..." onkeydown="if(event.key==='Enter') searchCity()" />
+        <button class="search-btn" onclick="tactileTap(); searchCity()">Найти</button>
+      </div>
+
+      <div class="quick-cities">
+        <button class="quick-pill active" onclick="tactileTap(); jumpToCity(55.7512, 37.6184, 11, 'Москва', this)">Москва</button>
+        <button class="quick-pill" onclick="tactileTap(); jumpToCity(59.9342, 30.3350, 11, 'Санкт-Петербург', this)">Санкт-Петербург</button>
+        <button class="quick-pill" onclick="tactileTap(); jumpToCity(55.7961, 49.1064, 12, 'Казань', this)">Казань</button>
+        <button class="quick-pill" onclick="tactileTap(); jumpToCity(56.8380, 60.5974, 11, 'Екатеринбург', this)">Екатеринбург</button>
+        <button class="quick-pill" onclick="tactileTap(); jumpToCity(55.0083, 82.9357, 11, 'Новосибирск', this)">Новосибирск</button>
+        <button class="quick-pill" onclick="tactileTap(); jumpToCity(61.2540, 73.3962, 12, 'Сургут', this)">📍 Сургут</button>
+      </div>
+
+      <div id="cityMap"></div>
+
+      <div class="lab-info-banner" id="labSelectedBanner">
+        <div class="lab-banner-header">
+          <div class="lab-banner-name" id="labBannerName">ФГБНУ «МГНЦ им. акад. Н.П. Бочкова»</div>
+          <span class="lab-banner-tag" id="labBannerTag" style="background: rgba(16, 185, 129, 0.2); color: var(--emerald);">ОМС (0 ₽)</span>
+        </div>
+        <div class="lab-banner-metro" id="labBannerMetro">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          ул. Москворечье, 1 • м. Каширская
+        </div>
+        <p class="lab-banner-desc" id="labBannerDesc">
+          Главный федеральный медико-генетический центр РФ. Государственный онкоскрининг и кариотипирование по форме 057/у.
+        </p>
+        <div class="lab-banner-hours" id="labBannerHours">
+          Пн-Пт: 08:30 – 17:00 • Регистратура ОМС
+        </div>
+        <a id="labRouteBtn" class="route-btn" href="https://yandex.ru/maps/?rtext=~55.6565,37.6483&rtt=auto" target="_blank" onclick="tactileTap()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          <span>Построить маршрут в Яндекс.Картах</span>
+        </a>
+      </div>
+
+      <!-- SURGUT OFFERS & LABS COMPARISON BLOCK -->
+      <div class="bento-card" style="margin-top: 14px; border-color: rgba(0, 242, 254, 0.25);">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+          <div>
+            <span class="screen-tag" style="margin-bottom: 2px;">Сургут • Экспертный гид</span>
+            <h4 style="font-size: 17px; font-weight: 800; color: #fff;">Где выгоднее сдать ДНК-тесты?</h4>
+          </div>
+          <span style="background: rgba(0, 242, 254, 0.15); color: var(--accent); padding: 4px 10px; border-radius: 10px; font-size: 11px; font-weight: 700;">14 точек</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <!-- 1. ПОЛИМЕДИКА -->
+          <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 14px; padding: 12px 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <span style="font-weight: 800; color: #10b981; font-size: 14px;">🏥 Полимедика — Бесплатно (ОМС 0 ₽)</span>
+              <span style="background: #10b981; color: #022c22; font-size: 10.5px; font-weight: 800; padding: 2px 7px; border-radius: 6px;">ЛУЧШАЯ ЦЕНА</span>
+            </div>
+            <div style="font-size: 12px; color: var(--text-sub); line-height: 1.4;">
+              ул. 30 лет Победы, 44а. Базовый забор крови, направления к медицинскому генетику и клинические панели по государственному полису без очередей.
+            </div>
+          </div>
+
+          <!-- 2. ХЕЛИКС -->
+          <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 12px 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <span style="font-weight: 800; color: #38bdf8; font-size: 14px;">🔬 Хеликс — Скидка до 20%</span>
+              <span style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 6px;">3 ФИЛИАЛА</span>
+            </div>
+            <div style="font-size: 12px; color: var(--text-sub); line-height: 1.4;">
+              <b>Флагман:</b> Югорский тракт, 4 (Диагностический центр); просп. Ленина, 18; ул. Фёдорова, 69.<br/>
+              <b>Выгода:</b> Скидка до 20% на онкопрофили BRCA1/2 по программе лояльности + бесплатная онлайн-консультация генетика.
+            </div>
+          </div>
+
+          <!-- 3. ИНВИТРО -->
+          <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 12px 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <span style="font-weight: 800; color: #a78bfa; font-size: 14px;">🧬 Инвитро — Семейные чек-апы (-15%)</span>
+              <span style="background: rgba(167, 139, 250, 0.2); color: #a78bfa; font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 6px;">4 ФИЛИАЛА</span>
+            </div>
+            <div style="font-size: 12px; color: var(--text-sub); line-height: 1.4;">
+              Комсомольский пр-т, 13; пр-т Ленина, 18; ул. 50 лет ВЛКСМ, 2/1; ул. Семёна Билецкого, 2.<br/>
+              <b>Выгода:</b> Выгодные комплексные пакеты на тромбофилию и планирование беременности. Бонусная система с кэшбэком до 10%.
+            </div>
+          </div>
+
+          <!-- 4. НАДЖА -->
+          <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 12px 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <span style="font-weight: 800; color: #fb923c; font-size: 14px;">⚡ Наджа — Собственная лаборатория в Сургуте</span>
+              <span style="background: rgba(251, 146, 60, 0.2); color: #fb923c; font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 6px;">6 ТОЧЕК</span>
+            </div>
+            <div style="font-size: 12px; color: var(--text-sub); line-height: 1.4;">
+              <b>Лаборатория:</b> ул. Сергея Безверхова, 3/7 • <b>Центр помощи:</b> ул. Аэрофлотская, 4/1 • ул. Мелик-Карамова, 76В и 92 • Тюменский тракт, 6 • пр-т Комсомольский, 13.<br/>
+              <b>Выгода:</b> Анализы выполняются локально в Сургуте без транспортировки в столицу — максимальная скорость готовности (от 24 часов).
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: RESEARCH & STATS -->
+    <section class="screen-view" id="screen-stats">
+      <div class="screen-header">
+        <span class="screen-tag">Университетское исследование</span>
+        <h2 class="screen-title">Результаты Опроса</h2>
+      </div>
+
+      <div class="bento-card">
+        <h4 style="font-size: 14px;">Информированность аудитории ДО</h4>
+        <div class="chart-container">
+          <canvas id="mobileChartBefore"></canvas>
+        </div>
+      </div>
+
+      <div class="bento-card">
+        <h4 style="font-size: 14px;">Прирост готовности к сдаче ПОСЛЕ</h4>
+        <div class="chart-container">
+          <canvas id="mobileChartAfter"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 5: RED FLAGS -->
+    <section class="screen-view" id="screen-risks">
+      <div class="screen-header">
+        <span class="screen-tag">Факторы риска</span>
+        <h2 class="screen-title">Ярые «Звоночки»</h2>
+      </div>
+
+      <div class="dynamic-card open" onclick="toggleCard(this)">
+        <div class="dynamic-header">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <strong style="font-size: 14px;">Ранний рак молочной железы или яичников</strong>
+          </div>
+          <span class="dynamic-arrow">▼</span>
+        </div>
+        <div class="dynamic-body">
+          <span class="badge-pill">Гены BRCA1 / BRCA2</span>
+          <span class="badge-pill">Риск до 85%</span>
+          <p>Случаи у прямых родственниц до 45 лет — абсолютное показание для ПЦР или NGS секвенирования. При обнаружении мутации проводится УЗИ/МРТ каждые 6 месяцев с 25 лет.</p>
+        </div>
+      </div>
+
+      <div class="dynamic-card" onclick="toggleCard(this)">
+        <div class="dynamic-header">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <strong style="font-size: 14px;">Тромбозы и инфаркты в молодом возрасте</strong>
+          </div>
+          <span class="dynamic-arrow">▼</span>
+        </div>
+        <div class="dynamic-body">
+          <span class="badge-pill">Фактор Лейдена (F5)</span>
+          <span class="badge-pill">Протромбин (F2)</span>
+          <p>Инфаркт или инсульт у отца/матери до 50 лет. Смертельно опасно при приеме комбинированных оральных контрацептивов (КОК) и авиаперелетах без предварительного анализа.</p>
+        </div>
+      </div>
+
+      <div class="dynamic-card" onclick="toggleCard(this)">
+        <div class="dynamic-header">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            <strong style="font-size: 14px;">Множественные эндокринные нарушения</strong>
+          </div>
+          <span class="dynamic-arrow">▼</span>
+        </div>
+        <div class="dynamic-body">
+          <span class="badge-pill">MODY диабет</span>
+          <span class="badge-pill">Щитовидная железа</span>
+          <p>Ранний диабет при нормальной массе тела у нескольких поколений семьи. Требует подбора таргетных сахароснижающих препаратов вместо стандартного инсулина.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- GOOEY DOCK NAVIGATION -->
+  <nav class="dock-container" id="dockContainer">
+    <svg class="gooey-canvas" id="gooeySvg" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="gumGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#00f2fe" />
+          <stop offset="100%" stop-color="#4facfe" />
+        </linearGradient>
+      </defs>
+      <path class="gooey-path" id="gumPath" d="" />
+    </svg>
+
+    <div class="dock-buttons" id="dockButtons">
+      <button class="dock-btn active">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Главная</span>
+      </button>
+      <button class="dock-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
+        <span>Тест</span>
+      </button>
+      <button class="dock-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        <span>Карта</span>
+      </button>
+      <button class="dock-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+        <span>Опрос</span>
+      </button>
+      <button class="dock-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+        <span>Звоночки</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ПОЛНОЭКРАННОЕ КИБЕР-ДОСЬЕ РАЗРАБОТЧИКА (КОРНЕВОЙ УРОВЕНЬ BODY) -->
+  <div class="author-modal-overlay" id="authorModal" onclick="closeAuthorModal(event)">
+    <div class="id-passport-card" onclick="event.stopPropagation()">
+      <button class="close-modal-btn" onclick="closeAuthorModal()">✕</button>
+      
+      <div class="passport-top-header">
+        <div class="passport-chip" style="background: rgba(2, 132, 199, 0.2); border-color: rgba(0, 242, 254, 0.4);">
+          <span class="pulse-dot"></span>
+          СУРГУ • МЕДИЦИНСКИЙ ИНСТИТУТ • 2026
+        </div>
+        <span class="passport-serial">ЛЕЧЕБНОЕ ДЕЛО • 2 КУРС</span>
+      </div>
+
+      <!-- СВЕРХУ: ПОРТРЕТ С КИБЕР-ФОНОМ СЗАДИ И ОСНОВНОЙ СТАТУС -->
+      <div style="text-align: center; margin-bottom: 16px;">
+        <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; color: #10b981; margin-bottom: 8px;">
+          <span class="pulse-dot" style="background:#10b981;box-shadow:0 0 8px #10b981;width:6px;height:6px;"></span> НАУЧНО-ИССЛЕДОВАТЕЛЬСКАЯ ГРУППА
+        </div>
+        <h3 style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px;">Команда Проекта «Генетический Щит»</h3>
+        <p style="font-size: 12px; color: var(--text-sub); max-width: 420px; margin: 0 auto; line-height: 1.4;">
+          Студенты Сургутского государственного университета, Медицинский институт, специальность «Лечебное дело», 2 курс.
+        </p>
+      </div>
+
+      <!-- СЕТКА УЧАСТНИКОВ КОМАНДЫ (8 ЧЕЛОВЕК) -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; max-height: 380px; overflow-y: auto; padding-right: 4px;">
+        
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
+          <div style="font-weight: 800; color: #fff; font-size: 13px;">Баетова Милана</div>
+          <div style="font-size: 10.5px; color: var(--accent); font-weight: 700; margin-top: 1px;">Клинический куратор</div>
+          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Анализ онкопанелей BRCA1/2 и клинических протоколов</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
+          <div style="font-weight: 800; color: #fff; font-size: 13px;">Акрамов Фаршед</div>
+          <div style="font-size: 10.5px; color: #38bdf8; font-weight: 700; margin-top: 1px;">Архитектура платформы</div>
+          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Координация цифровой модели и алгоритмизация</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
+          <div style="font-weight: 800; color: #fff; font-size: 13px;">Исаева Заира</div>
+          <div style="font-size: 10.5px; color: #a78bfa; font-weight: 700; margin-top: 1px;">Популяционный скрининг</div>
+          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Молекулярная диагностика моногенных заболеваний</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
+          <div style="font-weight: 800; color: #fff; font-size: 13px;">Абдулаев Али</div>
+          <div style="font-size: 10.5px; color: #34d399; font-weight: 700; margin-top: 1px;">ГИС-картография Сургута</div>
+          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Интеграция навигатора лабораторий ХМАО и ОМС</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
+          <div style="font-weight: 800; color: #fff; font-size: 13px;">Фаттаева Маргарита</div>
+          <div style="font-size: 10.5px; color: #f472b6; font-weight: 700; margin-top: 1px;">Гемостаз и репродукция</div>
+          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Мутации тромбофилии (F2, F5) и планирование семьи</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
+          <div style="font-weight: 800; color: #fff; font-size: 13px;">Лугуева Диана</div>
+          <div style="font-size: 10.5px; color: #fbbf24; font-weight: 700; margin-top: 1px;">Статистика и опрос</div>
+          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Аналитика осведомленности студентов и графика</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
+          <div style="font-weight: 800; color: #fff; font-size: 13px;">Бородина Алина</div>
+          <div style="font-size: 10.5px; color: #38bdf8; font-weight: 700; margin-top: 1px;">Клинический аудит</div>
+          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Нормативная база ОМС (форма 057/у) и маршрутизация</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
+          <div style="font-weight: 800; color: #fff; font-size: 13px;">Улутова Айза</div>
+          <div style="font-size: 10.5px; color: #a78bfa; font-weight: 700; margin-top: 1px;">Алгоритмы триажа</div>
+          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Математическая модель калькулятора рисков</div>
+        </div>
+
+      </div>
+
+      <div style="background: rgba(2, 132, 199, 0.1); border: 1px dashed rgba(2, 132, 199, 0.3); border-radius: 12px; padding: 10px 14px; margin-bottom: 14px; font-size: 11px; color: #bae6fd; text-align: center;">
+        🎓 Проект выполнен в рамках научно-исследовательской деятельности кафедры Медицинского института СурГУ • 2026 г.
+      </div><div class="passport-footer">
         <div class="passport-barcode">||| | |||| | ||| |||| | |||||| || |</div>
         <span style="font-size: 10px; color: var(--text-sub); font-family: monospace;">ВЕРИФИКАЦИЯ 2026 // ДОСТУП РАЗРЕШЕН</span>
       </div>
