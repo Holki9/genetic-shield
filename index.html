@@ -1556,145 +1556,138 @@
 
   <!-- ПОЛНОЭКРАННОЕ КИБЕР-ДОСЬЕ РАЗРАБОТЧИКА (КОРНЕВОЙ УРОВЕНЬ BODY) -->
   <div class="author-modal-overlay" id="authorModal" onclick="closeAuthorModal(event)">
-    <div class="id-passport-card" onclick="event.stopPropagation()" style="padding: 20px 16px; border-radius: 24px; max-width: 410px;">
+    <div class="id-passport-card" onclick="event.stopPropagation()" style="background: #0f172a; border: 1px solid rgba(255, 255, 255, 0.1); padding: 24px 20px; border-radius: 20px; max-width: 420px; box-shadow: 0 20px 50px rgba(0,0,0,0.6);">
       
-      <!-- MINIMAL CLEAN HEADER -->
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 10px;">
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <span style="font-size: 20px;">🏛️</span>
-          <div>
-            <div style="font-size: 14px; font-weight: 800; color: #fff; line-height: 1.2;">СурГУ • Мединститут</div>
-            <div style="font-size: 11px; color: var(--accent); font-weight: 600;">2 курс • Лечебное дело • 2026</div>
-          </div>
+      <!-- HEADER -->
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px;">
+        <div>
+          <div style="font-size: 15px; font-weight: 700; color: #ffffff; letter-spacing: -0.01em;">СурГУ • Медицинский институт</div>
+          <div style="font-size: 12px; color: #94a3b8; margin-top: 2px;">2 курс • Лечебное дело • 2026 г.</div>
         </div>
-        <button class="close-modal-btn" onclick="closeAuthorModal()" style="position: static; width: 32px; height: 32px; background: rgba(255, 255, 255, 0.08); border-radius: 50%; border: none; color: #fff; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center;">✕</button>
+        <button class="close-modal-btn" onclick="closeAuthorModal()" style="position: static; width: 28px; height: 28px; background: rgba(255, 255, 255, 0.06); border-radius: 50%; border: none; color: #94a3b8; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;">✕</button>
       </div>
 
       <!-- TITLE -->
-      <div style="text-align: center; margin-bottom: 12px;">
-        <h3 style="font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 3px;">Команда проекта</h3>
-        <p style="font-size: 11px; color: var(--text-sub);">Нажмите на имя, чтобы узнать вклад в проект</p>
+      <div style="margin-bottom: 16px;">
+        <div style="font-size: 13px; font-weight: 600; color: #e2e8f0; text-transform: uppercase; letter-spacing: 0.05em;">Авторы проекта</div>
+        <div style="font-size: 11.5px; color: #64748b; margin-top: 2px;">Нажмите на строку, чтобы увидеть направление работы</div>
       </div>
 
-      <!-- CLEAN INTERACTIVE LIST -->
-      <div style="display: flex; flex-direction: column; gap: 7px; max-height: 60vh; overflow-y: auto; padding-right: 2px;">
+      <!-- UNIFORM CLEAN LIST (ALL IDENTICAL, NO RAINBOW COLORS) -->
+      <div style="display: flex; flex-direction: column; gap: 8px; max-height: 58vh; overflow-y: auto; padding-right: 2px;">
 
         <!-- 1 -->
-        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px; cursor: pointer; transition: all 0.2s;">
+        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 12px 14px; cursor: pointer; transition: all 0.15s;">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-weight: 700; font-size: 13.5px; color: #fff;">Баетова Милана</span>
-            <div style="display: flex; align-items: center; gap: 6px;">
-              <span style="font-size: 11px; color: var(--accent); font-weight: 600;">Клинический куратор</span>
-              <span class="chip-chevron" style="font-size: 10px; color: var(--text-sub); transition: transform 0.2s;">▼</span>
+            <span style="font-weight: 600; font-size: 13.5px; color: #f8fafc;">Баетова Милана</span>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 12px; color: #94a3b8;">Клинический куратор</span>
+              <span class="chip-chevron" style="font-size: 9px; color: #64748b; transition: transform 0.2s;">▼</span>
             </div>
           </div>
-          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.08); font-size: 11px; color: var(--text-sub); line-height: 1.4;">
-            Анализ клинических рекомендаций Минздрава РФ, онкопанелей BRCA1/2 и верификация алгоритмов скрининга.
+          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 11.5px; color: #94a3b8; line-height: 1.45;">
+            Анализ клинических протоколов, онкопанелей BRCA1/2 и верификация алгоритмов скрининга.
           </div>
         </div>
 
         <!-- 2 -->
-        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px; cursor: pointer; transition: all 0.2s;">
+        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 12px 14px; cursor: pointer; transition: all 0.15s;">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-weight: 700; font-size: 13.5px; color: #fff;">Акрамов Фаршед</span>
-            <div style="display: flex; align-items: center; gap: 6px;">
-              <span style="font-size: 11px; color: #38bdf8; font-weight: 600;">Архитектор платформы</span>
-              <span class="chip-chevron" style="font-size: 10px; color: var(--text-sub); transition: transform 0.2s;">▼</span>
+            <span style="font-weight: 600; font-size: 13.5px; color: #f8fafc;">Акрамов Фаршед</span>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 12px; color: #94a3b8;">Архитектор платформы</span>
+              <span class="chip-chevron" style="font-size: 9px; color: #64748b; transition: transform 0.2s;">▼</span>
             </div>
           </div>
-          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.08); font-size: 11px; color: var(--text-sub); line-height: 1.4;">
+          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 11.5px; color: #94a3b8; line-height: 1.45;">
             Координация разработки веб-платформы, интерактивной математической модели и интеграция разделов.
           </div>
         </div>
 
         <!-- 3 -->
-        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px; cursor: pointer; transition: all 0.2s;">
+        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 12px 14px; cursor: pointer; transition: all 0.15s;">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-weight: 700; font-size: 13.5px; color: #fff;">Исаева Заира</span>
-            <div style="display: flex; align-items: center; gap: 6px;">
-              <span style="font-size: 11px; color: #a78bfa; font-weight: 600;">Популяционный скрининг</span>
-              <span class="chip-chevron" style="font-size: 10px; color: var(--text-sub); transition: transform 0.2s;">▼</span>
+            <span style="font-weight: 600; font-size: 13.5px; color: #f8fafc;">Исаева Заира</span>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 12px; color: #94a3b8;">Популяционный скрининг</span>
+              <span class="chip-chevron" style="font-size: 9px; color: #64748b; transition: transform 0.2s;">▼</span>
             </div>
           </div>
-          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.08); font-size: 11px; color: var(--text-sub); line-height: 1.4;">
+          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 11.5px; color: #94a3b8; line-height: 1.45;">
             Исследование частоты носительства моногенных заболеваний (муковисцидоз CFTR, фенилкетонурия, СМА).
           </div>
         </div>
 
         <!-- 4 -->
-        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px; cursor: pointer; transition: all 0.2s;">
+        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 12px 14px; cursor: pointer; transition: all 0.15s;">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-weight: 700; font-size: 13.5px; color: #fff;">Абдулаев Али</span>
-            <div style="display: flex; align-items: center; gap: 6px;">
-              <span style="font-size: 11px; color: #34d399; font-weight: 600;">ГИС-навигатор Сургута</span>
-              <span class="chip-chevron" style="font-size: 10px; color: var(--text-sub); transition: transform 0.2s;">▼</span>
+            <span style="font-weight: 600; font-size: 13.5px; color: #f8fafc;">Абдулаев Али</span>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 12px; color: #94a3b8;">ГИС-навигатор Сургута</span>
+              <span class="chip-chevron" style="font-size: 9px; color: #64748b; transition: transform 0.2s;">▼</span>
             </div>
           </div>
-          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.08); font-size: 11px; color: var(--text-sub); line-height: 1.4;">
-            Сбор и картографирование лабораторий Сургута (Хеликс, Инвитро, Полимедика, Наджа) и маршрутов ОМС.
+          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 11.5px; color: #94a3b8; line-height: 1.45;">
+            Картографирование лабораторий Сургута (Хеликс, Инвитро, Полимедика, Наджа) и маршрутизация по ОМС.
           </div>
         </div>
 
         <!-- 5 -->
-        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px; cursor: pointer; transition: all 0.2s;">
+        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 12px 14px; cursor: pointer; transition: all 0.15s;">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-weight: 700; font-size: 13.5px; color: #fff;">Фаттаева Маргарита</span>
-            <div style="display: flex; align-items: center; gap: 6px;">
-              <span style="font-size: 11px; color: #f472b6; font-weight: 600;">Гемостаз и репродукция</span>
-              <span class="chip-chevron" style="font-size: 10px; color: var(--text-sub); transition: transform 0.2s;">▼</span>
+            <span style="font-weight: 600; font-size: 13.5px; color: #f8fafc;">Фаттаева Маргарита</span>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 12px; color: #94a3b8;">Гемостаз и репродукция</span>
+              <span class="chip-chevron" style="font-size: 9px; color: #64748b; transition: transform 0.2s;">▼</span>
             </div>
           </div>
-          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.08); font-size: 11px; color: var(--text-sub); line-height: 1.4;">
-            Формирование профилей наследственных тромбофилий (F2, F5 Leiden) для профилактики тромбозов и ведения беременности.
+          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 11.5px; color: #94a3b8; line-height: 1.45;">
+            Профили наследственных тромбофилий (мутации факторов свертывания F2, F5 Leiden) и профилактика рисков.
           </div>
         </div>
 
         <!-- 6 -->
-        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px; cursor: pointer; transition: all 0.2s;">
+        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 12px 14px; cursor: pointer; transition: all 0.15s;">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-weight: 700; font-size: 13.5px; color: #fff;">Лугуева Диана</span>
-            <div style="display: flex; align-items: center; gap: 6px;">
-              <span style="font-size: 11px; color: #fbbf24; font-weight: 600;">Статистика и аналитика</span>
-              <span class="chip-chevron" style="font-size: 10px; color: var(--text-sub); transition: transform 0.2s;">▼</span>
+            <span style="font-weight: 600; font-size: 13.5px; color: #f8fafc;">Лугуева Диана</span>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 12px; color: #94a3b8;">Статистика и аналитика</span>
+              <span class="chip-chevron" style="font-size: 9px; color: #64748b; transition: transform 0.2s;">▼</span>
             </div>
           </div>
-          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.08); font-size: 11px; color: var(--text-sub); line-height: 1.4;">
-            Обработка социологического опроса студентов СурГУ и построение диаграмм осведомленности.
+          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 11.5px; color: #94a3b8; line-height: 1.45;">
+            Обработка социологического опроса студентов СурГУ и анализ осведомленности о генетических рисках.
           </div>
         </div>
 
         <!-- 7 -->
-        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px; cursor: pointer; transition: all 0.2s;">
+        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 12px 14px; cursor: pointer; transition: all 0.15s;">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-weight: 700; font-size: 13.5px; color: #fff;">Бородина Алина</span>
-            <div style="display: flex; align-items: center; gap: 6px;">
-              <span style="font-size: 11px; color: #38bdf8; font-weight: 600;">Клинический аудит</span>
-              <span class="chip-chevron" style="font-size: 10px; color: var(--text-sub); transition: transform 0.2s;">▼</span>
+            <span style="font-weight: 600; font-size: 13.5px; color: #f8fafc;">Бородина Алина</span>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 12px; color: #94a3b8;">Клинический аудит</span>
+              <span class="chip-chevron" style="font-size: 9px; color: #64748b; transition: transform 0.2s;">▼</span>
             </div>
           </div>
-          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.08); font-size: 11px; color: var(--text-sub); line-height: 1.4;">
-            Правовые аспекты медико-генетического консультирования, маршрутизация по ОМС и форма 057/у.
+          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 11.5px; color: #94a3b8; line-height: 1.45;">
+            Нормативно-правовая база медико-генетического консультирования и маршрутизация по ОМС (057/у).
           </div>
         </div>
 
         <!-- 8 -->
-        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px; cursor: pointer; transition: all 0.2s;">
+        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 12px 14px; cursor: pointer; transition: all 0.15s;">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-weight: 700; font-size: 13.5px; color: #fff;">Улутова Айза</span>
-            <div style="display: flex; align-items: center; gap: 6px;">
-              <span style="font-size: 11px; color: #a78bfa; font-weight: 600;">Алгоритмы триажа</span>
-              <span class="chip-chevron" style="font-size: 10px; color: var(--text-sub); transition: transform 0.2s;">▼</span>
+            <span style="font-weight: 600; font-size: 13.5px; color: #f8fafc;">Улутова Айза</span>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 12px; color: #94a3b8;">Алгоритмы триажа</span>
+              <span class="chip-chevron" style="font-size: 9px; color: #64748b; transition: transform 0.2s;">▼</span>
             </div>
           </div>
-          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.08); font-size: 11px; color: var(--text-sub); line-height: 1.4;">
-            Разработка балльной шкалы оценки генетических факторов риска и триажа пациентов.
+          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 11.5px; color: #94a3b8; line-height: 1.45;">
+            Разработка балльной шкалы оценки генетических факторов риска и математической модели калькулятора.
           </div>
         </div>
 
-      </div>
-
-      <div style="margin-top: 10px; text-align: center; font-size: 10px; color: var(--text-sub);">
-        Медицинский институт СурГУ • 2026 г.
       </div>
 
     </div>
@@ -2984,8 +2977,8 @@
       const isOpen = detail.style.display === 'block';
       detail.style.display = isOpen ? 'none' : 'block';
       if (chevron) chevron.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
-      el.style.borderColor = isOpen ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 242, 254, 0.35)';
-      el.style.background = isOpen ? 'rgba(255, 255, 255, 0.03)' : 'rgba(0, 242, 254, 0.06)';
+      el.style.borderColor = isOpen ? 'rgba(255, 255, 255, 0.06)' : 'rgba(255, 255, 255, 0.18)';
+      el.style.background = isOpen ? 'rgba(255, 255, 255, 0.02)' : 'rgba(255, 255, 255, 0.05)';
     }
 
     function openAuthorModal() {
