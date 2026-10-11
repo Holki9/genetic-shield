@@ -1556,87 +1556,147 @@
 
   <!-- ПОЛНОЭКРАННОЕ КИБЕР-ДОСЬЕ РАЗРАБОТЧИКА (КОРНЕВОЙ УРОВЕНЬ BODY) -->
   <div class="author-modal-overlay" id="authorModal" onclick="closeAuthorModal(event)">
-    <div class="id-passport-card" onclick="event.stopPropagation()">
-      <button class="close-modal-btn" onclick="closeAuthorModal()">✕</button>
+    <div class="id-passport-card" onclick="event.stopPropagation()" style="padding: 20px 16px; border-radius: 24px; max-width: 410px;">
       
-      <div class="passport-top-header">
-        <div class="passport-chip" style="background: rgba(2, 132, 199, 0.2); border-color: rgba(0, 242, 254, 0.4);">
-          <span class="pulse-dot"></span>
-          СУРГУ • МЕДИЦИНСКИЙ ИНСТИТУТ • 2026
+      <!-- MINIMAL CLEAN HEADER -->
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 10px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 20px;">🏛️</span>
+          <div>
+            <div style="font-size: 14px; font-weight: 800; color: #fff; line-height: 1.2;">СурГУ • Мединститут</div>
+            <div style="font-size: 11px; color: var(--accent); font-weight: 600;">2 курс • Лечебное дело • 2026</div>
+          </div>
         </div>
-        <span class="passport-serial">ЛЕЧЕБНОЕ ДЕЛО • 2 КУРС</span>
+        <button class="close-modal-btn" onclick="closeAuthorModal()" style="position: static; width: 32px; height: 32px; background: rgba(255, 255, 255, 0.08); border-radius: 50%; border: none; color: #fff; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center;">✕</button>
       </div>
 
-      <!-- СВЕРХУ: ПОРТРЕТ С КИБЕР-ФОНОМ СЗАДИ И ОСНОВНОЙ СТАТУС -->
-      <div style="text-align: center; margin-bottom: 16px;">
-        <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; color: #10b981; margin-bottom: 8px;">
-          <span class="pulse-dot" style="background:#10b981;box-shadow:0 0 8px #10b981;width:6px;height:6px;"></span> НАУЧНО-ИССЛЕДОВАТЕЛЬСКАЯ ГРУППА
-        </div>
-        <h3 style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px;">Команда Проекта «Генетический Щит»</h3>
-        <p style="font-size: 12px; color: var(--text-sub); max-width: 420px; margin: 0 auto; line-height: 1.4;">
-          Студенты Сургутского государственного университета, Медицинский институт, специальность «Лечебное дело», 2 курс.
-        </p>
+      <!-- TITLE -->
+      <div style="text-align: center; margin-bottom: 12px;">
+        <h3 style="font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 3px;">Команда проекта</h3>
+        <p style="font-size: 11px; color: var(--text-sub);">Нажмите на имя, чтобы узнать вклад в проект</p>
       </div>
 
-      <!-- СЕТКА УЧАСТНИКОВ КОМАНДЫ (8 ЧЕЛОВЕК) -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; max-height: 380px; overflow-y: auto; padding-right: 4px;">
-        
-        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
-          <div style="font-weight: 800; color: #fff; font-size: 13px;">Баетова Милана</div>
-          <div style="font-size: 10.5px; color: var(--accent); font-weight: 700; margin-top: 1px;">Клинический куратор</div>
-          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Анализ онкопанелей BRCA1/2 и клинических протоколов</div>
+      <!-- CLEAN INTERACTIVE LIST -->
+      <div style="display: flex; flex-direction: column; gap: 7px; max-height: 60vh; overflow-y: auto; padding-right: 2px;">
+
+        <!-- 1 -->
+        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px; cursor: pointer; transition: all 0.2s;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 700; font-size: 13.5px; color: #fff;">Баетова Милана</span>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 11px; color: var(--accent); font-weight: 600;">Клинический куратор</span>
+              <span class="chip-chevron" style="font-size: 10px; color: var(--text-sub); transition: transform 0.2s;">▼</span>
+            </div>
+          </div>
+          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.08); font-size: 11px; color: var(--text-sub); line-height: 1.4;">
+            Анализ клинических рекомендаций Минздрава РФ, онкопанелей BRCA1/2 и верификация алгоритмов скрининга.
+          </div>
         </div>
 
-        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
-          <div style="font-weight: 800; color: #fff; font-size: 13px;">Акрамов Фаршед</div>
-          <div style="font-size: 10.5px; color: #38bdf8; font-weight: 700; margin-top: 1px;">Архитектура платформы</div>
-          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Координация цифровой модели и алгоритмизация</div>
+        <!-- 2 -->
+        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px; cursor: pointer; transition: all 0.2s;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 700; font-size: 13.5px; color: #fff;">Акрамов Фаршед</span>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 11px; color: #38bdf8; font-weight: 600;">Архитектор платформы</span>
+              <span class="chip-chevron" style="font-size: 10px; color: var(--text-sub); transition: transform 0.2s;">▼</span>
+            </div>
+          </div>
+          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.08); font-size: 11px; color: var(--text-sub); line-height: 1.4;">
+            Координация разработки веб-платформы, интерактивной математической модели и интеграция разделов.
+          </div>
         </div>
 
-        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
-          <div style="font-weight: 800; color: #fff; font-size: 13px;">Исаева Заира</div>
-          <div style="font-size: 10.5px; color: #a78bfa; font-weight: 700; margin-top: 1px;">Популяционный скрининг</div>
-          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Молекулярная диагностика моногенных заболеваний</div>
+        <!-- 3 -->
+        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px; cursor: pointer; transition: all 0.2s;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 700; font-size: 13.5px; color: #fff;">Исаева Заира</span>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 11px; color: #a78bfa; font-weight: 600;">Популяционный скрининг</span>
+              <span class="chip-chevron" style="font-size: 10px; color: var(--text-sub); transition: transform 0.2s;">▼</span>
+            </div>
+          </div>
+          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.08); font-size: 11px; color: var(--text-sub); line-height: 1.4;">
+            Исследование частоты носительства моногенных заболеваний (муковисцидоз CFTR, фенилкетонурия, СМА).
+          </div>
         </div>
 
-        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
-          <div style="font-weight: 800; color: #fff; font-size: 13px;">Абдулаев Али</div>
-          <div style="font-size: 10.5px; color: #34d399; font-weight: 700; margin-top: 1px;">ГИС-картография Сургута</div>
-          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Интеграция навигатора лабораторий ХМАО и ОМС</div>
+        <!-- 4 -->
+        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px; cursor: pointer; transition: all 0.2s;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 700; font-size: 13.5px; color: #fff;">Абдулаев Али</span>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 11px; color: #34d399; font-weight: 600;">ГИС-навигатор Сургута</span>
+              <span class="chip-chevron" style="font-size: 10px; color: var(--text-sub); transition: transform 0.2s;">▼</span>
+            </div>
+          </div>
+          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.08); font-size: 11px; color: var(--text-sub); line-height: 1.4;">
+            Сбор и картографирование лабораторий Сургута (Хеликс, Инвитро, Полимедика, Наджа) и маршрутов ОМС.
+          </div>
         </div>
 
-        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
-          <div style="font-weight: 800; color: #fff; font-size: 13px;">Фаттаева Маргарита</div>
-          <div style="font-size: 10.5px; color: #f472b6; font-weight: 700; margin-top: 1px;">Гемостаз и репродукция</div>
-          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Мутации тромбофилии (F2, F5) и планирование семьи</div>
+        <!-- 5 -->
+        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px; cursor: pointer; transition: all 0.2s;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 700; font-size: 13.5px; color: #fff;">Фаттаева Маргарита</span>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 11px; color: #f472b6; font-weight: 600;">Гемостаз и репродукция</span>
+              <span class="chip-chevron" style="font-size: 10px; color: var(--text-sub); transition: transform 0.2s;">▼</span>
+            </div>
+          </div>
+          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.08); font-size: 11px; color: var(--text-sub); line-height: 1.4;">
+            Формирование профилей наследственных тромбофилий (F2, F5 Leiden) для профилактики тромбозов и ведения беременности.
+          </div>
         </div>
 
-        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
-          <div style="font-weight: 800; color: #fff; font-size: 13px;">Лугуева Диана</div>
-          <div style="font-size: 10.5px; color: #fbbf24; font-weight: 700; margin-top: 1px;">Статистика и опрос</div>
-          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Аналитика осведомленности студентов и графика</div>
+        <!-- 6 -->
+        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px; cursor: pointer; transition: all 0.2s;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 700; font-size: 13.5px; color: #fff;">Лугуева Диана</span>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 11px; color: #fbbf24; font-weight: 600;">Статистика и аналитика</span>
+              <span class="chip-chevron" style="font-size: 10px; color: var(--text-sub); transition: transform 0.2s;">▼</span>
+            </div>
+          </div>
+          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.08); font-size: 11px; color: var(--text-sub); line-height: 1.4;">
+            Обработка социологического опроса студентов СурГУ и построение диаграмм осведомленности.
+          </div>
         </div>
 
-        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
-          <div style="font-weight: 800; color: #fff; font-size: 13px;">Бородина Алина</div>
-          <div style="font-size: 10.5px; color: #38bdf8; font-weight: 700; margin-top: 1px;">Клинический аудит</div>
-          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Нормативная база ОМС (форма 057/у) и маршрутизация</div>
+        <!-- 7 -->
+        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px; cursor: pointer; transition: all 0.2s;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 700; font-size: 13.5px; color: #fff;">Бородина Алина</span>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 11px; color: #38bdf8; font-weight: 600;">Клинический аудит</span>
+              <span class="chip-chevron" style="font-size: 10px; color: var(--text-sub); transition: transform 0.2s;">▼</span>
+            </div>
+          </div>
+          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.08); font-size: 11px; color: var(--text-sub); line-height: 1.4;">
+            Правовые аспекты медико-генетического консультирования, маршрутизация по ОМС и форма 057/у.
+          </div>
         </div>
 
-        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px;">
-          <div style="font-weight: 800; color: #fff; font-size: 13px;">Улутова Айза</div>
-          <div style="font-size: 10.5px; color: #a78bfa; font-weight: 700; margin-top: 1px;">Алгоритмы триажа</div>
-          <div style="font-size: 10px; color: var(--text-sub); margin-top: 2px;">Математическая модель калькулятора рисков</div>
+        <!-- 8 -->
+        <div class="team-chip-item" onclick="toggleMember(this)" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 10px 12px; cursor: pointer; transition: all 0.2s;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 700; font-size: 13.5px; color: #fff;">Улутова Айза</span>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 11px; color: #a78bfa; font-weight: 600;">Алгоритмы триажа</span>
+              <span class="chip-chevron" style="font-size: 10px; color: var(--text-sub); transition: transform 0.2s;">▼</span>
+            </div>
+          </div>
+          <div class="chip-detail" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.08); font-size: 11px; color: var(--text-sub); line-height: 1.4;">
+            Разработка балльной шкалы оценки генетических факторов риска и триажа пациентов.
+          </div>
         </div>
 
       </div>
 
-      <div style="background: rgba(2, 132, 199, 0.1); border: 1px dashed rgba(2, 132, 199, 0.3); border-radius: 12px; padding: 10px 14px; margin-bottom: 14px; font-size: 11px; color: #bae6fd; text-align: center;">
-        🎓 Проект выполнен в рамках научно-исследовательской деятельности кафедры Медицинского института СурГУ • 2026 г.
-      </div><div class="passport-footer">
-        <div class="passport-barcode">||| | |||| | ||| |||| | |||||| || |</div>
-        <span style="font-size: 10px; color: var(--text-sub); font-family: monospace;">ВЕРИФИКАЦИЯ 2026 // ДОСТУП РАЗРЕШЕН</span>
+      <div style="margin-top: 10px; text-align: center; font-size: 10px; color: var(--text-sub);">
+        Медицинский институт СурГУ • 2026 г.
       </div>
+
     </div>
   </div>
 
@@ -2914,6 +2974,19 @@
     };
 
     let typewriterTimers = [];
+
+    
+    function toggleMember(el) {
+      tactileTap();
+      const detail = el.querySelector('.chip-detail');
+      const chevron = el.querySelector('.chip-chevron');
+      if (!detail) return;
+      const isOpen = detail.style.display === 'block';
+      detail.style.display = isOpen ? 'none' : 'block';
+      if (chevron) chevron.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+      el.style.borderColor = isOpen ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 242, 254, 0.35)';
+      el.style.background = isOpen ? 'rgba(255, 255, 255, 0.03)' : 'rgba(0, 242, 254, 0.06)';
+    }
 
     function openAuthorModal() {
       tactileTap();
