@@ -2656,10 +2656,13 @@
       document.getElementById('questBar').style.width = `${pct}%`;
     }
 
-    async 
     /* =====================================================================
        SURVEY / ANKETA ENGINE (15 QUESTIONS - SURGU MEDICAL INSTITUTE 2026)
        ===================================================================== */
+    window.TOTAL_SURVEY_STEPS = 15;
+    window.currentSurveyStep = 1;
+    window.surveyUserAnswers = {};
+    window.surveyTotalScore = 0;
     const TOTAL_SURVEY_STEPS = 15;
     let currentSurveyStep = 1;
     let surveyUserAnswers = {};
@@ -3033,6 +3036,8 @@
     }
 
     /* YANDEX MAPS 2.1 ENGINE WITH CLINIC SELECTOR */
+    window.yandexMap = null;
+    window.yandexCollection = null;
     let yandexMap = null;
     let yandexCollection = null;
     let currentCity = 'москва';
