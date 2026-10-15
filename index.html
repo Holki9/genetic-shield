@@ -2115,23 +2115,23 @@
     </svg>
 
     <div class="dock-buttons" id="dockButtons">
-      <button class="dock-btn active">
+      <button class="dock-btn active" onclick="goToTab(0)">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         <span>Главная</span>
       </button>
-      <button class="dock-btn">
+      <button class="dock-btn" onclick="goToTab(1)">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
-        <span>Тест</span>
+        <span>Анкета</span>
       </button>
-      <button class="dock-btn">
+      <button class="dock-btn" onclick="goToTab(2)">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
         <span>Карта</span>
       </button>
-      <button class="dock-btn">
+      <button class="dock-btn" onclick="goToTab(3)">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
         <span>Опрос</span>
       </button>
-      <button class="dock-btn">
+      <button class="dock-btn" onclick="goToTab(4)">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
         <span>Звоночки</span>
       </button>
@@ -2841,7 +2841,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function exportPassportPDF() {
+    async function exportPassportPDF() {
       showToast('Генерация официальной памятки PDF...');
 
       const statusText = document.getElementById('finalStatus').innerText;
@@ -3716,18 +3716,17 @@
       const modal = document.getElementById('authorModal');
       if (modal) {
         modal.classList.add('active');
-        runHackerTypewriter();
+        modal.style.display = 'flex';
       }
     }
 
     function closeAuthorModal(e) {
-      if (e) e.stopPropagation();
+      if (e && e.stopPropagation) e.stopPropagation();
       tactileTap();
       const modal = document.getElementById('authorModal');
       if (modal) {
         modal.classList.remove('active');
-        typewriterTimers.forEach(t => clearInterval(t));
-        typewriterTimers = [];
+        modal.style.display = 'none';
       }
     }
 
