@@ -1142,7 +1142,71 @@
       display: block;
     }
 
-  </style>
+  
+    /* SURVEY CHECKBOX AND MULTI SELECT STYLES */
+    .survey-check-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+    }
+    .survey-check-card:hover {
+      border-color: rgba(0, 242, 254, 0.3);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .survey-check-card.checked {
+      background: rgba(0, 242, 254, 0.12);
+      border-color: var(--accent);
+    }
+    .survey-check-card.checked span {
+      color: #fff !important;
+      font-weight: 600;
+    }
+    .survey-checkbox {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .survey-check-card.checked .survey-checkbox {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .survey-check-card.checked .survey-checkbox::after {
+      content: '✓';
+      color: #030712;
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .quest-back-btn {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: var(--text-sub);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: color 0.2s;
+    }
+    .quest-back-btn:hover {
+      color: var(--accent);
+    }
+
+</style>
 </head>
 <body>
 
@@ -1186,8 +1250,8 @@
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div>
             <div class="screen-tag">Интерактивный триаж</div>
-            <h3 style="font-size: 16px; font-weight: 700;">Пройти персональный чек-ап</h3>
-            <p style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">Пошаговый расчет и получение паспорта здоровья</p>
+            <h3 style="font-size: 16px; font-weight: 700;">Анкета: Семейная история здоровья</h3>
+            <p style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">Оценка семейного анамнеза и факторов риска (15 вопросов, 3–5 мин)</p>
           </div>
           <div style="font-size: 20px; color: var(--accent);">➔</div>
         </div>
@@ -1265,189 +1329,644 @@
     </main>
 
     <!-- SCREEN 2: DYNAMIC STEPPER QUEST -->
+    <!-- SCREEN 1: SURVEY / ANKETA -->
     <section class="screen-view" id="screen-calc">
       <div class="screen-header">
-        <span class="screen-tag">Пошаговый скрининг</span>
-        <h2 class="screen-title" id="questTitle">Шаг 1 из 4</h2>
+        <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.25); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; color: var(--accent); margin-bottom: 8px;">
+          <span class="pulse-dot"></span> СУРГУ • МЕДИЦИНСКИЙ ИНСТИТУТ • 2026
+        </div>
+        <h2 class="screen-title" id="questTitle">Что вы знаете о семейной истории здоровья?</h2>
+        <p id="questSubtitle" style="font-size: 12px; color: var(--text-sub); line-height: 1.45; margin-top: 5px;">
+          Анкета анонимная. Цель опроса — оценить уровень знаний о значении семейного анамнеза и наследственных факторов риска для профилактики заболеваний. Заполнение займёт 3–5 минут.
+        </p>
       </div>
 
-      <div class="quest-progress-box">
+      <div class="quest-progress-box" id="questProgressBox">
         <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-sub);">
-          <span id="questStepLabel">Анамнез сердечно-сосудистой системы</span>
-          <span id="questPercent">25%</span>
+          <span id="questStepLabel">Вопрос 1 из 15</span>
+          <span id="questPercent">7%</span>
         </div>
         <div class="quest-bar-wrap">
-          <div class="quest-bar" id="questBar"></div>
+          <div class="quest-bar" id="questBar" style="width: 7%;"></div>
         </div>
       </div>
 
-      <!-- Step 1: Biometrics & Gender & Weight -->
-      <div class="bento-card step-card active" id="step1">
-        <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700;">
-          Укажите ваши персональные биометрические данные:
-        </div>
+      
+    <!-- Step 1: 1. Ваш возраст? -->
+    <div class="bento-card step-card active" id="step1">
+      <div style="display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 800; margin-bottom: 6px;">
+        Демографический блок • Вопрос 1 из 15
+      </div>
+      <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700; color: #fff; line-height: 1.4;">
+        1. Ваш возраст?
+      </div>
+      
+      
+      <button class="quest-btn survey-single-btn" data-step="1" data-pts="5" onclick="tactileTap(); selectSurveySingle(1, 5, this)">
+        <span>До 18 лет</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="1" data-pts="10" onclick="tactileTap(); selectSurveySingle(1, 10, this)">
+        <span>18–20</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="1" data-pts="10" onclick="tactileTap(); selectSurveySingle(1, 10, this)">
+        <span>21–25</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="1" data-pts="10" onclick="tactileTap(); selectSurveySingle(1, 10, this)">
+        <span>26–35</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="1" data-pts="10" onclick="tactileTap(); selectSurveySingle(1, 10, this)">
+        <span>36 и старше</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      
+    </div>
+  
+    <!-- Step 2: 2. Кто вы? -->
+    <div class="bento-card step-card" id="step2">
+      <div style="display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 800; margin-bottom: 6px;">
+        Статус респондента • Вопрос 2 из 15
+      </div>
+      <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700; color: #fff; line-height: 1.4;">
+        2. Кто вы?
+      </div>
+      
+      
+      <button class="quest-btn survey-single-btn" data-step="2" data-pts="10" onclick="tactileTap(); selectSurveySingle(2, 10, this)">
+        <span>Студент</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="2" data-pts="10" onclick="tactileTap(); selectSurveySingle(2, 10, this)">
+        <span>Преподаватель/сотрудник</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="2" data-pts="10" onclick="tactileTap(); selectSurveySingle(2, 10, this)">
+        <span>Другое</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      
+    <button class="quest-back-btn" onclick="tactileTap(); prevSurveyStep(2)">
+      ← Предыдущий вопрос
+    </button>
+  
+    </div>
+  
+    <!-- Step 3: 3. Знаете ли вы, какие заболевания встречались у ваших близких родственников? -->
+    <div class="bento-card step-card" id="step3">
+      <div style="display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 800; margin-bottom: 6px;">
+        Семейный анамнез • Вопрос 3 из 15
+      </div>
+      <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700; color: #fff; line-height: 1.4;">
+        3. Знаете ли вы, какие заболевания встречались у ваших близких родственников?
+      </div>
+      
+      
+      <button class="quest-btn survey-single-btn" data-step="3" data-pts="25" onclick="tactileTap(); selectSurveySingle(3, 25, this)">
+        <span>Да, хорошо знаю</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="3" data-pts="15" onclick="tactileTap(); selectSurveySingle(3, 15, this)">
+        <span>Знаю частично</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="3" data-pts="5" onclick="tactileTap(); selectSurveySingle(3, 5, this)">
+        <span>Почти не знаю</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="3" data-pts="0" onclick="tactileTap(); selectSurveySingle(3, 0, this)">
+        <span>Не знаю</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      
+    <button class="quest-back-btn" onclick="tactileTap(); prevSurveyStep(3)">
+      ← Предыдущий вопрос
+    </button>
+  
+    </div>
+  
+    <!-- Step 4: 4. Знаете ли вы историю заболеваний своей семьи за несколько поколений? -->
+    <div class="bento-card step-card" id="step4">
+      <div style="display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 800; margin-bottom: 6px;">
+        Глубина родословной • Вопрос 4 из 15
+      </div>
+      <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700; color: #fff; line-height: 1.4;">
+        4. Знаете ли вы историю заболеваний своей семьи за несколько поколений?
+      </div>
+      
+      
+      <button class="quest-btn survey-single-btn" data-step="4" data-pts="25" onclick="tactileTap(); selectSurveySingle(4, 25, this)">
+        <span>Да, за 3 поколения</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="4" data-pts="18" onclick="tactileTap(); selectSurveySingle(4, 18, this)">
+        <span>Примерно за 2 поколения</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="4" data-pts="10" onclick="tactileTap(); selectSurveySingle(4, 10, this)">
+        <span>Только у родителей</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="4" data-pts="0" onclick="tactileTap(); selectSurveySingle(4, 0, this)">
+        <span>Практически не знаю</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      
+    <button class="quest-back-btn" onclick="tactileTap(); prevSurveyStep(4)">
+      ← Предыдущий вопрос
+    </button>
+  
+    </div>
+  
+    <!-- Step 5: 5. Какие заболевания встречались среди ваших близких родственников? -->
+    <div class="bento-card step-card" id="step5">
+      <div style="display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 800; margin-bottom: 6px;">
+        Клинический спектр • Вопрос 5 из 15
+      </div>
+      <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700; color: #fff; line-height: 1.4;">
+        5. Какие заболевания встречались среди ваших близких родственников?
+      </div>
+      <div style="font-size: 12px; color: var(--accent); margin-bottom: 12px; font-weight: 600;">✓ Можно выбрать несколько вариантов</div>
+      
+      <div class="survey-multi-wrap" id="multiGroup5" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px;">
         
-        <div style="font-size: 12px; color: var(--text-sub); margin-bottom: 6px;">Биологический пол:</div>
-        <div class="bio-chip-group">
-          <div class="bio-chip active" id="bioGenderF" onclick="tactileTap(); selectBioGender('Женский')">Женский (риск BRCA1/2, КОК)</div>
-          <div class="bio-chip" id="bioGenderM" onclick="tactileTap(); selectBioGender('Мужской')">Мужской (кардио-профиль)</div>
-        </div>
-
-        <div style="font-size: 12px; color: var(--text-sub); margin-bottom: 6px;">Возрастная категория:</div>
-        <div class="bio-chip-group">
-          <div class="bio-chip active" id="bioAge1" onclick="tactileTap(); selectBioAge('18 – 25 лет')">18 – 25 лет</div>
-          <div class="bio-chip" id="bioAge2" onclick="tactileTap(); selectBioAge('26 – 40 лет')">26 – 40 лет</div>
-          <div class="bio-chip" id="bioAge3" onclick="tactileTap(); selectBioAge('41+ год')">41+ год</div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px;">
-          <div>
-            <div style="font-size: 12px; color: var(--text-sub); margin-bottom: 6px;">Рост (см):</div>
-            <input type="number" id="bioHeightInput" class="bio-input" value="175" min="120" max="230" placeholder="175" oninput="updateBmiLive()" />
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 5)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Артериальная гипертония</span>
           </div>
-          <div>
-            <div style="font-size: 12px; color: var(--text-sub); margin-bottom: 6px;">Вес (кг):</div>
-            <input type="number" id="bioWeightInput" class="bio-input" value="70" min="35" max="200" placeholder="70" oninput="updateBmiLive()" />
+        
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 5)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Инфаркт/другие сердечно-сосудистые заболевания</span>
           </div>
-        </div>
-
-        <div id="bmiInfoBox" style="background: rgba(0, 242, 254, 0.08); border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 10px; padding: 8px 12px; font-size: 12px; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;">
-          <span>Индекс массы тела (ИМТ): <strong id="bmiVal">22.9</strong></span>
-          <span id="bmiStatus" style="font-weight:700; color: #10b981;">Норма</span>
-        </div>
-
-        <button class="quest-btn" style="margin-top: 4px; background: rgba(0, 242, 254, 0.12); border-color: var(--accent); color: #fff;" onclick="tactileTap(); proceedFromStep1()">
-          <span>Продолжить к анамнезу</span>
-          <span class="quest-btn-arrow">➔</span>
-        </button>
+        
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 5)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Инсульт</span>
+          </div>
+        
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 5)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Сахарный диабет</span>
+          </div>
+        
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 5)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Онкологические заболевания</span>
+          </div>
+        
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 5)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Заболевания органов дыхания</span>
+          </div>
+        
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 5)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Деменция, Альцгеймер</span>
+          </div>
+        
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 5)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Другое</span>
+          </div>
+        
+          <div class="survey-check-card" data-exclusive="true" data-pts="0" onclick="tactileTap(); toggleSurveyMulti(this, 5)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Не знаю</span>
+          </div>
+        
       </div>
-
-      <!-- Step 2: Cardiovascular -->
-      <div class="bento-card step-card" id="step2">
-        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
-          Были ли у близких родственников (родители, бабушки/дедушки) инфаркты, инсульты или тромбозы в возрасте до 50 лет?
-        </div>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(2, 0)">
-          <span>Нет, таких случаев не зафиксировано</span>
-          <span class="quest-btn-arrow">➔</span>
-        </button>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(2, 18)">
-          <span>У 1 родственника (после 45-50 лет)</span>
-          <span class="quest-btn-arrow">➔</span>
-        </button>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(2, 35)">
-          <span>У 2+ родственников в молодом возрасте</span>
-          <span class="quest-btn-arrow">➔</span>
-        </button>
+      <button class="quest-btn" style="background: linear-gradient(135deg, #0284c7, #00f2fe); border: none; color: #020617; font-weight: 800; justify-content: center; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.35);" onclick="tactileTap(); submitSurveyMulti(5)">
+        <span>Продолжить ➔</span>
+      </button>
+    
+      
+    <button class="quest-back-btn" onclick="tactileTap(); prevSurveyStep(5)">
+      ← Предыдущий вопрос
+    </button>
+  
+    </div>
+  
+    <!-- Step 6: 6. Как вы считаете, может ли семейная история заболеваний быть связана с риском развития некоторых заболеваний у человека? -->
+    <div class="bento-card step-card" id="step6">
+      <div style="display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 800; margin-bottom: 6px;">
+        Оценка рисков • Вопрос 6 из 15
       </div>
-
-      <!-- Step 3: Oncology -->
-      <div class="bento-card step-card" id="step3">
-        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
-          Фиксировался ли рак груди, яичников, простаты или кишечника у прямых родственников моложе 50 лет?
-        </div>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(3, 0)">
-          <span>Случаев онкологии в семье не было</span>
-          <span class="quest-btn-arrow">➔</span>
-        </button>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(3, 20)">
-          <span>1 случай у тети, дяди или бабушки</span>
-          <span class="quest-btn-arrow">➔</span>
-        </button>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(3, 40)">
-          <span>Множественные случаи у матери, отца или сестры</span>
-          <span class="quest-btn-arrow">➔</span>
-        </button>
+      <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700; color: #fff; line-height: 1.4;">
+        6. Как вы считаете, может ли семейная история заболеваний быть связана с риском развития некоторых заболеваний у человека?
       </div>
-
-      <!-- Step 4: Metabolic / Endocrine -->
-      <div class="bento-card step-card" id="step4">
-        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
-          Сахарный диабет 2 типа, подагра или тяжелые нарушения липидного обмена в семье?
-        </div>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(4, 0)">
-          <span>Нет или не диагностировали</span>
-          <span class="quest-btn-arrow">➔</span>
-        </button>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(4, 15)">
-          <span>Да, у бабушек или дедушек</span>
-          <span class="quest-btn-arrow">➔</span>
-        </button>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(4, 25)">
-          <span>Да, у прямых родителей (одного или обоих)</span>
-          <span class="quest-btn-arrow">➔</span>
-        </button>
+      
+      
+      <button class="quest-btn survey-single-btn" data-step="6" data-pts="15" onclick="tactileTap(); selectSurveySingle(6, 15, this)">
+        <span>Да</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="6" data-pts="0" onclick="tactileTap(); selectSurveySingle(6, 0, this)">
+        <span>Нет</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="6" data-pts="5" onclick="tactileTap(); selectSurveySingle(6, 5, this)">
+        <span>Затрудняюсь ответить</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      
+    <button class="quest-back-btn" onclick="tactileTap(); prevSurveyStep(6)">
+      ← Предыдущий вопрос
+    </button>
+  
+    </div>
+  
+    <!-- Step 7: 7. Считаете ли вы наследственность важным фактором риска хронических заболеваний? -->
+    <div class="bento-card step-card" id="step7">
+      <div style="display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 800; margin-bottom: 6px;">
+        Факторы риска • Вопрос 7 из 15
       </div>
-
-      <!-- Step 5: Symptoms & Lifestyle Risks -->
-      <div class="bento-card step-card" id="step5">
-        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
-          Беспокоят ли вас эпизоды скачков давления, необъяснимые синяки или тяжесть в ногах?
-        </div>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(5, 0)">
-          <span>Нет, самочувствие стабильное</span>
-          <span class="quest-btn-arrow">➔</span>
-        </button>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(5, 15)">
-          <span>Иногда бывает (усталость, отечность, варикоз)</span>
-          <span class="quest-btn-arrow">➔</span>
-        </button>
-        <button class="quest-btn" onclick="tactileTap(); nextQuest(5, 25)">
-          <span>Да, есть стойкие скачки давления или варикоз</span>
-          <span class="quest-btn-arrow">➔</span>
-        </button>
+      <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700; color: #fff; line-height: 1.4;">
+        7. Считаете ли вы наследственность важным фактором риска хронических заболеваний?
       </div>
-
-      <!-- Step 6: Lab tests history -->
-      <div class="bento-card step-card" id="step6">
-        <div class="quiz-q" style="font-size: 15px; margin-bottom: 16px; font-weight: 700;">
-          Сдавали ли вы когда-нибудь профильные генетические панели или коагулограмму?
-        </div>
-        <button class="quest-btn" onclick="tactileTap(); finishQuest(5)">
-          <span>Ни разу не сдавал(а) (скрытый статус)</span>
-          <span class="quest-btn-arrow">➔</span>
-        </button>
-        <button class="quest-btn" onclick="tactileTap(); finishQuest(-10)">
-          <span>Сдавал(а) ранее, значимых мутаций не обнаружено</span>
-          <span class="quest-btn-arrow">➔</span>
-        </button>
+      
+      
+      <button class="quest-btn survey-single-btn" data-step="7" data-pts="15" onclick="tactileTap(); selectSurveySingle(7, 15, this)">
+        <span>Да</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="7" data-pts="12" onclick="tactileTap(); selectSurveySingle(7, 12, this)">
+        <span>Скорее да</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="7" data-pts="4" onclick="tactileTap(); selectSurveySingle(7, 4, this)">
+        <span>Скорее нет</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="7" data-pts="0" onclick="tactileTap(); selectSurveySingle(7, 0, this)">
+        <span>Нет</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="7" data-pts="2" onclick="tactileTap(); selectSurveySingle(7, 2, this)">
+        <span>Не знаю</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      
+    <button class="quest-back-btn" onclick="tactileTap(); prevSurveyStep(7)">
+      ← Предыдущий вопрос
+    </button>
+  
+    </div>
+  
+    <!-- Step 8: 8. Знаете ли вы, что такое семейный анамнез? -->
+    <div class="bento-card step-card" id="step8">
+      <div style="display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 800; margin-bottom: 6px;">
+        Осведомленность • Вопрос 8 из 15
       </div>
+      <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700; color: #fff; line-height: 1.4;">
+        8. Знаете ли вы, что такое семейный анамнез?
+      </div>
+      
+      
+      <button class="quest-btn survey-single-btn" data-step="8" data-pts="20" onclick="tactileTap(); selectSurveySingle(8, 20, this)">
+        <span>Да, могу объяснить</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="8" data-pts="8" onclick="tactileTap(); selectSurveySingle(8, 8, this)">
+        <span>Слышал(а), но точно не знаю</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="8" data-pts="0" onclick="tactileTap(); selectSurveySingle(8, 0, this)">
+        <span>Нет</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      
+    <button class="quest-back-btn" onclick="tactileTap(); prevSurveyStep(8)">
+      ← Предыдущий вопрос
+    </button>
+  
+    </div>
+  
+    <!-- Step 9: 9. Знаете ли вы, как правильно собрать информацию о здоровье родственников? -->
+    <div class="bento-card step-card" id="step9">
+      <div style="display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 800; margin-bottom: 6px;">
+        Сбор анамнеза • Вопрос 9 из 15
+      </div>
+      <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700; color: #fff; line-height: 1.4;">
+        9. Знаете ли вы, как правильно собрать информацию о здоровье родственников?
+      </div>
+      
+      
+      <button class="quest-btn survey-single-btn" data-step="9" data-pts="20" onclick="tactileTap(); selectSurveySingle(9, 20, this)">
+        <span>Да</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="9" data-pts="10" onclick="tactileTap(); selectSurveySingle(9, 10, this)">
+        <span>Частично</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="9" data-pts="0" onclick="tactileTap(); selectSurveySingle(9, 0, this)">
+        <span>Нет</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      
+    <button class="quest-back-btn" onclick="tactileTap(); prevSurveyStep(9)">
+      ← Предыдущий вопрос
+    </button>
+  
+    </div>
+  
+    <!-- Step 10: 10. Составляли ли вы когда-нибудь генеалогическое дерево здоровья своей семьи? -->
+    <div class="bento-card step-card" id="step10">
+      <div style="display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 800; margin-bottom: 6px;">
+        Практический опыт • Вопрос 10 из 15
+      </div>
+      <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700; color: #fff; line-height: 1.4;">
+        10. Составляли ли вы когда-нибудь генеалогическое дерево здоровья своей семьи?
+      </div>
+      
+      
+      <button class="quest-btn survey-single-btn" data-step="10" data-pts="25" onclick="tactileTap(); selectSurveySingle(10, 25, this)">
+        <span>Да</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="10" data-pts="12" onclick="tactileTap(); selectSurveySingle(10, 12, this)">
+        <span>Начинал(а), но не закончил(а)</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="10" data-pts="0" onclick="tactileTap(); selectSurveySingle(10, 0, this)">
+        <span>Нет</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      
+    <button class="quest-back-btn" onclick="tactileTap(); prevSurveyStep(10)">
+      ← Предыдущий вопрос
+    </button>
+  
+    </div>
+  
+    <!-- Step 11: 11. Как вы думаете, для чего может быть полезна семейная карта здоровья? -->
+    <div class="bento-card step-card" id="step11">
+      <div style="display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 800; margin-bottom: 6px;">
+        Значение карты • Вопрос 11 из 15
+      </div>
+      <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700; color: #fff; line-height: 1.4;">
+        11. Как вы думаете, для чего может быть полезна семейная карта здоровья?
+      </div>
+      <div style="font-size: 12px; color: var(--accent); margin-bottom: 12px; font-weight: 600;">✓ Можно выбрать несколько вариантов</div>
+      
+      <div class="survey-multi-wrap" id="multiGroup11" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px;">
+        
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 11)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Чтобы знать заболевания родственников</span>
+          </div>
+        
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 11)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Чтобы обратить внимание на возможные факторы риска</span>
+          </div>
+        
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 11)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Чтобы предоставить врачу информацию о семейном анамнезе</span>
+          </div>
+        
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 11)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Для профилактики заболеваний</span>
+          </div>
+        
+          <div class="survey-check-card" data-exclusive="true" data-pts="0" onclick="tactileTap(); toggleSurveyMulti(this, 11)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Не знаю</span>
+          </div>
+        
+      </div>
+      <button class="quest-btn" style="background: linear-gradient(135deg, #0284c7, #00f2fe); border: none; color: #020617; font-weight: 800; justify-content: center; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.35);" onclick="tactileTap(); submitSurveyMulti(11)">
+        <span>Продолжить ➔</span>
+      </button>
+    
+      
+    <button class="quest-back-btn" onclick="tactileTap(); prevSurveyStep(11)">
+      ← Предыдущий вопрос
+    </button>
+  
+    </div>
+  
+    <!-- Step 12: 12. Знаете ли вы, в каких случаях информацию о семейной истории здоровья стоит обсудить с врачом? -->
+    <div class="bento-card step-card" id="step12">
+      <div style="display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 800; margin-bottom: 6px;">
+        Клиническая настороженность • Вопрос 12 из 15
+      </div>
+      <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700; color: #fff; line-height: 1.4;">
+        12. Знаете ли вы, в каких случаях информацию о семейной истории здоровья стоит обсудить с врачом?
+      </div>
+      
+      
+      <button class="quest-btn survey-single-btn" data-step="12" data-pts="15" onclick="tactileTap(); selectSurveySingle(12, 15, this)">
+        <span>Да</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="12" data-pts="8" onclick="tactileTap(); selectSurveySingle(12, 8, this)">
+        <span>Частично</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="12" data-pts="0" onclick="tactileTap(); selectSurveySingle(12, 0, this)">
+        <span>Нет</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      
+    <button class="quest-back-btn" onclick="tactileTap(); prevSurveyStep(12)">
+      ← Предыдущий вопрос
+    </button>
+  
+    </div>
+  
+    <!-- Step 13: 13. Хотели бы вы научиться составлять семейную карту здоровья? -->
+    <div class="bento-card step-card" id="step13">
+      <div style="display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 800; margin-bottom: 6px;">
+        Интерес к обучению • Вопрос 13 из 15
+      </div>
+      <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700; color: #fff; line-height: 1.4;">
+        13. Хотели бы вы научиться составлять семейную карту здоровья?
+      </div>
+      
+      
+      <button class="quest-btn survey-single-btn" data-step="13" data-pts="10" onclick="tactileTap(); selectSurveySingle(13, 10, this)">
+        <span>Да</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="13" data-pts="6" onclick="tactileTap(); selectSurveySingle(13, 6, this)">
+        <span>Возможно</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="13" data-pts="0" onclick="tactileTap(); selectSurveySingle(13, 0, this)">
+        <span>Нет</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      
+    <button class="quest-back-btn" onclick="tactileTap(); prevSurveyStep(13)">
+      ← Предыдущий вопрос
+    </button>
+  
+    </div>
+  
+    <!-- Step 14: 14. Хотели бы вы получить готовый шаблон для сбора информации о здоровье родственников? -->
+    <div class="bento-card step-card" id="step14">
+      <div style="display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 800; margin-bottom: 6px;">
+        Инструменты • Вопрос 14 из 15
+      </div>
+      <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700; color: #fff; line-height: 1.4;">
+        14. Хотели бы вы получить готовый шаблон для сбора информации о здоровье родственников?
+      </div>
+      
+      
+      <button class="quest-btn survey-single-btn" data-step="14" data-pts="10" onclick="tactileTap(); selectSurveySingle(14, 10, this)">
+        <span>Да</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="14" data-pts="6" onclick="tactileTap(); selectSurveySingle(14, 6, this)">
+        <span>Возможно</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      <button class="quest-btn survey-single-btn" data-step="14" data-pts="0" onclick="tactileTap(); selectSurveySingle(14, 0, this)">
+        <span>Нет</span>
+        <span class="quest-btn-arrow">➔</span>
+      </button>
+    
+      
+    <button class="quest-back-btn" onclick="tactileTap(); prevSurveyStep(14)">
+      ← Предыдущий вопрос
+    </button>
+  
+    </div>
+  
+    <!-- Step 15: 15. Что вам было бы наиболее интересно получить в рамках проекта? -->
+    <div class="bento-card step-card" id="step15">
+      <div style="display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 800; margin-bottom: 6px;">
+        Форматы проекта • Вопрос 15 из 15
+      </div>
+      <div class="quiz-q" style="font-size: 15px; margin-bottom: 12px; font-weight: 700; color: #fff; line-height: 1.4;">
+        15. Что вам было бы наиболее интересно получить в рамках проекта?
+      </div>
+      <div style="font-size: 12px; color: var(--accent); margin-bottom: 12px; font-weight: 600;">✓ Можно выбрать один или несколько форматов</div>
+      
+      <div class="survey-multi-wrap" id="multiGroup15" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px;">
+        
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 15)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Лекцию</span>
+          </div>
+        
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 15)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Практический воркшоп</span>
+          </div>
+        
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 15)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Бумажный шаблон семейной карты</span>
+          </div>
+        
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 15)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Электронную карту</span>
+          </div>
+        
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 15)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Памятку/буклет</span>
+          </div>
+        
+          <div class="survey-check-card" data-exclusive="false" data-pts="5" onclick="tactileTap(); toggleSurveyMulti(this, 15)">
+            <div class="survey-checkbox"></div>
+            <span style="font-size: 13.5px; color: #cbd5e1; flex: 1;">Видеоинструкцию</span>
+          </div>
+        
+      </div>
+      <button class="quest-btn" style="background: linear-gradient(135deg, #0284c7, #00f2fe); border: none; color: #020617; font-weight: 800; justify-content: center; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.35);" onclick="tactileTap(); submitSurveyMulti(15)">
+        <span>Завершить анкету ➔</span>
+      </button>
+    
+      
+    <button class="quest-back-btn" onclick="tactileTap(); prevSurveyStep(15)">
+      ← Предыдущий вопрос
+    </button>
+  
+    </div>
+  
 
-      <!-- FINAL PASSPORT OUTCOME -->
-      <div class="passport-result" id="passportResult">
+      <!-- FINAL OUTCOME SCREEN (ANKETA RESULT) -->
+      <div class="passport-result" id="passportResult" style="display: none;">
         <div class="passport-header" id="passportPdfArea">
-          <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 700;">
-            Персональный клинический маршрут
-          </span>
-          <div class="passport-score-val" id="finalPercent">65%</div>
-          <strong id="finalStatus" style="font-size: 16px; color: #ff5252;">Умеренно-высокий риск</strong>
-          <div id="patientMetaTag" style="font-size: 12px; color: var(--text-sub); margin-top: 6px;">Пациент: Женский • 18-25 лет</div>
+          <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; color: #10b981; margin-bottom: 8px;">
+            ✓ АНКЕТА УСПЕШНО ЗАВЕРШЕНА
+          </div>
+          <div class="passport-score-val" id="finalPercent" style="font-size: 40px; font-weight: 900; color: var(--accent); text-shadow: 0 0 25px rgba(0, 242, 254, 0.4);">85%</div>
+          <strong id="finalStatus" style="font-size: 17px; color: #fff;">Высокий уровень осведомленности</strong>
+          <div id="patientMetaTag" style="font-size: 12px; color: var(--text-sub); margin-top: 6px;">
+            Спасибо за вклад в научно-исследовательский проект студентов СурГУ!
+          </div>
         </div>
 
-        <div class="bento-card">
-          <h4 style="font-size: 14px; margin-bottom: 8px;">Ваш персональный протокол действий:</h4>
+        <div class="bento-card" style="margin-top: 14px;">
+          <h4 style="font-size: 14px; margin-bottom: 8px; color: #fff;">Клиническое резюме и рекомендации:</h4>
           <ul class="action-checklist" id="actionList"></ul>
 
           <!-- ACTION BUTTON 1: DOWNLOAD PDF -->
           <button class="print-btn" onclick="tactileTap(); exportPassportPDF()">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span>Скачать официальную PDF-памятку для врача</span>
+            <span>Скачать официальную памятку и карту анамнеза (PDF)</span>
           </button>
 
           <!-- ACTION BUTTON 2: JUMP TO MAP -->
           <button class="map-jump-btn" onclick="tactileTap(); jumpToMapLab()">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-            <span id="mapBtnText">Найти ближайшую лабораторию на карте</span>
+            <span id="mapBtnText">Где сдать анализы в Сургуте (ОМС и спецтарифы)</span>
           </button>
 
-          <!-- ACTION BUTTON 3: COPY QUESTIONS FOR DOCTOR -->
-          <button class="copy-btn" onclick="tactileTap(); copyDoctorQuestions()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span>Скопировать готовые вопросы терапевту</span>
-          </button>
-
-          <button style="width: 100%; margin-top: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--text-sub); padding: 10px; border-radius: 12px; font-size: 12px; cursor: pointer;" onclick="tactileTap(); resetQuest()">
-            Пройти заново
+          <!-- ACTION BUTTON 3: RESET -->
+          <button style="width: 100%; margin-top: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--text-sub); padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;" onclick="tactileTap(); resetSurvey()">
+            Заполнить анкету заново
           </button>
         </div>
       </div>
@@ -2137,7 +2656,192 @@
       document.getElementById('questBar').style.width = `${pct}%`;
     }
 
-    async function exportPassportPDF() {
+    async 
+    /* =====================================================================
+       SURVEY / ANKETA ENGINE (15 QUESTIONS - SURGU MEDICAL INSTITUTE 2026)
+       ===================================================================== */
+    const TOTAL_SURVEY_STEPS = 15;
+    let currentSurveyStep = 1;
+    let surveyUserAnswers = {};
+    let surveyTotalScore = 0;
+
+    function selectSurveySingle(stepNum, pts, btnElement) {
+      tactileTap();
+      // visual feedback
+      btnElement.style.borderColor = 'var(--accent)';
+      btnElement.style.background = 'rgba(0, 242, 254, 0.15)';
+      
+      const text = btnElement.querySelector('span').innerText;
+      surveyUserAnswers[stepNum] = { text: text, points: pts };
+
+      setTimeout(() => {
+        advanceSurveyStep(stepNum + 1);
+      }, 160);
+    }
+
+    function toggleSurveyMulti(cardEl, stepNum) {
+      tactileTap();
+      const isExclusive = cardEl.getAttribute('data-exclusive') === 'true';
+      const container = document.getElementById('multiGroup' + stepNum);
+
+      if (isExclusive) {
+        // Uncheck all others
+        const allCards = container.querySelectorAll('.survey-check-card');
+        allCards.forEach(c => {
+          if (c !== cardEl) c.classList.remove('checked');
+        });
+        cardEl.classList.toggle('checked');
+      } else {
+        // Uncheck exclusive cards like 'Не знаю'
+        const exclCards = container.querySelectorAll('.survey-check-card[data-exclusive="true"]');
+        exclCards.forEach(c => c.classList.remove('checked'));
+        cardEl.classList.toggle('checked');
+      }
+    }
+
+    function submitSurveyMulti(stepNum) {
+      tactileTap();
+      const container = document.getElementById('multiGroup' + stepNum);
+      const checkedCards = container.querySelectorAll('.survey-check-card.checked');
+      
+      if (checkedCards.length === 0) {
+        showToast('Пожалуйста, выберите хотя бы один вариант');
+        return;
+      }
+
+      let pts = 0;
+      let selectedTexts = [];
+      checkedCards.forEach(c => {
+        pts += parseInt(c.getAttribute('data-pts') || '0', 10);
+        selectedTexts.push(c.querySelector('span').innerText);
+      });
+
+      surveyUserAnswers[stepNum] = { text: selectedTexts.join(', '), points: pts };
+      advanceSurveyStep(stepNum + 1);
+    }
+
+    function prevSurveyStep(stepNum) {
+      tactileTap();
+      if (stepNum > 1) {
+        document.getElementById('step' + stepNum).classList.remove('active');
+        currentSurveyStep = stepNum - 1;
+        document.getElementById('step' + currentSurveyStep).classList.add('active');
+        updateSurveyProgressBar(currentSurveyStep);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function advanceSurveyStep(nextStep) {
+      const curEl = document.getElementById('step' + currentSurveyStep);
+      if (curEl) curEl.classList.remove('active');
+
+      if (nextStep > TOTAL_SURVEY_STEPS) {
+        finishSurvey();
+      } else {
+        currentSurveyStep = nextStep;
+        const nextEl = document.getElementById('step' + currentSurveyStep);
+        if (nextEl) nextEl.classList.add('active');
+        updateSurveyProgressBar(currentSurveyStep);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function updateSurveyProgressBar(step) {
+      const pct = Math.round((step / TOTAL_SURVEY_STEPS) * 100);
+      const label = document.getElementById('questStepLabel');
+      const bar = document.getElementById('questBar');
+      const pctEl = document.getElementById('questPercent');
+
+      if (label) label.innerText = 'Вопрос ' + step + ' из ' + TOTAL_SURVEY_STEPS;
+      if (bar) bar.style.width = pct + '%';
+      if (pctEl) pctEl.innerText = pct + '%';
+    }
+
+    function finishSurvey() {
+      // Calculate total awareness score
+      let totalPts = 0;
+      Object.keys(surveyUserAnswers).forEach(k => {
+        totalPts += (surveyUserAnswers[k].points || 0);
+      });
+      // normalize to percentage scale (max raw points is approx 180)
+      const awarenessScore = Math.min(100, Math.max(20, Math.round((totalPts / 180) * 100)));
+
+      // Hide progress box & step cards
+      document.getElementById('questProgressBox').style.display = 'none';
+      document.getElementById('questTitle').innerText = 'Итоги анкетирования';
+      document.getElementById('questSubtitle').innerText = 'Результат оценки осведомленности о семейном анамнезе и персональные рекомендации кафедры Медицинского института СурГУ.';
+
+      const resultBox = document.getElementById('passportResult');
+      resultBox.style.display = 'block';
+
+      document.getElementById('finalPercent').innerText = awarenessScore + '%';
+      const statusEl = document.getElementById('finalStatus');
+      const listEl = document.getElementById('actionList');
+
+      let clinicalStatus = '';
+      let badgeHtml = '';
+
+      if (awarenessScore >= 70) {
+        clinicalStatus = 'Высокий уровень семейной осведомленности';
+        statusEl.style.color = '#10b981';
+      } else if (awarenessScore >= 45) {
+        clinicalStatus = 'Базовый уровень осведомленности (рекомендована карта здоровья)';
+        statusEl.style.color = 'var(--accent)';
+      } else {
+        clinicalStatus = 'Начальный уровень — высокий приоритет составления родословной';
+        statusEl.style.color = '#f59e0b';
+      }
+      statusEl.innerText = clinicalStatus;
+
+      // Personalized recommendation list
+      listEl.innerHTML = `
+        <li>
+          <div class="action-tag-badge cyan">1. Важность 3 поколений</div>
+          <div class="action-body-text">
+            Клинический стандарт медицинской генетики требует сбора сведений минимум о 3 поколениях: родители, родные братья/сестры, бабушки/дедушки по обеим линиям.
+          </div>
+        </li>
+        <li>
+          <div class="action-tag-badge cyan">2. Возрастной маркер (до 50 лет)</div>
+          <div class="action-body-text">
+            Ранние сердечно-сосудистые катастрофы (инфаркт, инсульт, тромбоз) или онкологические диагнозы до 50 лет у прямых родственников — повод для углубленной ДНК-панели.
+          </div>
+        </li>
+        <li>
+          <div class="action-tag-badge amber">3. Маршрут в Сургуте</div>
+          <div class="action-body-text">
+            При наличии факторов риска по ОМС можно получить направление на консультацию врача-генетика и биохимический профиль в поликлиниках Сургута (по форме 057/у).
+          </div>
+        </li>
+      `;
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetSurvey() {
+      currentSurveyStep = 1;
+      surveyUserAnswers = {};
+      
+      document.getElementById('passportResult').style.display = 'none';
+      document.getElementById('questProgressBox').style.display = 'block';
+      document.getElementById('questTitle').innerText = 'Что вы знаете о семейной истории здоровья?';
+      document.getElementById('questSubtitle').innerText = 'Анкета анонимная. Цель опроса — оценить уровень знаний о значении семейного анамнеза и наследственных факторов риска для профилактики заболеваний. Заполнение займёт 3–5 минут.';
+
+      for (let i = 1; i <= TOTAL_SURVEY_STEPS; i++) {
+        const el = document.getElementById('step' + i);
+        if (el) el.classList.remove('active');
+        const multi = document.getElementById('multiGroup' + i);
+        if (multi) {
+          multi.querySelectorAll('.survey-check-card').forEach(c => c.classList.remove('checked'));
+        }
+      }
+
+      document.getElementById('step1').classList.add('active');
+      updateSurveyProgressBar(1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function exportPassportPDF() {
       showToast('Генерация официальной памятки PDF...');
 
       const statusText = document.getElementById('finalStatus').innerText;
