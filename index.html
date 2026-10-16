@@ -1221,6 +1221,223 @@
       color: var(--accent);
     }
 
+
+    /* =====================================================================
+       CLINICAL LIGHT THEME (СВЕТЛАЯ МЕДИЦИНСКАЯ ТЕМА)
+       ===================================================================== */
+    body.light-theme {
+      --bg: #f8fafc;
+      --card-bg: rgba(255, 255, 255, 0.96);
+      --card-border: rgba(15, 23, 42, 0.08);
+      --accent: #0284c7;
+      --accent-blue: #0369a1;
+      --emerald: #059669;
+      --coral: #dc2626;
+      --amber: #d97706;
+      --text: #0f172a;
+      --text-sub: #64748b;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .theme-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text);
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .theme-toggle-btn:hover {
+      border-color: var(--accent);
+      background: rgba(0, 242, 254, 0.1);
+    }
+    body.light-theme .theme-toggle-btn {
+      background: rgba(15, 23, 42, 0.05);
+      border-color: rgba(15, 23, 42, 0.12);
+      color: #0f172a;
+    }
+    body.light-theme .theme-toggle-btn:hover {
+      border-color: #0284c7;
+      background: rgba(2, 132, 199, 0.08);
+    }
+
+    body.light-theme .glow-spot {
+      opacity: 0.05;
+    }
+    body.light-theme .bento-card {
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.03);
+    }
+    body.light-theme .hero-h1 {
+      background: linear-gradient(135deg, #0f172a 40%, #0369a1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    body.light-theme .quiz-q {
+      color: #0f172a !important;
+    }
+    body.light-theme .stat-chip {
+      background: #f1f5f9;
+      border-color: #e2e8f0;
+    }
+    body.light-theme .quest-btn {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+      color: #1e293b;
+    }
+    body.light-theme .quest-btn:hover {
+      border-color: #0284c7;
+    }
+    body.light-theme .quest-btn.selected {
+      background: rgba(2, 132, 199, 0.1) !important;
+      border-color: #0284c7 !important;
+      color: #0284c7 !important;
+      box-shadow: 0 0 12px rgba(2, 132, 199, 0.2);
+    }
+    body.light-theme .quest-btn.selected span {
+      color: #0284c7 !important;
+      font-weight: 700;
+    }
+    body.light-theme .survey-check-card {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+    }
+    body.light-theme .survey-check-card span {
+      color: #1e293b !important;
+    }
+    body.light-theme .survey-check-card.checked {
+      background: rgba(2, 132, 199, 0.08) !important;
+      border-color: #0284c7 !important;
+    }
+    body.light-theme .survey-check-card.checked span {
+      color: #0284c7 !important;
+      font-weight: 700;
+    }
+    body.light-theme .survey-checkbox {
+      border-color: #94a3b8;
+    }
+    body.light-theme .survey-check-card.checked .survey-checkbox {
+      background: #0284c7;
+      border-color: #0284c7;
+    }
+    body.light-theme .survey-check-card.checked .survey-checkbox::after {
+      color: #ffffff;
+    }
+    body.light-theme .quest-progress-box {
+      background: #f1f5f9;
+      border-color: #e2e8f0;
+    }
+    body.light-theme .dock {
+      background: rgba(255, 255, 255, 0.92);
+      border-color: rgba(15, 23, 42, 0.1);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+    }
+    body.light-theme .dock-btn {
+      color: #64748b;
+    }
+    body.light-theme .dock-btn.active {
+      color: #0284c7;
+    }
+    body.light-theme .dynamic-card {
+      background: #ffffff;
+      border-color: #e2e8f0;
+    }
+    body.light-theme .dynamic-card strong {
+      color: #0f172a;
+    }
+    body.light-theme .dynamic-card p {
+      color: #475569;
+    }
+    body.light-theme .dynamic-card .badge-pill {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #0284c7;
+    }
+    body.light-theme .author-trigger-card {
+      background: #ffffff;
+      border-color: #e2e8f0;
+    }
+    body.light-theme .author-trigger-card div[style*="color: #fff"] {
+      color: #0f172a !important;
+    }
+    body.light-theme .author-modal-overlay {
+      background: rgba(15, 23, 42, 0.65);
+    }
+    body.light-theme .id-passport-card {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      box-shadow: 0 25px 60px rgba(15, 23, 42, 0.2);
+    }
+    body.light-theme .team-modal-title {
+      color: #0f172a;
+    }
+    body.light-theme .team-row {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+    }
+    body.light-theme .team-name {
+      color: #0f172a;
+    }
+    body.light-theme .team-desc {
+      color: #475569;
+    }
+    body.light-theme .team-close-btn {
+      background: #f1f5f9;
+      color: #0f172a;
+      border-color: #cbd5e1;
+    }
+    body.light-theme .lab-info-banner {
+      background: #ffffff;
+      border-color: #e2e8f0;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+    }
+    body.light-theme .lab-banner-name {
+      color: #0f172a;
+    }
+    body.light-theme .lab-banner-desc {
+      color: #475569;
+    }
+    body.light-theme .city-input {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+    body.light-theme .quick-pill {
+      background: #f1f5f9;
+      border-color: #e2e8f0;
+      color: #334155;
+    }
+    body.light-theme .quick-pill.active {
+      background: #0284c7;
+      border-color: #0284c7;
+      color: #ffffff;
+    }
+    body.light-theme .action-checklist li {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+      color: #334155;
+    }
+    body.light-theme .passport-header {
+      background: linear-gradient(135deg, rgba(2, 132, 199, 0.08), rgba(14, 165, 233, 0.08));
+      border-color: rgba(2, 132, 199, 0.25);
+    }
+    body.light-theme #finalStatus {
+      color: #0f172a !important;
+    }
+    body.light-theme .screen-title {
+      color: #0f172a;
+    }
+    body.light-theme h4 {
+      color: #0f172a !important;
+    }
+
 </style>
 </head>
 <body>
@@ -1236,8 +1453,14 @@
         <span class="pulse-dot"></span>
         Научный Скрининг 2026
       </div>
-      <div style="font-size: 12px; color: var(--text-sub); font-weight: 600;">
-        РФ • МГНЦ
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <button class="theme-toggle-btn" onclick="tactileTap(); toggleTheme()" id="themeToggleBtn" title="Переключить тему оформления">
+          <span id="themeToggleIcon">☀️</span>
+          <span id="themeToggleText">Светлая</span>
+        </button>
+        <div style="font-size: 11.5px; color: var(--text-sub); font-weight: 600;">
+          РФ • МГНЦ
+        </div>
       </div>
     </header>
 
@@ -3971,7 +4194,32 @@
       });
     }
 
+
+    /* =====================================================================
+       THEME CONTROLLER (DARK / CLINICAL LIGHT)
+       ===================================================================== */
+    function toggleTheme() {
+      const isLight = document.body.classList.toggle('light-theme');
+      localStorage.setItem('genetic_shield_theme', isLight ? 'light' : 'dark');
+      updateThemeButton(isLight);
+    }
+
+    function updateThemeButton(isLight) {
+      const icon = document.getElementById('themeToggleIcon');
+      const text = document.getElementById('themeToggleText');
+      if (icon) icon.innerText = isLight ? '🌙' : '☀️';
+      if (text) text.innerText = isLight ? 'Тёмная' : 'Светлая';
+    }
+
+    (function initTheme() {
+      const saved = localStorage.getItem('genetic_shield_theme');
+      if (saved === 'light') {
+        document.body.classList.add('light-theme');
+      }
+    })();
+
     window.addEventListener('load', () => {
+      updateThemeButton(document.body.classList.contains('light-theme'));
       initDock();
       ensureMapInitialized('сургут');
       initCharts();
