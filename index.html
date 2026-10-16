@@ -3881,6 +3881,43 @@
       color: #0284c7 !important;
     }
 
+
+    .bmi-val-pill-edit {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(0, 242, 254, 0.08);
+      border: 1.5px solid rgba(0, 242, 254, 0.35);
+      border-radius: 8px;
+      padding: 2px 8px;
+      cursor: text;
+    }
+    .bmi-num-input {
+      width: 48px;
+      background: transparent;
+      border: none;
+      color: var(--accent);
+      font-size: 13.5px;
+      font-weight: 800;
+      font-family: var(--font-mono, monospace);
+      outline: none;
+      text-align: right;
+    }
+    .bmi-num-input::-webkit-inner-spin-button, 
+    .bmi-num-input::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+    .bmi-num-input[type=number] {
+      -moz-appearance: textfield;
+    }
+    body.light-theme .bmi-val-pill-edit {
+      background: #e0f2fe !important;
+      border-color: #0284c7 !important;
+    }
+    body.light-theme .bmi-num-input {
+      color: #0284c7 !important;
+    }
+
 </style>
 </head>
 <body>
@@ -4047,20 +4084,26 @@
             </p>
 
             <div class="bmi-inputs-grid">
-              <!-- Рост -->
+              <!-- Рост: ручной ввод + ползунок -->
               <div class="bmi-input-group">
                 <div class="bmi-input-top-row">
-                  <label for="bmiHeightSlider" style="font-size: 11.5px; font-weight: 700; color: var(--text);">Рост (см):</label>
-                  <div class="bmi-val-pill"><span id="bmiHeightDisplay">170</span> см</div>
+                  <label for="bmiHeightNum" style="font-size: 12px; font-weight: 700; color: var(--text);">Рост:</label>
+                  <div class="bmi-val-pill-edit">
+                    <input type="number" id="bmiHeightNum" min="100" max="250" value="170" class="bmi-num-input" oninput="handleBmiInput('height', this.value)">
+                    <span style="font-size: 11.5px; font-weight: 700; color: var(--accent); margin-left: 2px;">см</span>
+                  </div>
                 </div>
                 <input type="range" min="130" max="220" value="170" id="bmiHeightSlider" class="bmi-range-slider" oninput="handleBmiSlider('height', this.value)">
               </div>
 
-              <!-- Вес -->
+              <!-- Вес: ручной ввод + ползунок -->
               <div class="bmi-input-group">
                 <div class="bmi-input-top-row">
-                  <label for="bmiWeightSlider" style="font-size: 11.5px; font-weight: 700; color: var(--text);">Вес (кг):</label>
-                  <div class="bmi-val-pill"><span id="bmiWeightDisplay">68</span> кг</div>
+                  <label for="bmiWeightNum" style="font-size: 12px; font-weight: 700; color: var(--text);">Вес:</label>
+                  <div class="bmi-val-pill-edit">
+                    <input type="number" id="bmiWeightNum" min="30" max="250" value="68" class="bmi-num-input" oninput="handleBmiInput('weight', this.value)">
+                    <span style="font-size: 11.5px; font-weight: 700; color: var(--accent); margin-left: 2px;">кг</span>
+                  </div>
                 </div>
                 <input type="range" min="35" max="180" value="68" id="bmiWeightSlider" class="bmi-range-slider" oninput="handleBmiSlider('weight', this.value)">
               </div>
@@ -7703,6 +7746,250 @@
         modal.classList.remove('active');
       }
     };
+
+    /* =========================================================
+       LIVE INTERACTIVE BMI CALCULATOR (РУЧНОЙ ВВОД + ПОЛЗУНКИ)
+       ========================================================= */
+    let liveBmiState = {
+      height: 170,
+      weight: 68,
+      bmi: 23.5
+    };
+
+    function syncBmi(heightVal, weightVal) {
+      let h = parseFloat(heightVal) || 170;
+      let w = parseFloat(weightVal) || 68;
+
+      // Safe clamp
+      h = Math.max(100, Math.min(250, h));
+      w = Math.max(30, Math.min(250, w));
+
+      liveBmiState.height = h;
+      liveBmiState.weight = w;
+
+      const sliderH = document.getElementById('bmiHeightSlider');
+      const sliderW = document.getElementById('bmiWeightSlider');
+      const numH = document.getElementById('bmiHeightNum');
+      const numW = document.getElementById('bmiWeightNum');
+
+      if (sliderH && parseFloat(sliderH.value) !== h) sliderH.value = Math.max(130, Math.min(220, h));
+      if (sliderW && parseFloat(sliderW.value) !== w) sliderW.value = Math.max(35, Math.min(180, w));
+      if (numH && parseFloat(numH.value) !== h) numH.value = h;
+      if (numW && parseFloat(numW.value) !== w) numW.value = w;
+
+      const hM = h / 100;
+      const bmi = parseFloat((w / (hM * hM)).toFixed(1));
+      liveBmiState.bmi = bmi;
+
+      // Sync global patientData
+      patientData.height = h;
+      patientData.weight = w;
+      patientData.bmi = bmi;
+
+      const numEl = document.getElementById('bmiLargeNum');
+      if (numEl) numEl.innerText = bmi;
+
+      const badge = document.getElementById('bmiCategoryBadge');
+      const note = document.getElementById('bmiClinicalNote');
+      const pointer = document.getElementById('bmiScalePointer');
+
+      // Pointer position: scale 16 to 40 (range 24)
+      const clampedBmi = Math.min(40, Math.max(16, bmi));
+      const pct = Math.round(((clampedBmi - 16) / 24) * 100);
+      if (pointer) pointer.style.left = pct + '%';
+
+      if (bmi < 18.5) {
+        patientData.bmiStatus = 'Дефицит массы';
+        if (badge) {
+          badge.className = 'bmi-category-badge warning';
+          badge.innerText = 'Дефицит массы тела';
+        }
+        if (note) note.innerText = 'Сниженный ИМТ: рекомендуется проверить уровень ферритина, общего белка крови и функцию щитовидной железы.';
+      } else if (bmi <= 24.9) {
+        patientData.bmiStatus = 'Норма';
+        if (badge) {
+          badge.className = 'bmi-category-badge normal';
+          badge.innerText = 'Нормальный вес';
+        }
+        if (note) note.innerText = 'Вес находится в физиологической норме. Метаболический и сердечно-сосудистый риск минимален.';
+      } else if (bmi <= 29.9) {
+        patientData.bmiStatus = 'Избыточный вес';
+        if (badge) {
+          badge.className = 'bmi-category-badge warning';
+          badge.innerText = 'Избыточный вес';
+        }
+        if (note) note.innerText = 'Фактор предрасположенности: повышается нагрузка на миокард и сосуды. Рекомендован контроль артериального давления и липидного спектра.';
+      } else if (bmi <= 34.9) {
+        patientData.bmiStatus = 'Ожирение I степени';
+        if (badge) {
+          badge.className = 'bmi-category-badge danger';
+          badge.innerText = 'Ожирение I степени';
+        }
+        if (note) note.innerText = 'Выраженный метаболический фактор риска: показан контроль глюкозы, гликированного гемоглобина (HbA1c) и консультация терапевта/эндокринолога.';
+      } else {
+        patientData.bmiStatus = 'Ожирение II-III степени';
+        if (badge) {
+          badge.className = 'bmi-category-badge danger';
+          badge.innerText = 'Ожирение II–III степени';
+        }
+        if (note) note.innerText = 'Высокий метаболический риск сердечно-сосудистых катастроф и сахарного диабета 2 типа. Требуется углубленный мониторинг.';
+      }
+    }
+
+    function handleBmiSlider(type, val) {
+      const curH = parseFloat(document.getElementById('bmiHeightNum')?.value || 170);
+      const curW = parseFloat(document.getElementById('bmiWeightNum')?.value || 68);
+      if (type === 'height') {
+        syncBmi(val, curW);
+      } else {
+        syncBmi(curH, val);
+      }
+    }
+
+    function handleBmiInput(type, val) {
+      const curH = parseFloat(document.getElementById('bmiHeightSlider')?.value || 170);
+      const curW = parseFloat(document.getElementById('bmiWeightSlider')?.value || 68);
+      if (type === 'height') {
+        syncBmi(val, curW);
+      } else {
+        syncBmi(curH, val);
+      }
+    }
+
+    /* =========================================================
+       FLOATING AI CHAT WIDGET («ФИШКА РАДИ ФИШКИ»)
+       ========================================================= */
+    let isAiWidgetOpen = false;
+
+    function toggleAiWidgetChat() {
+      tactileTap();
+      const panel = document.getElementById('aiWidgetPanel');
+      if (!panel) return;
+      isAiWidgetOpen = !isAiWidgetOpen;
+      panel.style.display = isAiWidgetOpen ? 'flex' : 'none';
+      if (isAiWidgetOpen) {
+        const inp = document.getElementById('aiWidgetInput');
+        if (inp) setTimeout(() => inp.focus(), 150);
+      }
+    }
+
+    function askPresetQuestion(q) {
+      tactileTap();
+      const inp = document.getElementById('aiWidgetInput');
+      if (inp) inp.value = q;
+      handleWidgetSend();
+    }
+
+    async function handleWidgetSend() {
+      const inp = document.getElementById('aiWidgetInput');
+      if (!inp || !inp.value.trim()) return;
+      const text = inp.value.trim();
+      inp.value = '';
+
+      const msgs = document.getElementById('aiWidgetMessages');
+      if (!msgs) return;
+
+      // Hide preset chips once interaction starts
+      const chips = document.getElementById('aiChipsWrap');
+      if (chips) chips.style.display = 'none';
+
+      // 1. Append user message
+      const userMsg = document.createElement('div');
+      userMsg.className = 'ai-chat-msg user';
+      userMsg.innerHTML = `<div class="ai-chat-msg-bubble">${escapeHtml(text)}</div>`;
+      msgs.appendChild(userMsg);
+      msgs.scrollTop = msgs.scrollHeight;
+
+      // 2. Append typing indicator
+      const typingEl = document.createElement('div');
+      typingEl.className = 'ai-chat-msg bot';
+      typingEl.id = 'aiChatTyping';
+      typingEl.innerHTML = `<div class="ai-chat-msg-bubble" style="display:flex;gap:4px;align-items:center;padding:12px 14px;">
+        <span class="pulse-dot" style="width:5px;height:5px;"></span>
+        <span style="font-size:11.5px;color:#94a3b8;">ИИ формулирует ответ...</span>
+      </div>`;
+      msgs.appendChild(typingEl);
+      msgs.scrollTop = msgs.scrollHeight;
+
+      // 3. Strict guardrail check
+      const lower = text.toLowerCase();
+      const isCode = lower.includes('код') || lower.includes('программ') || lower.includes('python') || lower.includes('javascript') || lower.includes('скрипт');
+      const isMath = lower.includes('2+2') || lower.includes('2 + 2') || lower.includes('сколько будет');
+
+      if (isCode || isMath) {
+        setTimeout(() => {
+          if (typingEl && typingEl.parentNode) typingEl.parentNode.removeChild(typingEl);
+          appendWidgetBotAnswer('Я специализированный консультант по семейным факторам риска и отвечаю исключительно на вопросы о здоровье, семейном анамнезе и профилактике. Задайте, пожалуйста, вопрос по теме проекта.');
+        }, 350);
+        return;
+      }
+
+      // 4. Request to Warsaw AI endpoint
+      const systemPrompt = "Ты виртуальный консультант платформы «Знай свой риск: семейная история здоровья как инструмент ранней профилактики заболеваний». " +
+        "Твоя задача — профессионально и понятно отвечать на вопросы о семейном анамнезе, наследственных рисках (инфаркты, инсульты, тромбозы, диабет 2 типа, онкориски), значении родословной 3 поколений и базовых чекапах. " +
+        "СТРОГИЕ ПРАВИЛА: " +
+        "1. Отвечай только на русском языке. Ответ должен быть лаконичным (2 коротких абзаца, до 80-100 слов), строго по медицине и профилактике. " +
+        "2. КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО использовать эмодзи и смайлики. " +
+        "3. Если вопрос не касается здоровья, семейных болезней или профилактики — вежливо откажи и верни к теме проекта. " +
+        "4. Всегда завершай фразу точкой.";
+
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 7000);
+
+        const resp = await fetch('https://91-196-161-40.sslip.io/api/ai-risk', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            prompt: text,
+            system_prompt: systemPrompt
+          }),
+          signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+
+        if (typingEl && typingEl.parentNode) typingEl.parentNode.removeChild(typingEl);
+
+        if (resp.ok) {
+          const data = await resp.json();
+          if (data && data.status === 'ok' && data.answer) {
+            appendWidgetBotAnswer(data.answer.trim());
+            return;
+          }
+        }
+        throw new Error('Fallback needed');
+      } catch (err) {
+        if (typingEl && typingEl.parentNode) typingEl.parentNode.removeChild(typingEl);
+
+        // Curated robust medical responses
+        let fallback = "Для всесторонней оценки семейных факторов риска рекомендуется зафиксировать диагнозы прямых родственников 1 и 2 линий (родители, братья, сестры, бабушки и дедушки), уделив внимание возрасту манифестации болезней.";
+        if (lower.includes('поколени') || lower.includes('дерев') || lower.includes('родословн')) {
+          fallback = "Анамнез 3 поколений (родители, братья/сестры, бабушки/дедушки по обеим линиям) позволяет врачу отличить спорадическое заболевание от генетически детерминированного. Наличие сердечно-сосудистых или онкологических диагнозов в двух поколениях до 50 лет увеличивает персональный риск в 3-4 раза.";
+        } else if (lower.includes('инфаркт') || lower.includes('инсульт') || lower.includes('ссз')) {
+          fallback = "При раннем инфаркте или инсульте у близких родственников (до 50 лет) ключевые шаги: 1. Проверить развернутую липидограмму (ЛПНП, триглицериды, коэффициент атерогенности). 2. Мониторить уровень артериального давления. 3. Сдать анализ на гликированный гемоглобин (HbA1c) и проконсультироваться с терапевтом.";
+        } else if (lower.includes('анализ') || lower.includes('чекап') || lower.includes('кров')) {
+          fallback = "Базовый предиктивный лабораторный минимум включает: развернутый липидный профиль (холестерин, ЛПНП, ЛПВП), гликированный гемоглобин (HbA1c), коагулограмму (ПТИ, фибриноген), а также скрининг артериального давления для раннего выявления сосудистой нагрузки.";
+        } else if (lower.includes('057') || lower.includes('омс') || lower.includes('сургут') || lower.includes('поликлиник')) {
+          fallback = "В рамках программы госгарантий ОМС при наличии семейных факторов риска участковый терапевт поликлиники выдает бесплатное направление по форме 057/у к врачу-генетику в Сургутский окружной клинический центр охраны материнства и детства.";
+        }
+        appendWidgetBotAnswer(fallback);
+      }
+    }
+
+    function appendWidgetBotAnswer(text) {
+      const msgs = document.getElementById('aiWidgetMessages');
+      if (!msgs) return;
+      const botMsg = document.createElement('div');
+      botMsg.className = 'ai-chat-msg bot';
+      botMsg.innerHTML = `<div class="ai-chat-msg-bubble">${renderAiMarkdown(text)}</div>`;
+      msgs.appendChild(botMsg);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
   </script>
 
 
@@ -7731,10 +8018,10 @@
           </svg>
         </div>
         <div>
-          <div class="ai-widget-title">ИИ-консультант: Семейный риск</div>
+          <div class="ai-widget-title">Фишка ради фишки</div>
           <div class="ai-widget-status">
             <span class="ai-widget-status-dot"></span>
-            <span>Консультации по здоровью и анамнезу</span>
+            <span>ИИ-консультант • Здоровье семьи</span>
           </div>
         </div>
       </div>
@@ -7745,7 +8032,7 @@
     <div class="ai-widget-messages" id="aiWidgetMessages">
       <div class="ai-chat-msg bot">
         <div class="ai-chat-msg-bubble">
-          Здравствуйте! Я виртуальный консультант по семейной истории здоровья. Отвечаю на вопросы о наследственных заболеваниях (ССЗ, инфаркты, инсульты, диабет, онкология) и значении анамнеза 3 поколений. Задайте ваш вопрос:
+          Я искусственный интеллект, мои знания ограничены, и я могу ошибаться. Задавайте ваши вопросы по семейному здоровью и факторам риска:
         </div>
       </div>
 
