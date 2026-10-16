@@ -4098,69 +4098,8 @@
           </div>
         </div>
 
-        <!-- AI CLINICAL CONSILIUM (NO MODEL NAME, NO EMOJIS, VOLUMETRIC INPUT) -->
-        <div class="ai-card" id="aiCard">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span class="ai-pulse-dot"></span>
-              <strong style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent);">Клинический ИИ-консилиум СурГУ</strong>
-            </div>
-            <div style="display: flex; align-items: center; gap: 6px;">
-              <button type="button" class="ai-fallback-toggle-btn" id="aiTemplateToggleBtn" onclick="tactileTap(); toggleClinicalView()">Стандартный протокол</button>
-              <div class="ai-status-badge">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                <span>Экспресс-анализ</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Loading State -->
-          <div id="aiLoading" style="display: flex; align-items: center; gap: 10px; padding: 14px 0; color: var(--text-sub); font-size: 13px;">
-            <div class="ai-spinner"></div>
-            <span>ИИ сопоставляет ваши ответы с клинической базой кафедры СурГУ...</span>
-          </div>
-
-          <!-- Analysis text -->
-          <div id="aiResultText" class="ai-response-box" style="display: none;"></div>
-
-          <!-- Interactive prompt / Q&A section -->
-          <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--card-border);">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-              <span style="font-size: 11.5px; font-weight: 700; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.4px;">Задайте вопрос врачу-ИИ:</span>
-              <span style="font-size: 10.5px; color: var(--text-sub);">СурГУ • ОМС ХМАО</span>
-            </div>
-            
-            <div style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 8px; -webkit-overflow-scrolling: touch; scrollbar-width: none;">
-              <button type="button" class="ai-chip" onclick="tactileTap(); askAiQuestion('Как жителю Сургута бесплатно получить направление 057/у к генетику по ОМС?')">Направление 057/у в Сургуте</button>
-              <button type="button" class="ai-chip" onclick="tactileTap(); askAiQuestion('Если у близких родственников был ранний инфаркт или инсульт (до 50 лет), какие первые 3 анализа сдать?')">Чек-ап ССЗ по ОМС</button>
-              <button type="button" class="ai-chip" onclick="tactileTap(); askAiQuestion('Как правильно составить семейное дерево здоровья из 3 поколений для врача?')">Родословная 3 поколений</button>
-            </div>
-
-            <!-- Volumetric 3D Input Bar -->
-            <div class="ai-input-bar-elevated">
-              <div class="ai-input-icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-              </div>
-              <input type="text" class="ai-input-field-core" id="aiCustomInput" placeholder="Ваш вопрос врачу-ИИ..." onkeydown="if(event.key==='Enter'){tactileTap();handleCustomAiAsk();}">
-              <button type="button" class="ai-ask-submit-btn-3d" onclick="tactileTap(); handleCustomAiAsk()">
-                <span>Спросить</span>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
-            </div>
-
-            <div id="aiInteractiveLoading" style="display: none; align-items: center; gap: 8px; margin-top: 10px; color: var(--text-sub); font-size: 12px;">
-              <div class="ai-spinner" style="width: 14px; height: 14px;"></div>
-              <span>Врач-ИИ формирует ответ...</span>
-            </div>
-            <div id="aiInteractiveAnswer" class="ai-response-box" style="display: none; margin-top: 10px; padding: 12px 14px; background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 12px;"></div>
-          </div>
-        </div>
-
         <div class="bento-card" style="margin-top: 14px;">
-          <h4 style="font-size: 14px; margin-bottom: 8px; color: #fff;">Клиническое резюме и рекомендации:</h4>
+          <h4 style="font-size: 14px; margin-bottom: 8px; color: #fff;">Клиническое резюме и рекомендации кафедры СурГУ:</h4>
           <ul class="action-checklist" id="actionList"></ul>
 
           <!-- ACTION BUTTON 1: DOWNLOAD PDF -->
@@ -4370,7 +4309,7 @@
         <div class="genesis-header-top">
           <div class="genesis-status-pill">
             <span class="pulse-dot"></span>
-            <span>CORE ONLINE • НАУЧНЫЙ КЛАСТЕР СУРГУ 2026</span>
+            <span>ИССЛЕДОВАТЕЛЬСКАЯ ГРУППА СУРГУ • 2026</span>
           </div>
           <button type="button" class="genesis-close-btn" onclick="closeAuthorModal()" title="Закрыть реестр">✕</button>
         </div>
@@ -4397,7 +4336,7 @@
                   <span>•</span>
                   <span>ЛЕЧЕБНОЕ ДЕЛО</span>
                   <span>•</span>
-                  <span style="color: #818cf8;">ВЫПУСК 2026</span>
+                  <span style="color: #818cf8;">КАФЕДРА ВНУТРЕННИХ БОЛЕЗНЕЙ</span>
                 </div>
               </div>
             </div>
@@ -4407,37 +4346,37 @@
               <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
               </svg>
-              <span id="teamToggleAllLbl">Развернуть реестр</span>
+              <span id="teamToggleAllLbl">Развернуть все анкеты</span>
             </button>
           </div>
 
-          <!-- Живые метрики исследовательского цикла -->
+          <!-- Метрики проекта -->
           <div class="genesis-metrics-grid">
             <div class="genesis-metric-chip">
-              <div class="genesis-chip-lbl">Исследователи</div>
+              <div class="genesis-chip-lbl">Авторы проекта</div>
               <div class="genesis-chip-val">
-                <span>8 Юнитов</span>
-                <span style="font-size: 10px; color: #38bdf8; font-family: monospace;">Active</span>
+                <span>8 студентов</span>
+                <span style="font-size: 10px; color: #38bdf8; font-family: monospace;">2 курс</span>
               </div>
             </div>
             <div class="genesis-metric-chip">
-              <div class="genesis-chip-lbl">Протокол GCP</div>
-              <div class="genesis-chip-val" style="color: #10b981;">100% Valid</div>
+              <div class="genesis-chip-lbl">Специальность</div>
+              <div class="genesis-chip-val" style="color: #10b981;">Лечебное дело</div>
             </div>
             <div class="genesis-metric-chip">
-              <div class="genesis-chip-lbl">Триаж рисков</div>
-              <div class="genesis-chip-val" style="color: #38bdf8;">&lt; 1.2 сек</div>
+              <div class="genesis-chip-lbl">Кафедра</div>
+              <div class="genesis-chip-val" style="color: #38bdf8;">Внутренние болезни</div>
             </div>
             <div class="genesis-metric-chip">
-              <div class="genesis-chip-lbl">Гео-Сургут</div>
-              <div class="genesis-chip-val" style="color: #818cf8;">42 Кластера</div>
+              <div class="genesis-chip-lbl">Исследование</div>
+              <div class="genesis-chip-val" style="color: #818cf8;">Сургут • 2026</div>
             </div>
           </div>
         </div>
 
-        <!-- Панель поиска и фильтров направлений -->
+        <!-- Панель поиска по авторам -->
         <div class="genesis-controls-row">
-          <div class="genesis-search-box">
+          <div class="genesis-search-box" style="width: 100%;">
             <svg class="genesis-search-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -4446,16 +4385,9 @@
               type="text" 
               id="teamSearchInput" 
               class="genesis-search-input" 
-              placeholder="Поиск исследователя, технологии, протокола..."
+              placeholder="Поиск автора по имени или фамилии..."
               oninput="handleTeamSearch(this.value)"
             />
-          </div>
-
-          <div class="genesis-filters-list">
-            <button type="button" class="genesis-filter-btn active" data-cat="all" onclick="setTeamFilter('all', this)">Все [8]</button>
-            <button type="button" class="genesis-filter-btn" data-cat="clinical" onclick="setTeamFilter('clinical', this)">Клинические [4]</button>
-            <button type="button" class="genesis-filter-btn" data-cat="arch" onclick="setTeamFilter('arch', this)">Архитектура & ГИС [2]</button>
-            <button type="button" class="genesis-filter-btn" data-cat="bio" onclick="setTeamFilter('bio', this)">Биометрия [2]</button>
           </div>
         </div>
 
@@ -4469,55 +4401,10 @@
     </div>
   </div>
 
-  <!-- Детальное модальное окно протокола исследований -->
-  <div class="genesis-protocol-overlay" id="teamProtocolOverlay" onclick="closeTeamProtocol()">
-    <div class="genesis-protocol-box" onclick="event.stopPropagation()">
-      <div class="genesis-protocol-hdr">
-        <div>
-          <div class="protocol-version-tag">Протокол Исследований // Версия 2.4.9</div>
-          <h3 id="protocolModalName" class="protocol-doctor-name">Баетова Милана</h3>
-          <p id="protocolModalRole" class="protocol-doctor-role">Клинический куратор</p>
-        </div>
-        <button type="button" class="genesis-close-btn" onclick="closeTeamProtocol()" title="Закрыть">✕</button>
-      </div>
-
-      <div class="protocol-body-stack">
-        <div class="protocol-hash-box">
-          <div class="protocol-hash-lbl">Хэш-идентификатор транзакции:</div>
-          <div class="protocol-hash-val">0x88F7B29A...GENOME_SURGU_2026_MED_NODE</div>
-        </div>
-
-        <div class="protocol-ethics-box">
-          <div class="protocol-ethics-lbl">Биоэтический комитет СурГУ:</div>
-          <div class="protocol-ethics-text">
-            Протокол №12/26-ГК одобрен независимым экспертным советом СурГУ. Все геномные дескрипторы и данные опроса деперсонализированы в соответствии со стандартами GCP и 152-ФЗ РФ.
-          </div>
-        </div>
-
-        <div class="protocol-stats-grid">
-          <div class="protocol-stat-chip">
-            <span class="protocol-stat-lbl">Шифрование:</span>
-            <span class="protocol-stat-val encrypt">SHA-256 ACTIVE</span>
-          </div>
-          <div class="protocol-stat-chip">
-            <span class="protocol-stat-lbl">Когортный пул:</span>
-            <span class="protocol-stat-val cohort">14,200 СУБЪЕКТОВ</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="protocol-footer">
-        <button type="button" class="genesis-act-btn primary protocol-confirm-btn" onclick="closeTeamProtocol(); showTeamToast('Протокол верифицирован')">
-          Подтвердить валидацию
-        </button>
-      </div>
-    </div>
-  </div>
-
   <!-- Всплывающий тост уведомления -->
   <div class="genesis-toast" id="teamToast">
     <div style="width: 8px; height: 8px; border-radius: 50%; background: #00f0ff;"></div>
-    <span id="teamToastText">Досье скопировано</span>
+    <span id="teamToastText">Данные скопированы</span>
   </div>
 
   <script>
@@ -4855,17 +4742,15 @@
       const listEl = document.getElementById('actionList');
       const metaEl = document.getElementById('patientMetaTag');
       if (metaEl) {
-        metaEl.innerText = `Пациент: ${patientData.gender} • ${patientData.age} • Вес: ${patientData.weight} кг (ИМТ: ${patientData.bmi} — ${patientData.bmiStatus})`;
+        metaEl.innerText = `Пациент: ${patientData.gender} • Возрастная группа: ${patientData.age}`;
       }
 
       listEl.innerHTML = '';
 
-      const bmiRecommendation = patientData.bmi >= 25 
-        ? `<li>
-            <div class="action-tag-badge amber">Метаболический статус (ИМТ ${patientData.bmi})</div>
-            <div class="action-body-text">Присутствует дополнительный фактор нагрузки на углеводный и липидный обмен. Рекомендован контроль индекса HOMA-IR и уровня инсулина в крови.</div>
-           </li>`
-        : '';
+      const bmiRecommendation = `<li>
+        <div class="action-tag-badge amber">Антропометрия и метаболический статус</div>
+        <div class="action-body-text">Контроль индекса массы тела (ИМТ), окружности талии и липидного профиля. При ИМТ ≥ 25 рекомендован мониторинг уровня глюкозы и гликированного гемоглобина.</div>
+      </li>`;
 
       if (questScore < 32) {
         statusEl.innerText = "Низкий генетический риск";
@@ -5335,24 +5220,6 @@
         `;
       }
 
-      // Compile clinical profile for Groq AI
-      let profileParts = [];
-      if (surveyUserAnswers[1]) profileParts.push('Возраст: ' + surveyUserAnswers[1].text);
-      if (surveyUserAnswers[2]) profileParts.push('Пол: ' + surveyUserAnswers[2].text);
-      if (surveyUserAnswers[3]) profileParts.push('Род занятий: ' + surveyUserAnswers[3].text);
-      if (surveyUserAnswers[4]) profileParts.push('Знание болезней родных: ' + surveyUserAnswers[4].text);
-      if (surveyUserAnswers[5]) profileParts.push('Заболевания в семье: ' + surveyUserAnswers[5].text);
-      if (surveyUserAnswers[6]) profileParts.push('Катастрофы до 50 лет у родных: ' + surveyUserAnswers[6].text);
-      if (surveyUserAnswers[8]) profileParts.push('Составление родословной: ' + surveyUserAnswers[8].text);
-      if (surveyUserAnswers[9]) profileParts.push('Знание холестерина/сахара: ' + surveyUserAnswers[9].text);
-      if (surveyUserAnswers[12]) profileParts.push('Знание о генетике по ОМС в Сургуте: ' + surveyUserAnswers[12].text);
-
-      const clinicalPrompt = "Результаты анонимной анкеты СурГУ:\n" + 
-        profileParts.join("\n") + 
-        "\nИтоговый уровень осведомленности: " + awarenessScore + "%. Сформируй персональный клинический разбор рисков, анализов и маршрута в Сургуте.";
-
-      requestAiRiskAnalysis(clinicalPrompt);
-
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -5367,15 +5234,7 @@
       const progBox = document.getElementById('questProgressBox');
       if (progBox) progBox.style.display = 'block';
 
-      // Reset AI elements
-      const aiText = document.getElementById('aiResultText');
-      if (aiText) { aiText.style.display = 'none'; aiText.innerHTML = ''; }
-      const aiLoad = document.getElementById('aiLoading');
-      if (aiLoad) aiLoad.style.display = 'flex';
-      const aiAns = document.getElementById('aiInteractiveAnswer');
-      if (aiAns) { aiAns.style.display = 'none'; aiAns.innerHTML = ''; }
-      const aiInp = document.getElementById('aiCustomInput');
-      if (aiInp) aiInp.value = '';
+// Survey reset complete
 
       document.getElementById('questTitle').innerText = 'Что вы знаете о семейной истории здоровья?';
       document.getElementById('questSubtitle').innerText = 'Анкета анонимная. Цель опроса — оценить уровень знаний о значении семейного анамнеза и наследственных факторов риска для профилактики заболеваний. Заполнение займёт 3–5 минут.';
@@ -5463,8 +5322,14 @@
               <td style="padding: 3px 0; width: 50%;"><strong>Возрастная категория:</strong> ${patientData.age}</td>
             </tr>
             <tr>
-              <td style="padding: 3px 0;"><strong>Физические параметры:</strong> Рост ${patientData.height} см • Вес ${patientData.weight} кг</td>
-              <td style="padding: 3px 0;"><strong>Индекс массы тела:</strong> ${patientData.bmi} (${patientData.bmiStatus})</td>
+              <td colspan="2" style="padding: 6px 0 2px 0; border-top: 1px dashed #cbd5e1; margin-top: 4px;">
+                <strong>Физические параметры (заполняются врачом / пациентом):</strong><br>
+                <div style="margin-top: 5px; font-size: 11px; color: #1e293b;">
+                  Рост: ____________ см &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 
+                  Вес: ____________ кг &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 
+                  Индекс массы тела (ИМТ): ____________ кг/м²
+                </div>
+              </td>
             </tr>
           </table>
 
@@ -5486,19 +5351,7 @@
           </div>
         </div>
 
-        ${(function(){
-          const aiTextEl = document.getElementById('aiResultText');
-          if (aiTextEl && aiTextEl.style.display !== 'none' && aiTextEl.innerText.trim().length > 20) {
-            return `<div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;padding:12px 16px;margin-bottom:16px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <strong style="color:#166534;font-size:12px;text-transform:uppercase;">Клинический разбор ИИ-консилиума СурГУ:</strong>
-                <span style="font-size:10px;color:#15803d;font-weight:700;">Предиктивный анализ</span>
-              </div>
-              <div style="font-size:11px;color:#1e293b;line-height:1.55;">${aiTextEl.innerHTML}</div>
-            </div>`;
-          }
-          return '';
-        })()}
+
 
         <!-- CLINICAL PROTOCOL -->
         <div style="margin-bottom: 16px;">
@@ -5530,9 +5383,9 @@
               Автор концепции и ведущий разработчик интеллектуальной системы популяционного генетического скрининга, алгоритмов триажа мутаций и единого навигатора медико-генетических центров РФ.
             </div>
             <div style="margin-top: 6px; padding-top: 6px; border-top: 1px dashed #cbd5e1; font-weight: 700; color: #0284c7; font-size: 11px; display: flex; gap: 16px;">
-              <span>Telegram: @AangDom</span>
-              <span>Личное дело исследователя: #7842</span>
-              <span>Статус: Аттестован (2026)</span>
+              <span>СурГУ • Медицинский институт</span>
+              <span>2 курс • Лечебное дело</span>
+              <span>2026 г.</span>
             </div>
           </div>
         </div>
@@ -5565,7 +5418,7 @@
         const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
         pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
-        pdf.save(`Klinicheskiy_Pasport_${patientData.gender}_${patientData.weight}kg.pdf`);
+        pdf.save("Klinicheskiy_Pasport_SurGU.pdf");
 
         document.body.removeChild(container);
         showToast('Памятка PDF успешно сохранена!');
@@ -7130,135 +6983,70 @@
       {
         id: "baetova",
         name: "Баетова Милана",
-        role: "Клинический куратор",
-        category: "clinical",
-        badge: "GCP Compliance & Онкопанели",
         avatarHue: "185",
-        manifesto: "Анализ клинических рекомендаций, онкопанелей BRCA1/2 и верификация протоколов скрининга наследственных рисков.",
-        department: "Кафедра клинической медицины & Международный комплаенс",
-        metrics: [
-          { label: "GCP Аудит", value: "99.8%", progress: 100 },
-          { label: "Когорта субъектов", value: "1,420 чел.", progress: 88 },
-          { label: "Верификация карт", value: "100%", progress: 100 }
-        ],
-        tags: ["#GCP-Standards", "#Онкопанели-BRCA", "#BioethicsProtocol", "#PatientCohort", "#СемейныйАнамнез"]
+        about: "Анализ клинических рекомендаций по ранней диагностике семейных рисков и структурирование вопросов медико-генетической анкеты.",
+        faculty: "Медицинский институт СурГУ",
+        program: "Лечебное дело • 2 курс"
       },
       {
         id: "akramov",
         name: "Акрамов Фаршед",
-        role: "Архитектор платформы",
-        category: "arch",
-        badge: "Fullstack & Risk Engine",
         avatarHue: "215",
-        manifesto: "Разработка архитектуры цифровой платформы семейной истории здоровья, калькулятора рисков и интеграции клинических протоколов.",
-        department: "Лаборатория цифрового здравоохранения & HealthTech IT",
-        metrics: [
-          { label: "Uptime ядра", value: "99.98%", progress: 100 },
-          { label: "Шифрование данных", value: "AES-256 GCM", progress: 100 },
-          { label: "Время отклика", value: "< 0.18 сек", progress: 95 }
-        ],
-        tags: ["#HealthTech", "#RiskCalculator", "#UX/UI", "#152-ФЗ", "#DigitalHealth"]
+        about: "Разработка интерактивной веб-платформы семейной истории здоровья, калькулятора рисков и навигатора обследований.",
+        faculty: "Медицинский институт СурГУ",
+        program: "Лечебное дело • 2 курс"
       },
       {
         id: "isaeva",
         name: "Исаева Заира",
-        role: "Популяционный скрининг",
-        category: "clinical",
-        badge: "Genetic Epidemiology & CFTR",
         avatarHue: "270",
-        manifesto: "Анализ распространенности моногенных заболеваний в популяции (муковисцидоз CFTR, фенилкетонурия, СМА) для раннего предиктивного скрининга.",
-        department: "Отдел молекулярно-генетического скрининга населения ХМАО",
-        metrics: [
-          { label: "Охват выборки", value: "18.4k суб.", progress: 94 },
-          { label: "Стат. мощность", value: "p < 0.001", progress: 98 },
-          { label: "Детекция мутаций", value: "98.6%", progress: 99 }
-        ],
-        tags: ["#ПопуляционныйСкрининг", "#CFTR-Муковисцидоз", "#ЭпидемиологияЮгры", "#МоногенныеБолезни", "#Genotyping"]
+        about: "Исследование популяционной осведомленности о моногенных заболеваниях и скрининговых программах ХМАО-Югры.",
+        faculty: "Медицинский институт СурГУ",
+        program: "Лечебное дело • 2 курс"
       },
       {
         id: "abdulaev",
         name: "Абдулаев Али",
-        role: "ГИС-навигатор Сургута",
-        category: "arch",
-        badge: "Spatial GIS & ОМС Маршруты",
         avatarHue: "155",
-        manifesto: "Интеграция лабораторных баз Сургута (Хеликс, Инвитро, Полимедика, Наджа) и оптимизация маршрутов пациентов по ОМС.",
-        department: "Сектор медицинской геоинформатики & Пространственного моделирования",
-        metrics: [
-          { label: "Точность ГИС", value: "0.8 м", progress: 96 },
-          { label: "Центров нанесено", value: "42 точки", progress: 85 },
-          { label: "Сокращение плеча", value: "-34% t", progress: 75 }
-        ],
-        tags: ["#ГИС-Сургут", "#ЛабораторииОМС", "#КартографияЗдоровья", "#Хеликс-Инвитро", "#Маршрутизация"]
+        about: "Сбор и систематизация данных о медицинских организациях и лабораториях Сургута для карты обследований по ОМС.",
+        faculty: "Медицинский институт СурГУ",
+        program: "Лечебное дело • 2 курс"
       },
       {
         id: "fattaeva",
         name: "Фаттаева Маргарита",
-        role: "Гемостаз и репродукция",
-        category: "bio",
-        badge: "Hemostasis & F2/F5 Leiden",
         avatarHue: "345",
-        manifesto: "Формирование панелей наследственных тромбофилий (F2, F5 Leiden) для оценки рисков беременности и профилактики тромбозов.",
-        department: "Клиническая гемостазиология & Перинатальная медицина",
-        metrics: [
-          { label: "Относительный риск", value: "RR 3.42", progress: 89 },
-          { label: "Коагулограмма", value: "540 проб", progress: 82 },
-          { label: "Специфичность", value: "97.4%", progress: 97 }
-        ],
-        tags: ["#Гемостаз", "#FactorV-Leiden", "#Протромбин-F2", "#Репродуктология", "#Thrombophilia"]
+        about: "Подготовка клинических рекомендаций по профилактике сердечно-сосудистых рисков и факторов свертываемости крови.",
+        faculty: "Медицинский институт СурГУ",
+        program: "Лечебное дело • 2 курс"
       },
       {
         id: "lugueva",
         name: "Лугуева Диана",
-        role: "Статистика и аналитика",
-        category: "bio",
-        badge: "Biostatistics & Data Science",
         avatarHue: "42",
-        manifesto: "Статистическая обработка данных социологического опроса студентов СурГУ, многофакторный анализ и построение аналитических диаграмм.",
-        department: "Лаборатория биостатистики & Аналитики данных СурГУ",
-        metrics: [
-          { label: "ROC-AUC Индекс", value: "0.941", progress: 94 },
-          { label: "Аналитических шкал", value: "14 шт.", progress: 80 },
-          { label: "Достоверность CI", value: "95% Cl", progress: 95 }
-        ],
-        tags: ["#Биостатистика", "#СоцопросСурГУ", "#ROC-Анализ", "#MultivariateModel", "#DataScience"]
+        about: "Статистический анализ результатов социологического опроса студентов СурГУ и построение аналитических диаграмм.",
+        faculty: "Медицинский институт СурГУ",
+        program: "Лечебное дело • 2 курс"
       },
       {
         id: "borodina",
         name: "Бородина Алина",
-        role: "Клинический аудит",
-        category: "clinical",
-        badge: "Evidence-Based & Форма 057/у",
         avatarHue: "170",
-        manifesto: "Нормативно-правовое сопровождение медико-генетического консультирования, форма 057/у и стандарты доказательной медицины.",
-        department: "Центр экспертного контроля доказательной медицины (EBM)",
-        metrics: [
-          { label: "Индекс согласия", value: "κ = 0.92", progress: 92 },
-          { label: "Соответствие 057/у", value: "100%", progress: 100 },
-          { label: "Доказательность", value: "Tier-1 EBM", progress: 95 }
-        ],
-        tags: ["#Форма-057у", "#КлиническийАудит", "#ДоказательнаяМедицина", "#ГосгарантииОМС", "#PeerReview"]
+        about: "Обобщение информации о нормативно-правовой базе и порядке получения направления по форме 057/у к врачу-генетику в Сургуте.",
+        faculty: "Медицинский институт СурГУ",
+        program: "Лечебное дело • 2 курс"
       },
       {
         id: "ulutova",
         name: "Улутова Айза",
-        role: "Алгоритмы триажа",
-        category: "clinical",
-        badge: "Risk Stratification & Scoring",
         avatarHue: "198",
-        manifesto: "Математическая модель предиктивной шкалы рисков, алгоритмы стратификации пациентов и распределение по группам здоровья.",
-        department: "Отделение предиктивного скрининга & Алгоритмов триажа",
-        metrics: [
-          { label: "Скорость триажа", value: "< 1.2 сек", progress: 98 },
-          { label: "Точность стратификации", value: "99.1%", progress: 99 },
-          { label: "Чувствительность", value: "98.9%", progress: 99 }
-        ],
-        tags: ["#ШкалаРисков", "#ДеревоРешений", "#ТриажПациентов", "#РанняяПрофилактика", "#Алгоритмы"]
+        about: "Разработка критериев стратификации уровней риска и адаптация памятки по сбору семейного древа здоровья.",
+        faculty: "Медицинский институт СурГУ",
+        program: "Лечебное дело • 2 курс"
       }
     ];
 
     const openedTeamCards = new Set();
-    let currentTeamFilter = 'all';
     let currentTeamSearch = '';
     let teamCanvasAnimFrame = null;
 
@@ -7267,19 +7055,13 @@
       if (!container) return;
       container.innerHTML = '';
 
+      const q = currentTeamSearch.toLowerCase().trim();
       const filtered = researchers.filter(item => {
-        const matchesCategory = currentTeamFilter === 'all' || item.category === currentTeamFilter;
-        const q = currentTeamSearch.toLowerCase().trim();
-        const matchesSearch = !q || 
-          item.name.toLowerCase().includes(q) ||
-          item.role.toLowerCase().includes(q) ||
-          item.department.toLowerCase().includes(q) ||
-          item.tags.some(t => t.toLowerCase().includes(q));
-        return matchesCategory && matchesSearch;
+        return !q || item.name.toLowerCase().includes(q) || item.about.toLowerCase().includes(q);
       });
 
       if (filtered.length === 0) {
-        container.innerHTML = '<div style="text-align: center; padding: 30px; color: #94a3b8; font-family: monospace; font-size: 12px;">Исследователь не найден в реестре</div>';
+        container.innerHTML = '<div style="text-align: center; padding: 30px; color: var(--text-sub); font-size: 13px;">Автор не найден</div>';
         return;
       }
 
@@ -7301,17 +7083,16 @@
               <div class="genesis-trigger-info">
                 <h3 class="genesis-member-name">${m.name}</h3>
                 <div class="genesis-member-sub">
-                  <span class="genesis-role-text">${m.role}</span>
-                  <span style="color: #64748b;">•</span>
-                  <span class="genesis-badge-tag">${m.badge}</span>
+                  <span class="genesis-role-text">Студент 2 курса</span>
+                  <span style="color: var(--text-sub);">•</span>
+                  <span class="genesis-badge-tag">Лечебное дело</span>
                 </div>
               </div>
             </div>
 
             <div class="genesis-trigger-right">
-              <span class="genesis-syncd-badge">
-                <span style="width: 5px; height: 5px; border-radius: 50%; background: #00f0ff; display: inline-block;"></span>
-                SYNCD
+              <span class="genesis-syncd-badge" style="color: var(--accent); border-color: rgba(0, 242, 254, 0.3);">
+                СурГУ
               </span>
               <div class="genesis-chevron">▼</div>
             </div>
@@ -7323,50 +7104,24 @@
                 
                 <div class="genesis-manifesto-box">
                   <div class="genesis-manifesto-hdr">
-                    <span>Био-манифест & Направление</span>
+                    <span>Участие в научно-исследовательском проекте</span>
                     <span style="color: #64748b;">СурГУ • 2026</span>
                   </div>
-                  <p class="genesis-manifesto-p">«${m.manifesto}»</p>
+                  <p class="genesis-manifesto-p">«${m.about}»</p>
                   <div class="genesis-dept-line">
                     <span class="genesis-dept-dot"></span>
-                    <span>${m.department}</span>
+                    <span>${m.faculty} • ${m.program}</span>
                   </div>
                 </div>
 
-                <div>
-                  <div style="font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; font-family: monospace; margin-bottom: 6px;">Метрики исследовательского цикла</div>
-                  <div class="genesis-metrics-row">
-                    ${m.metrics.map(met => `
-                      <div class="genesis-submetric-card">
-                        <div class="genesis-submetric-top">
-                          <span class="genesis-submetric-lbl">${met.label}</span>
-                          <span class="genesis-submetric-val">${met.value}</span>
-                        </div>
-                        <div class="genesis-progress-track">
-                          <div class="genesis-progress-fill" style="width: ${met.progress}%;"></div>
-                        </div>
-                      </div>
-                    `).join('')}
+                <div class="genesis-actions-row" style="margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--card-border, rgba(255,255,255,0.06)); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                  <div class="genesis-verif-lbl" style="font-size: 11px; color: var(--text-sub);">
+                    <span class="genesis-verif-dot" style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #10b981; margin-right: 6px;"></span>
+                    <span>Авторский коллектив СурГУ</span>
                   </div>
-                </div>
-
-                <div class="genesis-tags-row">
-                  ${m.tags.map(t => `<span class="genesis-tag-chip">${t}</span>`).join('')}
-                </div>
-
-                <div class="genesis-actions-row">
-                  <div class="genesis-verif-lbl">
-                    <span class="genesis-verif-dot"></span>
-                    <span>Крипто-валидировано в реестре СурГУ</span>
-                  </div>
-                  <div class="genesis-btn-group">
-                    <button type="button" class="genesis-act-btn" onclick="openTeamProtocol('${m.id}')">
-                      Протокол исследований
-                    </button>
-                    <button type="button" class="genesis-act-btn primary" onclick="copyTeamDossier('${m.name}', '${m.role}')">
-                      Скопировать досье
-                    </button>
-                  </div>
+                  <button type="button" class="genesis-act-btn primary" onclick="copyTeamDossier('${m.name}')">
+                    Скопировать данные об авторе
+                  </button>
                 </div>
 
               </div>
@@ -7395,10 +7150,10 @@
       const allOpen = researchers.length > 0 && researchers.every(r => openedTeamCards.has(r.id));
       if (allOpen) {
         openedTeamCards.clear();
-        showTeamToast("Реестр свернут");
+        showTeamToast("Все анкеты свернуты");
       } else {
         researchers.forEach(r => openedTeamCards.add(r.id));
-        showTeamToast("Все 8 досье развернуты");
+        showTeamToast("Все 8 анкет развернуты");
       }
       renderTeamCards();
     }
@@ -7407,15 +7162,7 @@
       const lbl = document.getElementById('teamToggleAllLbl');
       if (!lbl) return;
       const allOpen = researchers.length > 0 && researchers.every(r => openedTeamCards.has(r.id));
-      lbl.textContent = allOpen ? "Свернуть реестр" : "Развернуть реестр";
-    }
-
-    function setTeamFilter(cat, btn) {
-      tactileTap();
-      currentTeamFilter = cat;
-      document.querySelectorAll('.genesis-filter-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-      renderTeamCards();
+      lbl.textContent = allOpen ? "Свернуть анкеты" : "Развернуть все анкеты";
     }
 
     function handleTeamSearch(val) {
@@ -7423,14 +7170,16 @@
       renderTeamCards();
     }
 
-    function copyTeamDossier(name, role) {
+    function copyTeamDossier(name) {
       tactileTap();
-      const text = 'СурГУ • Медицинский институт (2026)\nИсследователь: ' + name + '\nРоль: ' + role + '\nПроект: «Знай свой риск: семейная история здоровья как инструмент ранней профилактики заболеваний»';
+      const text = 'СурГУ • Медицинский институт (2 курс, Лечебное дело)\n' +
+        'Автор проекта: ' + name + '\n' +
+        'Проект: «Знай свой риск: семейная история здоровья как инструмент ранней профилактики заболеваний»';
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(() => {
-          showTeamToast('Досье скопировано: ' + name);
+          showTeamToast('Данные скопированы: ' + name);
         }).catch(() => {
-          showTeamToast('Досье скопировано');
+          showTeamToast('Данные скопированы');
         });
       } else {
         const ta = document.createElement('textarea');
@@ -7441,7 +7190,7 @@
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        showTeamToast('Досье скопировано: ' + name);
+        showTeamToast('Данные скопированы: ' + name);
       }
     }
 
@@ -7456,22 +7205,6 @@
       teamToastTimeout = setTimeout(() => {
         toast.classList.remove('active');
       }, 2500);
-    }
-
-    function openTeamProtocol(id) {
-      tactileTap();
-      const member = researchers.find(r => r.id === id);
-      if (!member) return;
-      document.getElementById('protocolModalName').textContent = member.name;
-      document.getElementById('protocolModalRole').textContent = member.role + ' — ' + member.department;
-      const overlay = document.getElementById('teamProtocolOverlay');
-      if (overlay) overlay.classList.add('active');
-    }
-
-    function closeTeamProtocol() {
-      tactileTap();
-      const overlay = document.getElementById('teamProtocolOverlay');
-      if (overlay) overlay.classList.remove('active');
     }
 
     /* Team Canvas Background DNA Simulation (Silent & Lightweight) */
