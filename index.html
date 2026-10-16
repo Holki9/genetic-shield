@@ -3067,6 +3067,197 @@
       background: #0284c7 !important;
     }
 
+
+    /* =========================================================
+       DESKTOP / PC ADAPTIVE ARCHITECTURE (>= 992px)
+       ========================================================= */
+    .desktop-navbar {
+      display: none;
+    }
+    .home-desktop-grid,
+    .map-desktop-grid,
+    .stats-desktop-grid,
+    .risks-desktop-grid,
+    .passport-desktop-split {
+      display: block;
+    }
+
+    @media (min-width: 992px) {
+      /* 1. Container & Spacing */
+      .app-wrapper {
+        max-width: 1180px !important;
+        padding: 24px 32px 70px 32px !important;
+      }
+      .screen-view {
+        padding-bottom: 40px !important;
+      }
+
+      /* 2. Top Bar & Desktop Navigation */
+      .top-bar {
+        padding: 12px 0 20px 0 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 24px;
+      }
+      body.light-theme .top-bar {
+        border-bottom-color: #e2e8f0 !important;
+      }
+
+      .desktop-navbar {
+        display: flex !important;
+        align-items: center;
+        gap: 6px;
+        background: rgba(14, 22, 38, 0.75);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
+        padding: 4px 6px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      }
+      body.light-theme .desktop-navbar {
+        background: #f1f5f9 !important;
+        border-color: #cbd5e1 !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+      }
+
+      .desktop-nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 7px 14px;
+        border-radius: 999px;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: #94a3b8;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+      }
+      .desktop-nav-link:hover {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .desktop-nav-link.active {
+        color: #020617;
+        background: linear-gradient(135deg, #00f2fe, #4facfe);
+        font-weight: 700;
+        box-shadow: 0 2px 14px rgba(0, 242, 254, 0.35);
+      }
+      body.light-theme .desktop-nav-link {
+        color: #475569 !important;
+      }
+      body.light-theme .desktop-nav-link:hover {
+        color: #0f172a !important;
+        background: #e2e8f0 !important;
+      }
+      body.light-theme .desktop-nav-link.active {
+        color: #ffffff !important;
+        background: linear-gradient(135deg, #0284c7, #0ea5e9) !important;
+        box-shadow: 0 2px 10px rgba(2, 132, 199, 0.3) !important;
+      }
+
+      /* Hide floating mobile dock on PC */
+      .dock-container {
+        display: none !important;
+      }
+
+      /* 3. Screen 1: Home Bento Grid */
+      .home-desktop-grid {
+        display: grid !important;
+        grid-template-columns: 1.12fr 0.88fr;
+        gap: 22px;
+        align-items: start;
+      }
+      .home-col-left {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .home-col-right {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .hero-h1 {
+        font-size: 24px !important;
+        line-height: 1.35 !important;
+      }
+      .hero-p {
+        font-size: 14px !important;
+        margin-top: 8px !important;
+      }
+
+      /* 4. Screen 2: Survey / Stepper */
+      #screen-calc {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .step-card {
+        padding: 30px 34px !important;
+        border-radius: 24px !important;
+      }
+      .step-card .quiz-q {
+        font-size: 17.5px !important;
+        margin-bottom: 20px !important;
+      }
+
+      /* 5. Final Outcome / Results Split */
+      .passport-desktop-split {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        align-items: start;
+        margin-top: 16px;
+      }
+      .passport-col-left, .passport-col-right {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      /* 6. Screen 3: Map Desktop Grid */
+      .map-desktop-grid {
+        display: grid !important;
+        grid-template-columns: 400px 1fr;
+        gap: 22px;
+        align-items: start;
+        margin-top: 14px;
+      }
+      .map-sidebar-col {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .map-view-col {
+        position: sticky;
+        top: 24px;
+      }
+      #cityMap {
+        height: 540px !important;
+        border-radius: 22px !important;
+        margin-top: 0 !important;
+      }
+
+      /* 7. Screen 4: Stats Grid */
+      .stats-desktop-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        align-items: start;
+      }
+
+      /* 8. Screen 5: Risks Grid */
+      .risks-desktop-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        align-items: start;
+      }
+    }
+
 </style>
 </head>
 <body>
@@ -3140,10 +3331,35 @@
 
     <!-- Top Status Bar -->
     <header class="top-bar">
-      <div class="app-badge">
+      <div class="app-badge" onclick="goToTab(0)" style="cursor: pointer;">
         <span class="pulse-dot"></span>
         <span>Скрининг • СурГУ</span>
       </div>
+
+      <!-- Desktop Navigation Links (>= 992px) -->
+      <nav class="desktop-navbar" id="desktopNavbar">
+        <button type="button" class="desktop-nav-link active" onclick="goToTab(0)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Главная</span>
+        </button>
+        <button type="button" class="desktop-nav-link" onclick="goToTab(1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>Анкета</span>
+        </button>
+        <button type="button" class="desktop-nav-link" onclick="goToTab(2)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+          <span>Карта</span>
+        </button>
+        <button type="button" class="desktop-nav-link" onclick="goToTab(3)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Опрос</span>
+        </button>
+        <button type="button" class="desktop-nav-link" onclick="goToTab(4)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Звоночки</span>
+        </button>
+      </nav>
+
       <div class="theme-segmented-group" id="themeSegmentGroup">
         <button class="theme-seg-btn" data-theme="auto" onclick="tactileTap(); setThemeMode('auto')">Авто</button>
         <button class="theme-seg-btn active" data-theme="dark" onclick="tactileTap(); setThemeMode('dark')">Тёмная</button>
@@ -3153,109 +3369,112 @@
 
     <!-- SCREEN 1: HOME -->
     <main class="screen-view active" id="screen-home">
-      <div class="bento-card">
-        <h1 class="hero-h1">Знай свой риск: семейная история здоровья как инструмент ранней профилактики заболеваний</h1>
-        <p class="hero-p">
-          Большинство хронических и наследственных заболеваний можно предотвратить, если вовремя оценить семейную историю здоровья и факторы риска.
-        </p>
+      <div class="home-desktop-grid">
+        
+        <!-- Left Column: Hero, CTA, Team -->
+        <div class="home-col-left">
+          <div class="bento-card">
+            <h1 class="hero-h1">Знай свой риск: семейная история здоровья как инструмент ранней профилактики заболеваний</h1>
+            <p class="hero-p">
+              Большинство хронических и наследственных заболеваний можно предотвратить, если вовремя оценить семейную историю здоровья и факторы риска.
+            </p>
 
-        <div class="stats-row">
-          <div class="stat-chip">
-            <div class="stat-val">80%</div>
-            <div class="stat-lbl">Профилактика заболеваний</div>
+            <div class="stats-row">
+              <div class="stat-chip">
+                <div class="stat-val">80%</div>
+                <div class="stat-lbl">Профилактика заболеваний</div>
+              </div>
+              <div class="stat-chip">
+                <div class="stat-val">10 лет</div>
+                <div class="stat-lbl">Запас предотвращения заболеваний</div>
+              </div>
+            </div>
           </div>
-          <div class="stat-chip">
-            <div class="stat-val">10 лет</div>
-            <div class="stat-lbl">Запас предотвращения заболеваний</div>
+
+          <div class="bento-card" onclick="goToTab(1)" style="cursor: pointer; border-color: rgba(0, 242, 254, 0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div class="screen-tag">Интерактивный триаж</div>
+                <h3 style="font-size: 16px; font-weight: 700;">Анкета: Семейная история здоровья</h3>
+                <p style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">Оценка семейного анамнеза и факторов риска (15 вопросов, 3–5 мин)</p>
+              </div>
+              <div style="font-size: 20px; color: var(--accent);">➔</div>
+            </div>
+          </div>
+
+          <div class="bento-card author-trigger-card" onclick="openAuthorModal()">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.3); display: flex; align-items: center; justify-content: center; color: var(--accent); flex-shrink: 0; box-shadow: 0 0 16px rgba(0, 242, 254, 0.18);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              </div>
+              <div style="flex: 1;">
+                <div style="font-size: 11px; text-transform: uppercase; color: var(--accent); font-weight: 700; letter-spacing: 0.04em;">СурГУ • Медицинский институт</div>
+                <div style="font-size: 15px; font-weight: 800; color: var(--text);">Команда исследователей проекта</div>
+                <div style="font-size: 12px; color: var(--text-sub);">2 курс • Лечебное дело (8 авторов-разработчиков)</div>
+              </div>
+              <div style="font-size: 18px; color: var(--accent);">›</div>
+            </div>
           </div>
         </div>
-      </div>
 
-
-      <div class="bento-card" onclick="goToTab(1)" style="cursor: pointer; border-color: rgba(0, 242, 254, 0.3);">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <div>
-            <div class="screen-tag">Интерактивный триаж</div>
-            <h3 style="font-size: 16px; font-weight: 700;">Анкета: Семейная история здоровья</h3>
-            <p style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">Оценка семейного анамнеза и факторов риска (15 вопросов, 3–5 мин)</p>
+        <!-- Right Column: Medical Pamytka -->
+        <div class="home-col-right">
+          <div class="screen-header" style="margin-top: 0;">
+            <span class="screen-tag">Интерактивный маршрут</span>
+            <h3 style="font-size: 17px; font-weight: 700;">Памятка: нажми для раскрытия</h3>
           </div>
-          <div style="font-size: 20px; color: var(--accent);">➔</div>
-        </div>
-      </div>
 
-      <div class="screen-header" style="margin-top: 20px;">
-        <span class="screen-tag">Интерактивный маршрут</span>
-        <h3 style="font-size: 17px; font-weight: 700;">Памятка: нажми для раскрытия</h3>
-      </div>
-
-      <div class="dynamic-card open" onclick="toggleCard(this)">
-        <div class="dynamic-header">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            <strong style="font-size: 14px;">1. Семейное генеалогическое древо</strong>
+          <div class="dynamic-card open" onclick="toggleCard(this)">
+            <div class="dynamic-header">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <strong style="font-size: 14px;">1. Семейное генеалогическое древо</strong>
+              </div>
+              <span class="dynamic-arrow">▼</span>
+            </div>
+            <div class="dynamic-body">
+              <span class="badge-pill">Анамнез 3 колен</span>
+              <span class="badge-pill">Возраст диагноза</span>
+              <p>Выпишите диагнозы родственников 1-2 линии (родители, братья/сестры, бабушки/дедушки). Особое внимание уделите возрасту болезни: если инфаркт или рак возник до 50 лет — риск наследственной передачи вырастает в 4 раза.</p>
+            </div>
           </div>
-          <span class="dynamic-arrow">▼</span>
-        </div>
-        <div class="dynamic-body">
-          <span class="badge-pill">Анамнез 3 колен</span>
-          <span class="badge-pill">Возраст диагноза</span>
-          <p>Выпишите диагнозы родственников 1-2 линии (родители, братья/сестры, бабушки/дедушки). Особое внимание уделите возрасту болезни: если инфаркт или рак возник до 50 лет — риск наследственной передачи вырастает в 4 раза.</p>
-        </div>
-      </div>
 
-      <div class="dynamic-card" onclick="toggleCard(this)">
-        <div class="dynamic-header">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-            <strong style="font-size: 14px;">2. Консультация клинического генетика</strong>
+          <div class="dynamic-card" onclick="toggleCard(this)">
+            <div class="dynamic-header">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <strong style="font-size: 14px;">2. Консультация клинического генетика</strong>
+              </div>
+              <span class="dynamic-arrow">▼</span>
+            </div>
+            <div class="dynamic-body">
+              <span class="badge-pill">Таргетные панели</span>
+              <span class="badge-pill">Без лишних трат</span>
+              <p>Врач-генетик составляет клинический фенотип и выписывает строго таргетный тест (например, только мутации F2/F5 или панель BRCA1/2) вместо дорогих развлекательных тестов за 30-50 тысяч рублей.</p>
+            </div>
           </div>
-          <span class="dynamic-arrow">▼</span>
-        </div>
-        <div class="dynamic-body">
-          <span class="badge-pill">Таргетные панели</span>
-          <span class="badge-pill">Без лишних трат</span>
-          <p>Врач-генетик составляет клинический фенотип и выписывает строго таргетный тест (например, только мутации F2/F5 или панель BRCA1/2) вместо дорогих развлекательных тестов за 30-50 тысяч рублей.</p>
-        </div>
-      </div>
 
-      <div class="dynamic-card" onclick="toggleCard(this)">
-        <div class="dynamic-header">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
-            <strong style="font-size: 14px;">3. Бесплатная сдача по ОМС</strong>
+          <div class="dynamic-card" onclick="toggleCard(this)">
+            <div class="dynamic-header">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+                <strong style="font-size: 14px;">3. Бесплатная сдача по ОМС</strong>
+              </div>
+              <span class="dynamic-arrow">▼</span>
+            </div>
+            <div class="dynamic-body">
+              <span class="badge-pill">Форма 057/у</span>
+              <span class="badge-pill">Госгарантии РФ</span>
+              <p>Терапевт в районной поликлинике обязан выдать направление по форме 057/у в медико-генетический научный центр, если в роду зафиксированы ранние онкологии или тяжелые сосудистые катастрофы.</p>
+            </div>
           </div>
-          <span class="dynamic-arrow">▼</span>
         </div>
-        <div class="dynamic-body">
-          <span class="badge-pill">Форма 057/у</span>
-          <span class="badge-pill">Госгарантии РФ</span>
-          <p>Терапевт в районной поликлинике обязан выдать направление по форме 057/у в медико-генетический научный центр, если в роду зафиксированы ранние онкологии или тяжелые сосудистые катастрофы.</p>
-        </div>
-      </div>
 
-      <!-- HOLOGRAPHIC AUTHOR MODAL TRIGGER -->
-      <div class="screen-header" style="margin-top: 24px;">
-        <span class="screen-tag">Разработка и Исследование</span>
-        <h3 style="font-size: 17px; font-weight: 700;">Создатель проекта</h3>
-      </div>
-
-      <div class="bento-card author-trigger-card" onclick="openAuthorModal()">
-        <div style="display: flex; align-items: center; gap: 14px;">
-          <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.3); display: flex; align-items: center; justify-content: center; color: var(--accent); flex-shrink: 0; box-shadow: 0 0 16px rgba(0, 242, 254, 0.18);">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-            </svg>
-          </div>
-          <div style="flex: 1;">
-            <div style="font-size: 11px; text-transform: uppercase; color: var(--accent); font-weight: 700; letter-spacing: 0.04em;">СурГУ • Медицинский институт</div>
-            <div style="font-size: 15px; font-weight: 800; color: var(--text);">Команда исследователей проекта</div>
-            <div style="font-size: 12px; color: var(--text-sub);">2 курс • Лечебное дело (8 авторов-разработчиков)</div>
-          </div>
-          <div style="font-size: 18px; color: var(--accent);">›</div>
-        </div>
       </div>
     </main>
 
@@ -3977,45 +4196,49 @@
         <h2 class="screen-title">Где Сдать: Поиск и Цены</h2>
       </div>
 
-      <div class="map-search-bar">
-        <input type="text" class="city-input" id="citySearchInput" placeholder="Введите город (напр. Казань, Уфа, Самара)..." onkeydown="if(event.key==='Enter') searchCity()" />
-        <button class="search-btn" onclick="tactileTap(); searchCity()">Найти</button>
-      </div>
+      <div class="map-desktop-grid">
+        <div class="map-sidebar-col">
+          <div class="map-search-bar">
+            <input type="text" class="city-input" id="citySearchInput" placeholder="Введите город (напр. Казань, Уфа, Самара)..." onkeydown="if(event.key==='Enter') searchCity()" />
+            <button class="search-btn" onclick="tactileTap(); searchCity()">Найти</button>
+          </div>
 
-      <div class="quick-cities">
-        <button class="quick-pill active" onclick="tactileTap(); jumpToCity(61.2540, 73.3962, 12, 'Сургут', this)">📍 Сургут</button>
-        <button class="quick-pill" onclick="tactileTap(); jumpToCity(55.7512, 37.6184, 11, 'Москва', this)">Москва</button>
-        <button class="quick-pill" onclick="tactileTap(); jumpToCity(59.9342, 30.3350, 11, 'Санкт-Петербург', this)">Санкт-Петербург</button>
-        <button class="quick-pill" onclick="tactileTap(); jumpToCity(55.7961, 49.1064, 12, 'Казань', this)">Казань</button>
-        <button class="quick-pill" onclick="tactileTap(); jumpToCity(56.8380, 60.5974, 11, 'Екатеринбург', this)">Екатеринбург</button>
-        <button class="quick-pill" onclick="tactileTap(); jumpToCity(55.0083, 82.9357, 11, 'Новосибирск', this)">Новосибирск</button>
-        
-      </div>
+          <div class="quick-cities">
+            <button class="quick-pill active" onclick="tactileTap(); jumpToCity(61.2540, 73.3962, 12, 'Сургут', this)">📍 Сургут</button>
+            <button class="quick-pill" onclick="tactileTap(); jumpToCity(55.7512, 37.6184, 11, 'Москва', this)">Москва</button>
+            <button class="quick-pill" onclick="tactileTap(); jumpToCity(59.9342, 30.3350, 11, 'Санкт-Петербург', this)">Санкт-Петербург</button>
+            <button class="quick-pill" onclick="tactileTap(); jumpToCity(55.7961, 49.1064, 12, 'Казань', this)">Казань</button>
+            <button class="quick-pill" onclick="tactileTap(); jumpToCity(56.8380, 60.5974, 11, 'Екатеринбург', this)">Екатеринбург</button>
+            <button class="quick-pill" onclick="tactileTap(); jumpToCity(55.0083, 82.9357, 11, 'Новосибирск', this)">Новосибирск</button>
+          </div>
 
-      <div id="cityMap"></div>
-
-      <div class="lab-info-banner" id="labSelectedBanner">
-        <div class="lab-banner-header">
-          <div class="lab-banner-name" id="labBannerName">Медицинский центр «Полимедика»</div>
-          <span class="lab-banner-tag" id="labBannerTag" style="background: rgba(16, 185, 129, 0.2); color: var(--emerald);">ОМС (0 ₽)</span>
+          <div class="lab-info-banner" id="labSelectedBanner">
+            <div class="lab-banner-header">
+              <div class="lab-banner-name" id="labBannerName">Медицинский центр «Полимедика»</div>
+              <span class="lab-banner-tag" id="labBannerTag" style="background: rgba(16, 185, 129, 0.2); color: var(--emerald);">ОМС (0 ₽)</span>
+            </div>
+            <div class="lab-banner-metro" id="labBannerMetro">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              ул. 30 лет Победы, 44а • Северо-Восточный р-н
+            </div>
+            <p class="lab-banner-desc" id="labBannerDesc">
+              Бесплатный приём и забор анализов по полису ОМС. Выдача направлений к врачу-генетику и базовые клинические панели.
+            </p>
+            <div class="lab-banner-hours" id="labBannerHours">
+              Пн-Пт: 08:00 – 20:00 • Сб: 09:00 – 16:00
+            </div>
+            <a id="labRouteBtn" class="route-btn" href="https://yandex.ru/maps/?rtext=~61.2612,73.4478&rtt=auto" target="_blank" onclick="tactileTap()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+              <span>Построить маршрут в Яндекс.Картах</span>
+            </a>
+          </div>
         </div>
-        <div class="lab-banner-metro" id="labBannerMetro">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          ул. 30 лет Победы, 44а • Северо-Восточный р-н
-        </div>
-        <p class="lab-banner-desc" id="labBannerDesc">
-          Бесплатный приём и забор анализов по полису ОМС. Выдача направлений к врачу-генетику и базовые клинические панели.
-        </p>
-        <div class="lab-banner-hours" id="labBannerHours">
-          Пн-Пт: 08:00 – 20:00 • Сб: 09:00 – 16:00
-        </div>
-        <a id="labRouteBtn" class="route-btn" href="https://yandex.ru/maps/?rtext=~61.2612,73.4478&rtt=auto" target="_blank" onclick="tactileTap()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-          <span>Построить маршрут в Яндекс.Картах</span>
-        </a>
-      </div>
 
-      </section>
+        <div class="map-view-col">
+          <div id="cityMap"></div>
+        </div>
+      </div>
+    </section>
 
     <!-- SCREEN 4: RESEARCH & STATS -->
     <section class="screen-view" id="screen-stats">
@@ -4024,17 +4247,19 @@
         <h2 class="screen-title">Результаты Опроса</h2>
       </div>
 
-      <div class="bento-card">
-        <h4 style="font-size: 14px;">Информированность аудитории ДО</h4>
-        <div class="chart-container">
-          <canvas id="mobileChartBefore"></canvas>
+      <div class="stats-desktop-grid">
+        <div class="bento-card">
+          <h4 style="font-size: 14px;">Информированность аудитории ДО</h4>
+          <div class="chart-container">
+            <canvas id="mobileChartBefore"></canvas>
+          </div>
         </div>
-      </div>
 
-      <div class="bento-card">
-        <h4 style="font-size: 14px;">Прирост готовности к сдаче ПОСЛЕ</h4>
-        <div class="chart-container">
-          <canvas id="mobileChartAfter"></canvas>
+        <div class="bento-card">
+          <h4 style="font-size: 14px;">Прирост готовности к сдаче ПОСЛЕ</h4>
+          <div class="chart-container">
+            <canvas id="mobileChartAfter"></canvas>
+          </div>
         </div>
       </div>
     </section>
@@ -4046,48 +4271,50 @@
         <h2 class="screen-title">Ярые «Звоночки»</h2>
       </div>
 
-      <div class="dynamic-card open" onclick="toggleCard(this)">
-        <div class="dynamic-header">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            <strong style="font-size: 14px;">Ранний рак молочной железы или яичников</strong>
+      <div class="risks-desktop-grid">
+        <div class="dynamic-card open" onclick="toggleCard(this)">
+          <div class="dynamic-header">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <strong style="font-size: 14px;">Ранний рак молочной железы или яичников</strong>
+            </div>
+            <span class="dynamic-arrow">▼</span>
           </div>
-          <span class="dynamic-arrow">▼</span>
+          <div class="dynamic-body">
+            <span class="badge-pill">Гены BRCA1 / BRCA2</span>
+            <span class="badge-pill">Риск до 85%</span>
+            <p>Случаи у прямых родственниц до 45 лет — абсолютное показание для ПЦР или NGS секвенирования. При обнаружении мутации проводится УЗИ/МРТ каждые 6 месяцев с 25 лет.</p>
+          </div>
         </div>
-        <div class="dynamic-body">
-          <span class="badge-pill">Гены BRCA1 / BRCA2</span>
-          <span class="badge-pill">Риск до 85%</span>
-          <p>Случаи у прямых родственниц до 45 лет — абсолютное показание для ПЦР или NGS секвенирования. При обнаружении мутации проводится УЗИ/МРТ каждые 6 месяцев с 25 лет.</p>
-        </div>
-      </div>
 
-      <div class="dynamic-card" onclick="toggleCard(this)">
-        <div class="dynamic-header">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            <strong style="font-size: 14px;">Тромбозы и инфаркты в молодом возрасте</strong>
+        <div class="dynamic-card" onclick="toggleCard(this)">
+          <div class="dynamic-header">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <strong style="font-size: 14px;">Тромбозы и инфаркты в молодом возрасте</strong>
+            </div>
+            <span class="dynamic-arrow">▼</span>
           </div>
-          <span class="dynamic-arrow">▼</span>
+          <div class="dynamic-body">
+            <span class="badge-pill">Фактор Лейдена (F5)</span>
+            <span class="badge-pill">Протромбин (F2)</span>
+            <p>Инфаркт или инсульт у отца/матери до 50 лет. Смертельно опасно при приеме комбинированных оральных контрацептивов (КОК) и авиаперелетах без предварительного анализа.</p>
+          </div>
         </div>
-        <div class="dynamic-body">
-          <span class="badge-pill">Фактор Лейдена (F5)</span>
-          <span class="badge-pill">Протромбин (F2)</span>
-          <p>Инфаркт или инсульт у отца/матери до 50 лет. Смертельно опасно при приеме комбинированных оральных контрацептивов (КОК) и авиаперелетах без предварительного анализа.</p>
-        </div>
-      </div>
 
-      <div class="dynamic-card" onclick="toggleCard(this)">
-        <div class="dynamic-header">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-            <strong style="font-size: 14px;">Множественные эндокринные нарушения</strong>
+        <div class="dynamic-card" onclick="toggleCard(this)">
+          <div class="dynamic-header">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <svg class="card-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              <strong style="font-size: 14px;">Множественные эндокринные нарушения</strong>
+            </div>
+            <span class="dynamic-arrow">▼</span>
           </div>
-          <span class="dynamic-arrow">▼</span>
-        </div>
-        <div class="dynamic-body">
-          <span class="badge-pill">MODY диабет</span>
-          <span class="badge-pill">Щитовидная железа</span>
-          <p>Ранний диабет при нормальной массе тела у нескольких поколений семьи. Требует подбора таргетных сахароснижающих препаратов вместо стандартного инсулина.</p>
+          <div class="dynamic-body">
+            <span class="badge-pill">MODY диабет</span>
+            <span class="badge-pill">Щитовидная железа</span>
+            <p>Ранний диабет при нормальной массе тела у нескольких поколений семьи. Требует подбора таргетных сахароснижающих препаратов вместо стандартного инсулина.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -4347,6 +4574,21 @@
       if (toIdx < 0 || toIdx >= buttons.length) return;
       tactileTap();
       switchScreen(screens[toIdx]);
+
+      // Synchronize Desktop Navbar
+      document.querySelectorAll('.desktop-nav-link').forEach((link, idx) => {
+        if (idx === toIdx) link.classList.add('active');
+        else link.classList.remove('active');
+      });
+
+      // If switching to Map, invalidate leaflet map size for crisp desktop render
+      if (toIdx === 2) {
+        setTimeout(() => {
+          if (typeof leafletMap !== 'undefined' && leafletMap) {
+            leafletMap.invalidateSize();
+          }
+        }, 120);
+      }
 
       startX1 = currentX1;
       startX2 = currentX2;
