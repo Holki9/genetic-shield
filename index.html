@@ -675,16 +675,16 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: linear-gradient(135deg, rgba(0, 242, 254, 0.18), rgba(79, 172, 254, 0.24));
-      border: 1px solid var(--accent);
-      color: #ffffff;
+      background: linear-gradient(135deg, #0284c7, #00f2fe);
+      border: 1px solid #00f2fe;
+      color: #020617;
       text-decoration: none;
-      padding: 10px 16px;
+      padding: 12px 18px;
       border-radius: 12px;
-      font-size: 13px;
-      font-weight: 700;
-      margin-top: 6px;
-      box-shadow: 0 4px 15px rgba(0, 242, 254, 0.2);
+      font-size: 13.5px;
+      font-weight: 800;
+      margin-top: 10px;
+      box-shadow: 0 4px 18px rgba(0, 242, 254, 0.35);
       transition: transform 0.15s, box-shadow 0.15s;
     }
     .route-btn:active {
@@ -1240,33 +1240,54 @@
       color: var(--text);
     }
 
-    .theme-toggle-btn {
+    .theme-segmented-group {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      color: var(--text);
-      padding: 5px 11px;
       border-radius: 999px;
-      font-size: 11px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      padding: 2px;
+      gap: 2px;
       user-select: none;
+      flex-shrink: 0;
     }
-    .theme-toggle-btn:hover {
-      border-color: var(--accent);
-      background: rgba(0, 242, 254, 0.1);
+    .theme-seg-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-sub);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      font-family: inherit;
+      line-height: 1.2;
     }
-    body.light-theme .theme-toggle-btn {
-      background: rgba(15, 23, 42, 0.05);
-      border-color: rgba(15, 23, 42, 0.12);
+    .theme-seg-btn:hover {
+      color: #ffffff;
+    }
+    .theme-seg-btn.active {
+      background: rgba(0, 242, 254, 0.22);
+      color: #00f2fe;
+      font-weight: 700;
+      box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+    }
+    body.light-theme .theme-segmented-group {
+      background: #e2e8f0;
+      border: 1px solid #cbd5e1;
+    }
+    body.light-theme .theme-seg-btn {
+      color: #64748b;
+    }
+    body.light-theme .theme-seg-btn:hover {
       color: #0f172a;
     }
-    body.light-theme .theme-toggle-btn:hover {
-      border-color: #0284c7;
-      background: rgba(2, 132, 199, 0.08);
+    body.light-theme .theme-seg-btn.active {
+      background: #ffffff;
+      color: #0284c7;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
     }
 
     body.light-theme .glow-spot {
@@ -1334,16 +1355,47 @@
       background: #f1f5f9;
       border-color: #e2e8f0;
     }
-    body.light-theme .dock {
-      background: rgba(255, 255, 255, 0.92);
-      border-color: rgba(15, 23, 42, 0.1);
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+    body.light-theme .dock-container {
+      background: rgba(255, 255, 255, 0.94) !important;
+      border: 1px solid rgba(15, 23, 42, 0.14) !important;
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(15, 23, 42, 0.05) !important;
     }
     body.light-theme .dock-btn {
-      color: #64748b;
+      color: #64748b !important;
+    }
+    body.light-theme .dock-btn svg {
+      stroke: #64748b !important;
     }
     body.light-theme .dock-btn.active {
-      color: #0284c7;
+      color: #ffffff !important;
+      font-weight: 800 !important;
+    }
+    body.light-theme .dock-btn.active svg {
+      stroke: #ffffff !important;
+    }
+    body.light-theme .gooey-path {
+      filter: drop-shadow(0 4px 14px rgba(2, 132, 199, 0.45)) !important;
+    }
+    body.light-theme .route-btn {
+      background: linear-gradient(135deg, #0284c7, #0369a1) !important;
+      border: 1px solid #0284c7 !important;
+      color: #ffffff !important;
+      font-weight: 800 !important;
+      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4) !important;
+    }
+    body.light-theme .search-btn {
+      background: linear-gradient(135deg, #0284c7, #0369a1) !important;
+      color: #ffffff !important;
+    }
+    body.light-theme .print-btn {
+      background: linear-gradient(135deg, #0284c7, #0369a1) !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 16px rgba(2, 132, 199, 0.35) !important;
+    }
+    body.light-theme .map-jump-btn {
+      background: rgba(5, 150, 105, 0.12) !important;
+      border-color: #059669 !important;
+      color: #059669 !important;
     }
     body.light-theme .dynamic-card {
       background: #ffffff;
@@ -1451,16 +1503,12 @@
     <header class="top-bar">
       <div class="app-badge">
         <span class="pulse-dot"></span>
-        Научный Скрининг 2026
+        <span>Скрининг • СурГУ</span>
       </div>
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <button class="theme-toggle-btn" onclick="tactileTap(); toggleTheme()" id="themeToggleBtn" title="Переключить тему оформления">
-          <span id="themeToggleIcon">☀️</span>
-          <span id="themeToggleText">Светлая</span>
-        </button>
-        <div style="font-size: 11.5px; color: var(--text-sub); font-weight: 600;">
-          РФ • МГНЦ
-        </div>
+      <div class="theme-segmented-group" id="themeSegmentGroup">
+        <button class="theme-seg-btn" data-theme="auto" onclick="tactileTap(); setThemeMode('auto')">Авто</button>
+        <button class="theme-seg-btn active" data-theme="dark" onclick="tactileTap(); setThemeMode('dark')">Тёмная</button>
+        <button class="theme-seg-btn" data-theme="light" onclick="tactileTap(); setThemeMode('light')">Светлая</button>
       </div>
     </header>
 
@@ -4196,30 +4244,69 @@
 
 
     /* =====================================================================
-       THEME CONTROLLER (DARK / CLINICAL LIGHT)
+       THEME CONTROLLER (3 MODES: AUTO / DARK / LIGHT)
        ===================================================================== */
-    function toggleTheme() {
-      const isLight = document.body.classList.toggle('light-theme');
-      localStorage.setItem('genetic_shield_theme', isLight ? 'light' : 'dark');
-      updateThemeButton(isLight);
+    let currentThemeMode = localStorage.getItem('genetic_shield_theme_mode') || 'dark';
+
+    function setThemeMode(mode) {
+      currentThemeMode = mode;
+      localStorage.setItem('genetic_shield_theme_mode', mode);
+      applyTheme();
+      updateThemeButtons();
     }
 
-    function updateThemeButton(isLight) {
-      const icon = document.getElementById('themeToggleIcon');
-      const text = document.getElementById('themeToggleText');
-      if (icon) icon.innerText = isLight ? '🌙' : '☀️';
-      if (text) text.innerText = isLight ? 'Тёмная' : 'Светлая';
+    function applyTheme() {
+      let isLight = false;
+      if (currentThemeMode === 'light') {
+        isLight = true;
+      } else if (currentThemeMode === 'auto') {
+        isLight = !window.matchMedia('(prefers-color-scheme: dark)').matches;
+      } else {
+        isLight = false;
+      }
+
+      document.body.classList.toggle('light-theme', isLight);
+      applyGumGradient(isLight);
     }
+
+    function updateThemeButtons() {
+      document.querySelectorAll('.theme-seg-btn').forEach(btn => {
+        const m = btn.getAttribute('data-theme');
+        btn.classList.toggle('active', m === currentThemeMode);
+      });
+    }
+
+    function applyGumGradient(isLight) {
+      const grad = document.getElementById('gumGradient');
+      if (grad) {
+        const stops = grad.querySelectorAll('stop');
+        if (stops.length >= 2) {
+          if (isLight) {
+            stops[0].setAttribute('stop-color', '#0284c7');
+            stops[1].setAttribute('stop-color', '#38bdf8');
+          } else {
+            stops[0].setAttribute('stop-color', '#00f2fe');
+            stops[1].setAttribute('stop-color', '#4facfe');
+          }
+        }
+      }
+    }
+
+    try {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if (currentThemeMode === 'auto') {
+          applyTheme();
+        }
+      });
+    } catch(e) {}
 
     (function initTheme() {
-      const saved = localStorage.getItem('genetic_shield_theme');
-      if (saved === 'light') {
-        document.body.classList.add('light-theme');
-      }
+      applyTheme();
     })();
 
     window.addEventListener('load', () => {
-      updateThemeButton(document.body.classList.contains('light-theme'));
+      updateThemeButtons();
+      applyGumGradient(document.body.classList.contains('light-theme'));
       initDock();
       ensureMapInitialized('сургут');
       initCharts();
