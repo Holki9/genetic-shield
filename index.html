@@ -931,10 +931,10 @@
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
       transition: all 0.3s ease;
     }
-    html.light-theme .ai-card {
-      background: linear-gradient(135deg, #ffffff, #f0f9ff);
-      border: 1px solid rgba(2, 132, 199, 0.25);
-      box-shadow: 0 4px 20px rgba(2, 132, 199, 0.08);
+    body.light-theme .ai-card {
+      background: #ffffff !important;
+      border: 1.5px solid #cbd5e1 !important;
+      box-shadow: 0 6px 22px rgba(15, 23, 42, 0.06) !important;
     }
     .ai-pulse-dot {
       width: 8px;
@@ -945,9 +945,30 @@
       animation: pulseGlow 1.8s infinite;
       display: inline-block;
     }
+    body.light-theme .ai-pulse-dot {
+      background: #0284c7;
+      box-shadow: 0 0 10px rgba(2, 132, 199, 0.6);
+    }
     @keyframes pulseGlow {
       0%, 100% { transform: scale(1); opacity: 1; }
       50% { transform: scale(1.4); opacity: 0.5; }
+    }
+    .ai-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #10b981;
+      background: rgba(16, 185, 129, 0.12);
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+    body.light-theme .ai-status-badge {
+      background: #f0fdf4 !important;
+      border-color: #86efac !important;
+      color: #15803d !important;
     }
     .ai-spinner {
       width: 18px;
@@ -958,6 +979,10 @@
       animation: spinAi 0.8s linear infinite;
       display: inline-block;
       flex-shrink: 0;
+    }
+    body.light-theme .ai-spinner {
+      border: 2px solid #e2e8f0;
+      border-top-color: #0284c7;
     }
     @keyframes spinAi {
       to { transform: rotate(360deg); }
@@ -971,90 +996,140 @@
       color: var(--accent);
       font-weight: 700;
     }
-    html.light-theme .ai-response-box strong {
-      color: #0369a1;
+    body.light-theme .ai-response-box {
+      color: #1e293b !important;
+    }
+    body.light-theme .ai-response-box strong {
+      color: #0369a1 !important;
     }
     .ai-chip {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.12);
       color: var(--text-sub);
       font-size: 11.5px;
       font-weight: 600;
-      padding: 6px 12px;
+      padding: 7px 14px;
       border-radius: 999px;
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.2s ease;
       font-family: inherit;
       flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
     .ai-chip:hover, .ai-chip:active {
       background: rgba(0, 242, 254, 0.15);
       border-color: var(--accent);
-      color: var(--text);
+      color: #ffffff;
       transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 242, 254, 0.25);
     }
-    html.light-theme .ai-chip {
-      background: rgba(2, 132, 199, 0.06);
-      border-color: rgba(2, 132, 199, 0.15);
-      color: #0369a1;
+    body.light-theme .ai-chip {
+      background: #ffffff !important;
+      border: 1px solid #cbd5e1 !important;
+      color: #0369a1 !important;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
     }
-    html.light-theme .ai-chip:hover, html.light-theme .ai-chip:active {
-      background: rgba(2, 132, 199, 0.14);
-      border-color: #0284c7;
-      color: #0f172a;
+    body.light-theme .ai-chip:hover, body.light-theme .ai-chip:active {
+      background: #f0f9ff !important;
+      border-color: #0284c7 !important;
+      color: #0c4a6e !important;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15) !important;
     }
-    .ai-input-wrap {
+
+    /* Volumetric 3D elevated input container */
+    .ai-input-bar-elevated {
       display: flex;
-      gap: 8px;
+      align-items: center;
+      gap: 10px;
+      padding: 5px 6px 5px 14px;
+      border-radius: 16px;
       margin-top: 10px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1.5px solid rgba(0, 242, 254, 0.28);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.3);
+      transition: all 0.22s ease;
     }
-    .ai-input-field {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 10px 14px;
-      color: var(--text);
-      font-size: 12.5px;
-      outline: none;
-      font-family: inherit;
-      transition: border-color 0.2s;
-    }
-    .ai-input-field:focus {
+    .ai-input-bar-elevated:focus-within {
       border-color: var(--accent);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 0 3px rgba(0, 242, 254, 0.18), 0 6px 20px rgba(0, 0, 0, 0.35);
     }
-    html.light-theme .ai-input-field {
-      background: #f8fafc;
-      border-color: #cbd5e1;
-      color: #0f172a;
+    body.light-theme .ai-input-bar-elevated {
+      background: #ffffff !important;
+      border: 1.5px solid #cbd5e1 !important;
+      box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.04), 0 4px 14px rgba(15, 23, 42, 0.06) !important;
     }
-    .ai-ask-submit-btn {
-      background: linear-gradient(135deg, var(--accent-blue), var(--accent));
-      color: #04101e;
+    body.light-theme .ai-input-bar-elevated:focus-within {
+      border-color: #0284c7 !important;
+      box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.02), 0 0 0 3px rgba(2, 132, 199, 0.15), 0 6px 20px rgba(2, 132, 199, 0.12) !important;
+    }
+    .ai-input-icon {
+      color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    body.light-theme .ai-input-icon {
+      color: #0284c7;
+    }
+    .ai-input-field-core {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-size: 13.5px;
+      font-weight: 500;
+      font-family: inherit;
+      padding: 8px 0;
+    }
+    .ai-input-field-core::placeholder {
+      color: var(--text-sub);
+      opacity: 0.8;
+    }
+    body.light-theme .ai-input-field-core {
+      color: #0f172a !important;
+    }
+    body.light-theme .ai-input-field-core::placeholder {
+      color: #94a3b8 !important;
+    }
+    .ai-ask-submit-btn-3d {
+      background: linear-gradient(135deg, #00f2fe 0%, #0284c7 100%);
+      color: #031322;
       border: none;
       border-radius: 12px;
-      padding: 0 16px;
-      font-size: 12.5px;
-      font-weight: 700;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: transform 0.15s ease, filter 0.2s ease;
       font-family: inherit;
       flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(0, 242, 254, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+      transition: all 0.18s ease;
     }
-    .ai-ask-submit-btn:hover {
-      filter: brightness(1.1);
+    .ai-ask-submit-btn-3d:hover {
+      filter: brightness(1.08);
       transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0, 242, 254, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.6);
     }
-    .ai-ask-submit-btn:active {
-      transform: scale(0.97);
+    .ai-ask-submit-btn-3d:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 6px rgba(0, 242, 254, 0.25);
     }
-    html.light-theme .ai-ask-submit-btn {
-      background: linear-gradient(135deg, #0284c7, #0ea5e9);
-      color: #ffffff;
+    body.light-theme .ai-ask-submit-btn-3d {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
+    }
+    body.light-theme .ai-ask-submit-btn-3d:hover {
+      box-shadow: 0 6px 18px rgba(2, 132, 199, 0.45) !important;
+    }
+    body.light-theme .ai-ask-submit-btn-3d:active {
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.2) !important;
     }
 
     .copy-btn {
@@ -1625,6 +1700,42 @@
     }
     body.light-theme h4 {
       color: #0f172a !important;
+    }
+
+    /* Light Theme Contrast Fix for Clinical Recommendations (Photo 1) */
+    body.light-theme .action-body-text {
+      color: #1e293b !important;
+      font-size: 13.5px !important;
+      font-weight: 500 !important;
+      line-height: 1.55 !important;
+    }
+    body.light-theme .action-checklist li {
+      background: #ffffff !important;
+      border: 1.5px solid #e2e8f0 !important;
+      color: #1e293b !important;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04) !important;
+    }
+    body.light-theme .action-tag-badge {
+      color: #0284c7 !important;
+      background: #f0f9ff !important;
+      border-color: #bae6fd !important;
+      font-weight: 800 !important;
+    }
+    body.light-theme .action-tag-badge.amber {
+      color: #b45309 !important;
+      background: #fffbeb !important;
+      border-color: #fde68a !important;
+    }
+    body.light-theme .action-tag-badge.cyan {
+      color: #0369a1 !important;
+      background: #f0f9ff !important;
+      border-color: #bae6fd !important;
+    }
+    body.light-theme #aiInteractiveAnswer {
+      background: #f8fafc !important;
+      border: 1px solid #cbd5e1 !important;
+      color: #0f172a !important;
+      box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.03) !important;
     }
 
 </style>
@@ -2371,16 +2482,16 @@
           </div>
         </div>
 
-        <!-- AI CLINICAL CONSILIUM (GROQ AI) -->
+        <!-- AI CLINICAL CONSILIUM (NO MODEL NAME, NO EMOJIS, VOLUMETRIC INPUT) -->
         <div class="ai-card" id="aiCard">
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
             <div style="display: flex; align-items: center; gap: 8px;">
               <span class="ai-pulse-dot"></span>
               <strong style="font-size: 13.5px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--accent);">Клинический ИИ-консилиум СурГУ</strong>
             </div>
-            <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: #10b981; background: rgba(16, 185, 129, 0.12); padding: 3px 8px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.25);">
+            <div class="ai-status-badge">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-              <span>Groq LLM • 1.1 сек</span>
+              <span>Экспресс-анализ</span>
             </div>
           </div>
 
@@ -2401,14 +2512,21 @@
             </div>
             
             <div style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 8px; -webkit-overflow-scrolling: touch; scrollbar-width: none;">
-              <button type="button" class="ai-chip" onclick="tactileTap(); askAiQuestion('Как жителю Сургута бесплатно получить направление 057/у к генетику по ОМС?')">📋 Направление 057/у в Сургуте</button>
-              <button type="button" class="ai-chip" onclick="tactileTap(); askAiQuestion('Если у близких родственников был ранний инфаркт или инсульт (до 50 лет), какие первые 3 анализа сдать?')">❤️ Чек-ап ССЗ по ОМС</button>
-              <button type="button" class="ai-chip" onclick="tactileTap(); askAiQuestion('Как правильно составить семейное дерево здоровья из 3 поколений для врача?')">🌳 Дерево здоровья 3 поколений</button>
+              <button type="button" class="ai-chip" onclick="tactileTap(); askAiQuestion('Как жителю Сургута бесплатно получить направление 057/у к генетику по ОМС?')">Направление 057/у в Сургуте</button>
+              <button type="button" class="ai-chip" onclick="tactileTap(); askAiQuestion('Если у близких родственников был ранний инфаркт или инсульт (до 50 лет), какие первые 3 анализа сдать?')">Чек-ап ССЗ по ОМС</button>
+              <button type="button" class="ai-chip" onclick="tactileTap(); askAiQuestion('Как правильно составить семейное дерево здоровья из 3 поколений для врача?')">Родословная 3 поколений</button>
             </div>
 
-            <div class="ai-input-wrap">
-              <input type="text" class="ai-input-field" id="aiCustomInput" placeholder="Спросите о рисках, анализах или врачах Сургута..." onkeydown="if(event.key==='Enter'){tactileTap();handleCustomAiAsk();}">
-              <button type="button" class="ai-ask-submit-btn" onclick="tactileTap(); handleCustomAiAsk()">
+            <!-- Volumetric 3D Input Bar -->
+            <div class="ai-input-bar-elevated">
+              <div class="ai-input-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </div>
+              <input type="text" class="ai-input-field-core" id="aiCustomInput" placeholder="Спросите о рисках, анализах или врачах Сургута..." onkeydown="if(event.key==='Enter'){tactileTap();handleCustomAiAsk();}">
+              <button type="button" class="ai-ask-submit-btn-3d" onclick="tactileTap(); handleCustomAiAsk()">
                 <span>Спросить</span>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
               </button>
@@ -3320,7 +3438,7 @@
         // Seamless fallback to curated SurGU clinical synthesis
         if (loadingEl) loadingEl.style.display = 'none';
         if (textEl) {
-          const defaultAnswer = `**🧬 Клинический анализ кафедры СурГУ:**\n` +
+          const defaultAnswer = `**Клинический анализ кафедры СурГУ:**\n` +
             `На основе вашего профиля семейного анамнеза определены ключевые точки предиктивной профилактики.\n\n` +
             `**1. Наследственные факторы риска:** Отягощенный анамнез по линии родителей и родственников 1-й и 2-й степени повышает вероятность сосудистых и метаболических нарушений. Особенно значимы события, произошедшие в возрасте до 50 лет.\n\n` +
             `**2. Рекомендованный скрининг:** Развернутая липидограмма (холестерин, ЛПНП, триглицериды), анализ на гликированный гемоглобин (HbA1c) и контроль артериального давления (дневник СМАД 7 дней).\n\n` +
@@ -3612,7 +3730,7 @@
           if (aiTextEl && aiTextEl.style.display !== 'none' && aiTextEl.innerText.trim().length > 20) {
             return `<div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;padding:12px 16px;margin-bottom:16px;">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                <strong style="color:#166534;font-size:12px;text-transform:uppercase;">🧠 Клинический разбор ИИ-консилиума СурГУ (Groq LLM):</strong>
+                <strong style="color:#166534;font-size:12px;text-transform:uppercase;">Клинический разбор ИИ-консилиума СурГУ:</strong>
                 <span style="font-size:10px;color:#15803d;font-weight:700;">Предиктивный анализ</span>
               </div>
               <div style="font-size:11px;color:#1e293b;line-height:1.55;">${aiTextEl.innerHTML}</div>
