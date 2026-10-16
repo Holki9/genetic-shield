@@ -10,7 +10,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
   
   <!-- YANDEX MAPS API 2.1 -->
+  <!-- YANDEX MAPS API 2.1 -->
   <script src="https://api-maps.yandex.ru/2.1/?apikey=a4fed755-dd0a-4d72-b630-2b5ab84f3e12&lang=ru_RU" type="text/javascript"></script>
+  <!-- LEAFLET FALLBACK ENGINE (OPENSTREETMAP) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -706,6 +710,17 @@
 
     .step-card { display: none; animation: fadeIn 0.25s ease; }
     .step-card.active { display: block; }
+    .survey-single-btn.selected {
+      background: rgba(0, 242, 254, 0.18) !important;
+      border-color: var(--accent) !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 16px rgba(0, 242, 254, 0.35);
+    }
+    .custom-leaflet-marker {
+      background: transparent;
+      border: none;
+    }
+
 
     /* Tactile Interactive Buttons */
     .quest-btn {
@@ -1325,7 +1340,7 @@
           </div>
           <div style="font-size: 18px; color: var(--accent);">›</div>
         </div>
-      </div></div>
+      </div>
     </main>
 
     <!-- SCREEN 2: DYNAMIC STEPPER QUEST -->
@@ -2455,8 +2470,8 @@
       if (sc) sc.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      if (screenId === 'map' && yandexMap) {
-        setTimeout(() => yandexMap.container.fitToViewport(), 150);
+      if (screenId === 'map') {
+        ensureMapInitialized();
       }
     }
 
@@ -2667,18 +2682,36 @@
     let currentSurveyStep = 1;
     let surveyUserAnswers = {};
     let surveyTotalScore = 0;
+    let isSurveyStepTransitioning = false;
 
     function selectSurveySingle(stepNum, pts, btnElement) {
+      if (isSurveyStepTransitioning) return;
       tactileTap();
-      // visual feedback
+
+      // Clear selection visual state on all single-choice buttons for this step
+      const stepEl = document.getElementById('step' + stepNum);
+      if (stepEl) {
+        stepEl.querySelectorAll('.survey-single-btn').forEach(btn => {
+          btn.classList.remove('selected');
+          btn.style.borderColor = '';
+          btn.style.background = '';
+        });
+      }
+
+      // Highlight clicked button
+      btnElement.classList.add('selected');
       btnElement.style.borderColor = 'var(--accent)';
-      btnElement.style.background = 'rgba(0, 242, 254, 0.15)';
-      
-      const text = btnElement.querySelector('span').innerText;
+      btnElement.style.background = 'rgba(0, 242, 254, 0.22)';
+
+      // Record answer
+      const spanEl = btnElement.querySelector('span');
+      const text = spanEl ? spanEl.innerText.trim() : btnElement.innerText.trim();
       surveyUserAnswers[stepNum] = { text: text, points: pts };
 
+      isSurveyStepTransitioning = true;
       setTimeout(() => {
         advanceSurveyStep(stepNum + 1);
+        isSurveyStepTransitioning = false;
       }, 160);
     }
 
@@ -2686,16 +2719,17 @@
       tactileTap();
       const isExclusive = cardEl.getAttribute('data-exclusive') === 'true';
       const container = document.getElementById('multiGroup' + stepNum);
+      if (!container) return;
 
       if (isExclusive) {
-        // Uncheck all others
+        // Uncheck all other options
         const allCards = container.querySelectorAll('.survey-check-card');
         allCards.forEach(c => {
           if (c !== cardEl) c.classList.remove('checked');
         });
         cardEl.classList.toggle('checked');
       } else {
-        // Uncheck exclusive cards like 'Не знаю'
+        // Uncheck exclusive options (e.g. "Не знаю")
         const exclCards = container.querySelectorAll('.survey-check-card[data-exclusive="true"]');
         exclCards.forEach(c => c.classList.remove('checked'));
         cardEl.classList.toggle('checked');
@@ -2705,6 +2739,7 @@
     function submitSurveyMulti(stepNum) {
       tactileTap();
       const container = document.getElementById('multiGroup' + stepNum);
+      if (!container) return;
       const checkedCards = container.querySelectorAll('.survey-check-card.checked');
       
       if (checkedCards.length === 0) {
@@ -2716,7 +2751,8 @@
       let selectedTexts = [];
       checkedCards.forEach(c => {
         pts += parseInt(c.getAttribute('data-pts') || '0', 10);
-        selectedTexts.push(c.querySelector('span').innerText);
+        const spanEl = c.querySelector('span');
+        selectedTexts.push(spanEl ? spanEl.innerText.trim() : c.innerText.trim());
       });
 
       surveyUserAnswers[stepNum] = { text: selectedTexts.join(', '), points: pts };
@@ -2726,24 +2762,29 @@
     function prevSurveyStep(stepNum) {
       tactileTap();
       if (stepNum > 1) {
-        document.getElementById('step' + stepNum).classList.remove('active');
-        currentSurveyStep = stepNum - 1;
-        document.getElementById('step' + currentSurveyStep).classList.add('active');
-        updateSurveyProgressBar(currentSurveyStep);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        advanceSurveyStep(stepNum - 1);
       }
     }
 
     function advanceSurveyStep(nextStep) {
-      const curEl = document.getElementById('step' + currentSurveyStep);
-      if (curEl) curEl.classList.remove('active');
+      // Hide all steps explicitly
+      for (let i = 1; i <= TOTAL_SURVEY_STEPS; i++) {
+        const s = document.getElementById('step' + i);
+        if (s) {
+          s.classList.remove('active');
+          s.style.display = 'none';
+        }
+      }
 
       if (nextStep > TOTAL_SURVEY_STEPS) {
         finishSurvey();
       } else {
         currentSurveyStep = nextStep;
         const nextEl = document.getElementById('step' + currentSurveyStep);
-        if (nextEl) nextEl.classList.add('active');
+        if (nextEl) {
+          nextEl.classList.add('active');
+          nextEl.style.display = 'block';
+        }
         updateSurveyProgressBar(currentSurveyStep);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
@@ -2766,57 +2807,71 @@
       Object.keys(surveyUserAnswers).forEach(k => {
         totalPts += (surveyUserAnswers[k].points || 0);
       });
-      // normalize to percentage scale (max raw points is approx 180)
+      // normalize to percentage scale
       const awarenessScore = Math.min(100, Math.max(20, Math.round((totalPts / 180) * 100)));
+      questScore = awarenessScore; // sync global questScore for PDF export and doctor dialogue
 
-      // Hide progress box & step cards
-      document.getElementById('questProgressBox').style.display = 'none';
+      // Hide all step cards
+      for (let i = 1; i <= TOTAL_SURVEY_STEPS; i++) {
+        const s = document.getElementById('step' + i);
+        if (s) {
+          s.classList.remove('active');
+          s.style.display = 'none';
+        }
+      }
+
+      // Hide progress box & show results
+      const progBox = document.getElementById('questProgressBox');
+      if (progBox) progBox.style.display = 'none';
+
       document.getElementById('questTitle').innerText = 'Итоги анкетирования';
       document.getElementById('questSubtitle').innerText = 'Результат оценки осведомленности о семейном анамнезе и персональные рекомендации кафедры Медицинского института СурГУ.';
 
       const resultBox = document.getElementById('passportResult');
-      resultBox.style.display = 'block';
+      if (resultBox) resultBox.style.display = 'block';
 
-      document.getElementById('finalPercent').innerText = awarenessScore + '%';
+      const finalPctEl = document.getElementById('finalPercent');
+      if (finalPctEl) finalPctEl.innerText = awarenessScore + '%';
+
       const statusEl = document.getElementById('finalStatus');
       const listEl = document.getElementById('actionList');
 
       let clinicalStatus = '';
-      let badgeHtml = '';
-
       if (awarenessScore >= 70) {
         clinicalStatus = 'Высокий уровень семейной осведомленности';
-        statusEl.style.color = '#10b981';
+        if (statusEl) statusEl.style.color = '#10b981';
       } else if (awarenessScore >= 45) {
         clinicalStatus = 'Базовый уровень осведомленности (рекомендована карта здоровья)';
-        statusEl.style.color = 'var(--accent)';
+        if (statusEl) statusEl.style.color = 'var(--accent)';
       } else {
         clinicalStatus = 'Начальный уровень — высокий приоритет составления родословной';
-        statusEl.style.color = '#f59e0b';
+        if (statusEl) statusEl.style.color = '#f59e0b';
       }
-      statusEl.innerText = clinicalStatus;
+      if (statusEl) statusEl.innerText = clinicalStatus;
 
       // Personalized recommendation list
-      listEl.innerHTML = `
-        <li>
-          <div class="action-tag-badge cyan">1. Важность 3 поколений</div>
-          <div class="action-body-text">
-            Клинический стандарт медицинской генетики требует сбора сведений минимум о 3 поколениях: родители, родные братья/сестры, бабушки/дедушки по обеим линиям.
-          </div>
-        </li>
-        <li>
-          <div class="action-tag-badge cyan">2. Возрастной маркер (до 50 лет)</div>
-          <div class="action-body-text">
-            Ранние сердечно-сосудистые катастрофы (инфаркт, инсульт, тромбоз) или онкологические диагнозы до 50 лет у прямых родственников — повод для углубленной ДНК-панели.
-          </div>
-        </li>
-        <li>
-          <div class="action-tag-badge amber">3. Маршрут в Сургуте</div>
-          <div class="action-body-text">
-            При наличии факторов риска по ОМС можно получить направление на консультацию врача-генетика и биохимический профиль в поликлиниках Сургута (по форме 057/у).
-          </div>
-        </li>
-      `;
+      if (listEl) {
+        listEl.innerHTML = `
+          <li>
+            <div class="action-tag-badge cyan">1. Важность 3 поколений</div>
+            <div class="action-body-text">
+              Клинический стандарт медицинской генетики требует сбора сведений минимум о 3 поколениях: родители, родные братья/сестры, бабушки/дедушки по обеим линиям.
+            </div>
+          </li>
+          <li>
+            <div class="action-tag-badge cyan">2. Возрастной маркер (до 50 лет)</div>
+            <div class="action-body-text">
+              Ранние сердечно-сосудистые катастрофы (инфаркт, инсульт, тромбоз) или онкологические диагнозы до 50 лет у прямых родственников — повод для углубленной ДНК-панели.
+            </div>
+          </li>
+          <li>
+            <div class="action-tag-badge amber">3. Маршрут в Сургуте</div>
+            <div class="action-body-text">
+              При наличии факторов риска по ОМС можно получить направление на консультацию врача-генетика и биохимический профиль в поликлиниках Сургута (по форме 057/у).
+            </div>
+          </li>
+        `;
+      }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -2824,22 +2879,39 @@
     function resetSurvey() {
       currentSurveyStep = 1;
       surveyUserAnswers = {};
+      isSurveyStepTransitioning = false;
       
-      document.getElementById('passportResult').style.display = 'none';
-      document.getElementById('questProgressBox').style.display = 'block';
+      const resBox = document.getElementById('passportResult');
+      if (resBox) resBox.style.display = 'none';
+
+      const progBox = document.getElementById('questProgressBox');
+      if (progBox) progBox.style.display = 'block';
+
       document.getElementById('questTitle').innerText = 'Что вы знаете о семейной истории здоровья?';
       document.getElementById('questSubtitle').innerText = 'Анкета анонимная. Цель опроса — оценить уровень знаний о значении семейного анамнеза и наследственных факторов риска для профилактики заболеваний. Заполнение займёт 3–5 минут.';
 
       for (let i = 1; i <= TOTAL_SURVEY_STEPS; i++) {
         const el = document.getElementById('step' + i);
-        if (el) el.classList.remove('active');
+        if (el) {
+          el.classList.remove('active');
+          el.style.display = 'none';
+          el.querySelectorAll('.survey-single-btn').forEach(btn => {
+            btn.classList.remove('selected');
+            btn.style.borderColor = '';
+            btn.style.background = '';
+          });
+        }
         const multi = document.getElementById('multiGroup' + i);
         if (multi) {
           multi.querySelectorAll('.survey-check-card').forEach(c => c.classList.remove('checked'));
         }
       }
 
-      document.getElementById('step1').classList.add('active');
+      const s1 = document.getElementById('step1');
+      if (s1) {
+        s1.classList.add('active');
+        s1.style.display = 'block';
+      }
       updateSurveyProgressBar(1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -3040,7 +3112,10 @@
     window.yandexCollection = null;
     let yandexMap = null;
     let yandexCollection = null;
-    let currentCity = 'москва';
+    let leafletMap = null;
+    let leafletMarkersGroup = null;
+    let currentMapEngine = 'yandex';
+    let currentCity = 'сургут';
 
     const cityCoords = {
       'москва': [55.7512, 37.6184, 11],
@@ -3456,29 +3531,76 @@
       ]
     };
 
-    function initMap() {
-      if (typeof ymaps === 'undefined') {
-        setTimeout(initMap, 200);
+    function ensureMapInitialized(city) {
+      const targetCity = city || currentCity || 'сургут';
+      const container = document.getElementById('cityMap');
+      if (!container) return;
+
+      // Pre-fill banner with selected primary clinic immediately
+      if (labsData[targetCity] && labsData[targetCity].length > 0) {
+        selectLabDetails(labsData[targetCity][0]);
+      }
+
+      // If Yandex Map already created
+      if (yandexMap) {
+        setTimeout(() => {
+          if (yandexMap && yandexMap.container) {
+            yandexMap.container.fitToViewport();
+          }
+        }, 120);
         return;
       }
 
-      ymaps.ready(() => {
-        if (yandexMap) return;
+      // If Leaflet Map already created
+      if (leafletMap) {
+        setTimeout(() => {
+          if (leafletMap) {
+            leafletMap.invalidateSize();
+          }
+        }, 120);
+        return;
+      }
 
-        yandexMap = new ymaps.Map('cityMap', {
-          center: [61.2540, 73.3962],
-          zoom: 11,
-          controls: ['zoomControl']
-        }, {
-          searchControlProvider: 'yandex#search',
-          suppressMapOpenBlock: true
+      // Try Yandex Maps first
+      if (typeof ymaps !== 'undefined' && ymaps.ready) {
+        ymaps.ready(() => {
+          if (yandexMap) return;
+          try {
+            yandexMap = new ymaps.Map('cityMap', {
+              center: [61.2540, 73.3962],
+              zoom: 12,
+              controls: ['zoomControl']
+            }, {
+              searchControlProvider: 'yandex#search',
+              suppressMapOpenBlock: true
+            });
+            yandexMap.behaviors.enable(['drag', 'multiTouch']);
+            currentMapEngine = 'yandex';
+            renderYandexLabs(targetCity);
+            setTimeout(() => {
+              if (yandexMap && yandexMap.container) yandexMap.container.fitToViewport();
+            }, 250);
+          } catch(err) {
+            console.warn('Yandex map initialization error, switching to Leaflet fallback...', err);
+            initLeafletMap(targetCity);
+          }
         });
 
-        // Touch gestures for mobile
-        yandexMap.behaviors.enable(['drag', 'multiTouch']);
+        // Safety fallback timer if Yandex tiles hang or key gets blocked
+        setTimeout(() => {
+          if (!yandexMap && !leafletMap) {
+            console.log('Yandex map timed out, initializing Leaflet fallback...');
+            initLeafletMap(targetCity);
+          }
+        }, 1500);
+      } else {
+        // Yandex not loaded, use Leaflet immediately
+        initLeafletMap(targetCity);
+      }
+    }
 
-        renderYandexLabs('сургут');
-      });
+    function initMap() {
+      ensureMapInitialized('сургут');
     }
 
     function renderYandexLabs(city, customCenter) {
@@ -3491,8 +3613,7 @@
 
       let items = labsData[city];
       if (!items || items.length === 0) {
-        // If no curated clinics exist for this city, dynamically generate realistic genetic lab points around coordinates
-        const center = customCenter || (cityCoords[city] ? [cityCoords[city][0], cityCoords[city][1]] : [55.7512, 37.6184]);
+        const center = customCenter || (cityCoords[city] ? [cityCoords[city][0], cityCoords[city][1]] : [61.2540, 73.3962]);
         const cityNameCapitalized = city.charAt(0).toUpperCase() + city.slice(1);
         items = [
           {
@@ -3516,17 +3637,6 @@
             isOms: false,
             desc: `Комплексные ДНК-панели онкорисков, наследственной тромбофилии и скрининг носительства мутаций.`,
             hours: "Пн-Вс: 07:30 – 19:30"
-          },
-          {
-            name: `Гемотест Генетика (${cityNameCapitalized})`,
-            address: `ул. Мира / Советская, 30`,
-            metro: "Деловой р-н",
-            lat: center[0] + 0.007,
-            lng: center[1] + 0.008,
-            tag: "Таргетные панели",
-            isOms: false,
-            desc: `Персонализированная фармакогенетика и предрасположенность к мультифакторным патологиям.`,
-            hours: "Ежедневно: 07:30 – 19:00"
           }
         ];
       }
@@ -3553,7 +3663,98 @@
 
       yandexMap.geoObjects.add(yandexCollection);
 
-      // Select primary clinic in banner
+      if (items.length > 0) {
+        selectLabDetails(items[0]);
+      }
+    }
+
+    function initLeafletMap(city) {
+      if (typeof L === 'undefined') return;
+      const mapContainer = document.getElementById('cityMap');
+      if (!mapContainer) return;
+      
+      if (leafletMap) {
+        leafletMap.invalidateSize();
+        renderLeafletLabs(city || currentCity);
+        return;
+      }
+
+      currentMapEngine = 'leaflet';
+      mapContainer.innerHTML = '';
+
+      const center = (city && cityCoords[city]) ? [cityCoords[city][0], cityCoords[city][1]] : [61.2540, 73.3962];
+      const zoom = (city && cityCoords[city]) ? cityCoords[city][2] : 12;
+
+      leafletMap = L.map('cityMap', {
+        center: center,
+        zoom: zoom,
+        zoomControl: true
+      });
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        subdomains: 'abcd',
+        maxZoom: 19,
+        attribution: '© OpenStreetMap, © CARTO'
+      }).addTo(leafletMap);
+
+      leafletMarkersGroup = L.layerGroup().addTo(leafletMap);
+      renderLeafletLabs(city || 'сургут');
+    }
+
+    function renderLeafletLabs(city, customCenter) {
+      if (!leafletMap || !leafletMarkersGroup) return;
+      leafletMarkersGroup.clearLayers();
+
+      const cKey = city.toLowerCase();
+      let items = labsData[cKey];
+      if (!items || items.length === 0) {
+        const center = customCenter || (cityCoords[cKey] ? [cityCoords[cKey][0], cityCoords[cKey][1]] : [61.2540, 73.3962]);
+        const cityNameCap = city.charAt(0).toUpperCase() + city.slice(1);
+        items = [
+          {
+            name: `Городской медико-генетический центр (${cityNameCap})`,
+            address: `Центральный район, ул. Ленина / Главная`,
+            metro: "Центральный р-н",
+            lat: center[0] + 0.005,
+            lng: center[1] - 0.006,
+            tag: "ОМС (0 ₽)",
+            isOms: true,
+            desc: `Государственная медико-генетическая лаборатория и консультация. Прием по направлению 057/у (ОМС).`,
+            hours: "Пн-Пт: 08:30 – 17:00"
+          },
+          {
+            name: `Инвитро Эксперт (${cityNameCap})`,
+            address: `Центральный пр-т, 15`,
+            metro: "Центр города",
+            lat: center[0] - 0.004,
+            lng: center[1] + 0.005,
+            tag: "Скидка 15%",
+            isOms: false,
+            desc: `Комплексные ДНК-панели онкорисков, наследственной тромбофилии и скрининг носительства мутаций.`,
+            hours: "Пн-Вс: 07:30 – 19:30"
+          }
+        ];
+      }
+
+      items.forEach((item) => {
+        const markerColor = item.isOms ? '#10b981' : (item.name.includes('Хеликс') ? '#a855f7' : (item.name.includes('Наджа') ? '#f97316' : '#00f2fe'));
+        
+        const customIcon = L.divIcon({
+          className: 'custom-leaflet-marker',
+          html: `<div style="width: 28px; height: 28px; background: ${markerColor}; border: 2.5px solid #ffffff; border-radius: 50%; box-shadow: 0 0 14px ${markerColor}; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #020617; font-weight: 800;">🏥</div>`,
+          iconSize: [28, 28],
+          iconAnchor: [14, 14]
+        });
+
+        const marker = L.marker([item.lat, item.lng], { icon: customIcon });
+        marker.on('click', () => {
+          tactileTap();
+          selectLabDetails(item);
+          leafletMap.panTo([item.lat, item.lng], { animate: true, duration: 0.5 });
+        });
+        marker.addTo(leafletMarkersGroup);
+      });
+
       if (items.length > 0) {
         selectLabDetails(items[0]);
       }
@@ -3591,13 +3792,18 @@
       const cKey = cityName.toLowerCase();
       currentCity = cKey;
 
-      if (yandexMap) {
+      if (currentMapEngine === 'yandex' && yandexMap) {
         yandexMap.setCenter([lat, lng], zoom, {
           flying: true,
           duration: 700
         }).then(() => {
           renderYandexLabs(cKey, [lat, lng]);
         });
+      } else if (leafletMap) {
+        leafletMap.setView([lat, lng], zoom, { animate: true });
+        renderLeafletLabs(cKey, [lat, lng]);
+      } else {
+        ensureMapInitialized(cKey);
       }
     }
 
@@ -3607,7 +3813,7 @@
       const rawQ = input.value.trim();
       if (!rawQ) return;
 
-      const cleanQ = rawQ.toLowerCase().replace(/^(г\.|город|поселок|п\.|г\s)\s*/i, '').trim();
+      const cleanQ = rawQ.toLowerCase().replace(/^(г.|город|поселок|п.|гs)s*/i, '').trim();
 
       // 1. Direct dictionary match
       if (cityCoords[cleanQ]) {
@@ -3652,10 +3858,9 @@
         }
       }
 
-      if (foundCoords && yandexMap) {
+      if (foundCoords) {
         jumpToCity(foundCoords[0], foundCoords[1], 12, cleanQ, null);
       } else {
-        // Subtle hint on input without jarring alert
         input.style.borderColor = '#ff5252';
         const origPlaceholder = input.placeholder;
         input.placeholder = 'Город не найден, попробуйте еще раз...';
@@ -3768,7 +3973,7 @@
 
     window.addEventListener('load', () => {
       initDock();
-      initMap();
+      ensureMapInitialized('сургут');
       initCharts();
     });
     window.addEventListener('resize', initDock);
