@@ -3258,6 +3258,629 @@
       }
     }
 
+
+    /* =========================================================
+       CLEAN TEAM MODAL STYLES (БЕЗ ВЫМЫШЛЕННОЙ ИНФЫ И КЛИКОВ)
+       ========================================================= */
+    .team-clean-modal {
+      width: 100%;
+      max-width: 680px;
+      max-height: 88vh;
+      overflow-y: auto;
+      background: #0b1120;
+      border: 1.5px solid rgba(0, 240, 255, 0.25);
+      border-radius: 24px;
+      padding: clamp(16px, 4vw, 24px);
+      color: #f1f5f9;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+      position: relative;
+    }
+    .team-clean-hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+    .team-clean-tag {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 2px;
+    }
+    .team-clean-title {
+      font-size: 21px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0;
+    }
+    .team-clean-sub {
+      font-size: 12.5px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+    .team-clean-close {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #94a3b8;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .team-clean-close:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+    .team-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    @media (min-width: 580px) {
+      .team-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .team-simple-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      transition: all 0.2s;
+    }
+    .team-simple-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+    .team-simple-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .team-simple-name {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 2px;
+    }
+    .team-simple-role {
+      font-size: 11.5px;
+      color: #94a3b8;
+    }
+
+    body.light-theme .team-clean-modal {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+    }
+    body.light-theme .team-clean-hdr {
+      border-bottom-color: #e2e8f0 !important;
+    }
+    body.light-theme .team-clean-title {
+      color: #0f172a !important;
+    }
+    body.light-theme .team-clean-sub {
+      color: #64748b !important;
+    }
+    body.light-theme .team-clean-close {
+      background: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+      color: #475569 !important;
+    }
+    body.light-theme .team-simple-card {
+      background: #f8fafc !important;
+      border-color: #e2e8f0 !important;
+    }
+    body.light-theme .team-simple-name {
+      color: #0f172a !important;
+    }
+    body.light-theme .team-simple-role {
+      color: #64748b !important;
+    }
+
+    /* =========================================================
+       BMI CALCULATOR STYLES
+       ========================================================= */
+    .bmi-live-calc-card {
+      margin-top: 14px;
+      border: 1px solid rgba(0, 242, 254, 0.3) !important;
+    }
+    .bmi-calc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .bmi-calc-icon-wrap {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid rgba(0, 242, 254, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .bmi-inputs-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    @media (min-width: 540px) {
+      .bmi-inputs-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .bmi-input-group {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 10px 12px;
+    }
+    .bmi-input-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .bmi-val-pill {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--accent);
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.25);
+      border-radius: 8px;
+      padding: 2px 8px;
+      font-family: var(--font-mono, monospace);
+    }
+    .bmi-range-slider {
+      width: 100%;
+      height: 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.15);
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+    .bmi-range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+      cursor: pointer;
+    }
+    .bmi-result-box {
+      background: rgba(0, 242, 254, 0.04);
+      border: 1.5px solid rgba(0, 242, 254, 0.25);
+      border-radius: 14px;
+      padding: 14px;
+    }
+    .bmi-result-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .bmi-large-number {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      margin-top: 3px;
+      font-family: var(--font-mono, monospace);
+    }
+    .bmi-category-badge {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+    .bmi-category-badge.normal {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #10b981;
+    }
+    .bmi-category-badge.warning {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #f59e0b;
+    }
+    .bmi-category-badge.danger {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #ef4444;
+    }
+    .bmi-scale-bar-track {
+      position: relative;
+      height: 8px;
+      border-radius: 6px;
+      background: #1e293b;
+      display: flex;
+      overflow: visible;
+      margin: 10px 0 6px 0;
+    }
+    .bmi-scale-seg {
+      height: 100%;
+    }
+    .bmi-scale-seg.under { width: 15%; background: #38bdf8; border-top-left-radius: 6px; border-bottom-left-radius: 6px; }
+    .bmi-scale-seg.normal { width: 35%; background: #10b981; }
+    .bmi-scale-seg.over { width: 25%; background: #f59e0b; }
+    .bmi-scale-seg.obese1 { width: 15%; background: #f97316; }
+    .bmi-scale-seg.obese2 { width: 10%; background: #ef4444; border-top-right-radius: 6px; border-bottom-right-radius: 6px; }
+    .bmi-scale-pointer {
+      position: absolute;
+      top: -4px;
+      width: 14px;
+      height: 16px;
+      background: #ffffff;
+      border: 2px solid #0f172a;
+      border-radius: 3px;
+      transform: translateX(-50%);
+      transition: left 0.15s ease-out;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    }
+    .bmi-scale-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--text-sub);
+      font-family: var(--font-mono, monospace);
+      margin-bottom: 10px;
+    }
+    .bmi-clinical-note {
+      font-size: 11.5px;
+      color: var(--text-sub);
+      line-height: 1.45;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    body.light-theme .bmi-range-slider {
+      background: #cbd5e1;
+    }
+    body.light-theme .bmi-result-box {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+    body.light-theme .bmi-scale-bar-track {
+      background: #e2e8f0;
+    }
+    body.light-theme .bmi-clinical-note {
+      border-top-color: #e2e8f0;
+    }
+
+    /* =========================================================
+       FLOATING AI CHAT WIDGET STYLES («КАПЕЛЬКА / ОСТРОВОК»)
+       ========================================================= */
+    .ai-widget-trigger {
+      position: fixed;
+      bottom: 84px;
+      right: 18px;
+      z-index: 9999;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0284c7, #00f2fe);
+      color: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0, 242, 254, 0.4);
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .ai-widget-trigger:hover {
+      transform: scale(1.08);
+    }
+    .ai-widget-trigger:active {
+      transform: scale(0.94);
+    }
+    @media (min-width: 992px) {
+      .ai-widget-trigger {
+        bottom: 24px;
+        right: 24px;
+        width: 56px;
+        height: 56px;
+      }
+    }
+    .ai-widget-pulse-ring {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid rgba(0, 242, 254, 0.5);
+      animation: pulse-ring 2.2s infinite;
+      pointer-events: none;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 0.2; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .ai-widget-icon-frame {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ai-widget-badge-dot {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #10b981;
+      border: 2px solid #0f172a;
+    }
+
+    /* Chat Panel */
+    .ai-widget-panel {
+      position: fixed;
+      bottom: 144px;
+      right: 18px;
+      width: 360px;
+      max-width: calc(100vw - 32px);
+      height: 520px;
+      max-height: calc(100vh - 160px);
+      background: rgba(11, 17, 32, 0.95);
+      border: 1.5px solid rgba(0, 242, 254, 0.3);
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 242, 254, 0.15);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: chatSlideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @media (min-width: 992px) {
+      .ai-widget-panel {
+        bottom: 88px;
+        right: 24px;
+        width: 380px;
+      }
+    }
+    @keyframes chatSlideUp {
+      from { opacity: 0; transform: translateY(16px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .ai-widget-hdr {
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .ai-widget-hdr-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ai-widget-hdr-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: rgba(0, 242, 254, 0.12);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ai-widget-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+    .ai-widget-status {
+      font-size: 11px;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+    }
+    .ai-widget-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      display: inline-block;
+    }
+    .ai-widget-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #94a3b8;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .ai-widget-close:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    .ai-widget-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .ai-chat-msg {
+      display: flex;
+      flex-direction: column;
+      max-width: 86%;
+    }
+    .ai-chat-msg.bot {
+      align-self: flex-start;
+    }
+    .ai-chat-msg.user {
+      align-self: flex-end;
+    }
+    .ai-chat-msg-bubble {
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+    .ai-chat-msg.bot .ai-chat-msg-bubble {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #f1f5f9;
+      border-bottom-left-radius: 4px;
+    }
+    .ai-chat-msg.user .ai-chat-msg-bubble {
+      background: linear-gradient(135deg, #0284c7, #00f2fe);
+      color: #020617;
+      font-weight: 600;
+      border-bottom-right-radius: 4px;
+    }
+
+    .ai-chips-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .ai-chip-btn {
+      padding: 7px 10px;
+      border-radius: 10px;
+      background: rgba(0, 242, 254, 0.06);
+      border: 1px solid rgba(0, 242, 254, 0.2);
+      color: var(--accent);
+      font-size: 11.5px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .ai-chip-btn:hover {
+      background: rgba(0, 242, 254, 0.12);
+      border-color: rgba(0, 242, 254, 0.4);
+    }
+
+    .ai-widget-footer {
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid var(--card-border);
+      flex-shrink: 0;
+    }
+    .ai-widget-input-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 4px 6px 4px 12px;
+    }
+    .ai-widget-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 12.5px;
+      outline: none;
+    }
+    .ai-widget-input::placeholder {
+      color: #64748b;
+    }
+    .ai-widget-send-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #020617;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s;
+    }
+    .ai-widget-send-btn:hover {
+      opacity: 0.9;
+    }
+    .ai-widget-disclaimer {
+      font-size: 9.5px;
+      color: #64748b;
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    body.light-theme .ai-widget-panel {
+      background: rgba(255, 255, 255, 0.98) !important;
+      border-color: #cbd5e1 !important;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15) !important;
+    }
+    body.light-theme .ai-widget-hdr {
+      border-bottom-color: #e2e8f0 !important;
+    }
+    body.light-theme .ai-widget-title {
+      color: #0f172a !important;
+    }
+    body.light-theme .ai-widget-status {
+      color: #64748b !important;
+    }
+    body.light-theme .ai-chat-msg.bot .ai-chat-msg-bubble {
+      background: #f1f5f9 !important;
+      border-color: #e2e8f0 !important;
+      color: #1e293b !important;
+    }
+    body.light-theme .ai-widget-footer {
+      border-top-color: #e2e8f0 !important;
+    }
+    body.light-theme .ai-widget-input-bar {
+      background: #f8fafc !important;
+      border-color: #cbd5e1 !important;
+    }
+    body.light-theme .ai-widget-input {
+      color: #0f172a !important;
+    }
+    body.light-theme .ai-chip-btn {
+      background: #e0f2fe !important;
+      border-color: #bae6fd !important;
+      color: #0284c7 !important;
+    }
+
 </style>
 </head>
 <body>
@@ -3399,6 +4022,80 @@
                 <p style="font-size: 12.5px; color: var(--text-sub); margin-top: 2px;">Оценка семейного анамнеза и факторов риска (15 вопросов, 3–5 мин)</p>
               </div>
               <div style="font-size: 20px; color: var(--accent);">➔</div>
+            </div>
+          </div>
+
+          <!-- НАСТОЯЩИЙ ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР ИМТ -->
+          <div class="bento-card bmi-live-calc-card" id="bmiLiveCalcCard">
+            <div class="bmi-calc-header">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="bmi-calc-icon-wrap">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+                <div>
+                  <div class="screen-tag" style="margin-bottom: 2px;">Интерактивный расчет</div>
+                  <h3 style="font-size: 15px; font-weight: 800; margin: 0; color: var(--text);">Калькулятор индекса массы тела (ИМТ)</h3>
+                </div>
+              </div>
+            </div>
+
+            <p style="font-size: 12px; color: var(--text-sub); margin: 8px 0 14px 0; line-height: 1.45;">
+              Укажите ваш рост и вес, чтобы мгновенно узнать индивидуальный индекс и категорию метаболического риска:
+            </p>
+
+            <div class="bmi-inputs-grid">
+              <!-- Рост -->
+              <div class="bmi-input-group">
+                <div class="bmi-input-top-row">
+                  <label for="bmiHeightSlider" style="font-size: 11.5px; font-weight: 700; color: var(--text);">Рост (см):</label>
+                  <div class="bmi-val-pill"><span id="bmiHeightDisplay">170</span> см</div>
+                </div>
+                <input type="range" min="130" max="220" value="170" id="bmiHeightSlider" class="bmi-range-slider" oninput="handleBmiSlider('height', this.value)">
+              </div>
+
+              <!-- Вес -->
+              <div class="bmi-input-group">
+                <div class="bmi-input-top-row">
+                  <label for="bmiWeightSlider" style="font-size: 11.5px; font-weight: 700; color: var(--text);">Вес (кг):</label>
+                  <div class="bmi-val-pill"><span id="bmiWeightDisplay">68</span> кг</div>
+                </div>
+                <input type="range" min="35" max="180" value="68" id="bmiWeightSlider" class="bmi-range-slider" oninput="handleBmiSlider('weight', this.value)">
+              </div>
+            </div>
+
+            <!-- Результат расчета -->
+            <div class="bmi-result-box" id="bmiResultBox">
+              <div class="bmi-result-top">
+                <div>
+                  <div style="font-size: 10.5px; text-transform: uppercase; color: var(--text-sub); font-weight: 700; letter-spacing: 0.05em;">Индекс массы тела:</div>
+                  <div class="bmi-large-number" id="bmiLargeNum">23.5</div>
+                </div>
+                <div class="bmi-category-badge normal" id="bmiCategoryBadge">Нормальный вес</div>
+              </div>
+
+              <!-- 5-зонная шкала -->
+              <div class="bmi-scale-bar-track">
+                <div class="bmi-scale-seg under" title="Дефицит < 18.5"></div>
+                <div class="bmi-scale-seg normal" title="Норма 18.5-24.9"></div>
+                <div class="bmi-scale-seg over" title="Избыток 25-29.9"></div>
+                <div class="bmi-scale-seg obese1" title="Ожирение I 30-34.9"></div>
+                <div class="bmi-scale-seg obese2" title="Ожирение II-III ≥ 35"></div>
+                <div class="bmi-scale-pointer" id="bmiScalePointer" style="left: 45%;"></div>
+              </div>
+              <div class="bmi-scale-labels">
+                <span>16</span>
+                <span>18.5</span>
+                <span>25</span>
+                <span>30</span>
+                <span>35+</span>
+              </div>
+
+              <div class="bmi-clinical-note" id="bmiClinicalNote">
+                Вес находится в физиологической норме. Метаболический и сердечно-сосудистый риск минимален.
+              </div>
             </div>
           </div>
 
@@ -4298,106 +4995,21 @@
 
   <!-- ПОЛНОЭКРАННОЕ КИБЕР-ДОСЬЕ РАЗРАБОТЧИКА (КОРНЕВОЙ УРОВЕНЬ BODY) -->
   <div class="author-modal-overlay" id="authorModal" onclick="closeAuthorModal(event)">
-    <div class="genesis-team-modal" onclick="event.stopPropagation()">
-      
-      <!-- Интерактивный 3D DNA Canvas фон модального окна -->
-      <canvas id="team-bg-canvas" class="team-canvas-bg"></canvas>
-
-      <div class="genesis-content-wrap">
-        
-        <!-- Верхний мета-ряд (Статус & Закрытие) -->
-        <div class="genesis-header-top">
-          <div class="genesis-status-pill">
-            <span class="pulse-dot"></span>
-            <span>ИССЛЕДОВАТЕЛЬСКАЯ ГРУППА СУРГУ • 2026</span>
-          </div>
-          <button type="button" class="genesis-close-btn" onclick="closeAuthorModal()" title="Закрыть реестр">✕</button>
+    <div class="team-clean-modal" onclick="event.stopPropagation()">
+      <!-- Нормальная академическая шапка -->
+      <div class="team-clean-hdr">
+        <div>
+          <div class="team-clean-tag">СурГУ • 2026</div>
+          <h2 class="team-clean-title">Команда проекта</h2>
+          <div class="team-clean-sub">Студенты 2 курса Медицинского института СурГУ • «Лечебное дело»</div>
         </div>
-
-        <!-- Главный Hero-блок команды -->
-        <div class="genesis-hero-card">
-          <div class="genesis-hero-row">
-            <div class="genesis-hero-left">
-              <div class="genesis-logo-frame">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                  <circle cx="12" cy="12" r="3" fill="currentColor" fill-opacity="0.3"/>
-                  <circle cx="12" cy="3" r="2" fill="currentColor"/>
-                  <circle cx="12" cy="21" r="2" fill="currentColor"/>
-                  <circle cx="3" cy="12" r="2" fill="currentColor"/>
-                  <circle cx="21" cy="12" r="2" fill="currentColor"/>
-                  <path d="M12 5v4m0 6v4M5 12h4m6 0h4"/>
-                  <path d="M7.05 7.05l2.83 2.83m4.24 4.24l2.83 2.83M16.95 7.05l-2.83 2.83m-4.24 4.24l-2.83 2.83" stroke-dasharray="1 1"/>
-                </svg>
-              </div>
-              <div>
-                <h2 class="genesis-title-h2">СурГУ • Медицинский институт</h2>
-                <div class="genesis-subtitle-sub">
-                  <span style="color: #38bdf8; font-weight: 700;">2 КУРС</span>
-                  <span>•</span>
-                  <span>ЛЕЧЕБНОЕ ДЕЛО</span>
-                  <span>•</span>
-                  <span style="color: #818cf8;">КАФЕДРА ВНУТРЕННИХ БОЛЕЗНЕЙ</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Кнопка глобального раскрытия -->
-            <button type="button" class="genesis-toggle-all-btn" id="teamToggleAllBtn" onclick="toggleAllTeamCards()">
-              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-              </svg>
-              <span id="teamToggleAllLbl">Развернуть все анкеты</span>
-            </button>
-          </div>
-
-          <!-- Метрики проекта -->
-          <div class="genesis-metrics-grid">
-            <div class="genesis-metric-chip">
-              <div class="genesis-chip-lbl">Авторы проекта</div>
-              <div class="genesis-chip-val">
-                <span>8 студентов</span>
-                <span style="font-size: 10px; color: #38bdf8; font-family: monospace;">2 курс</span>
-              </div>
-            </div>
-            <div class="genesis-metric-chip">
-              <div class="genesis-chip-lbl">Специальность</div>
-              <div class="genesis-chip-val" style="color: #10b981;">Лечебное дело</div>
-            </div>
-            <div class="genesis-metric-chip">
-              <div class="genesis-chip-lbl">Кафедра</div>
-              <div class="genesis-chip-val" style="color: #38bdf8;">Внутренние болезни</div>
-            </div>
-            <div class="genesis-metric-chip">
-              <div class="genesis-chip-lbl">Исследование</div>
-              <div class="genesis-chip-val" style="color: #818cf8;">Сургут • 2026</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Панель поиска по авторам -->
-        <div class="genesis-controls-row">
-          <div class="genesis-search-box" style="width: 100%;">
-            <svg class="genesis-search-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input 
-              type="text" 
-              id="teamSearchInput" 
-              class="genesis-search-input" 
-              placeholder="Поиск автора по имени или фамилии..."
-              oninput="handleTeamSearch(this.value)"
-            />
-          </div>
-        </div>
-
-        <!-- Контейнер карточек исследователей -->
-        <div class="genesis-cards-list" id="teamCardsList">
-          <!-- Генерируется через JS -->
-        </div>
-
+        <button type="button" class="team-clean-close" onclick="closeAuthorModal()" title="Закрыть окно">✕</button>
       </div>
 
+      <!-- Список авторов: без вымышленной информации, чистые карточки -->
+      <div class="team-cards-grid" id="teamCardsList">
+        <!-- 8 студентов генерируются в JS -->
+      </div>
     </div>
   </div>
 
@@ -7046,237 +7658,40 @@
       }
     ];
 
-    const openedTeamCards = new Set();
-    let currentTeamSearch = '';
-    let teamCanvasAnimFrame = null;
-
+    /* =========================================================
+       CLEAN TEAM MODAL CONTROLS (БЕЗ КЛИКОВ И БЕЗ ВЫМЫСЛОВ)
+       ========================================================= */
     function renderTeamCards() {
       const container = document.getElementById('teamCardsList');
       if (!container) return;
       container.innerHTML = '';
 
-      const q = currentTeamSearch.toLowerCase().trim();
-      const filtered = researchers.filter(item => {
-        return !q || item.name.toLowerCase().includes(q) || item.about.toLowerCase().includes(q);
-      });
-
-      if (filtered.length === 0) {
-        container.innerHTML = '<div style="text-align: center; padding: 30px; color: var(--text-sub); font-size: 13px;">Автор не найден</div>';
-        return;
-      }
-
-      filtered.forEach(m => {
-        const isOpen = openedTeamCards.has(m.id);
+      researchers.forEach(m => {
         const initials = m.name.split(' ').map(n => n[0]).join('');
 
         const card = document.createElement('div');
-        card.className = 'genesis-member-card' + (isOpen ? ' is-open' : '');
-        card.setAttribute('data-id', m.id);
+        card.className = 'team-simple-card';
 
         card.innerHTML = `
-          <div class="genesis-card-trigger" onclick="handleTeamCardClick('${m.id}')">
-            <div class="genesis-trigger-left">
-              <div class="genesis-avatar-wrap" style="background: radial-gradient(circle at 30% 30%, hsl(${m.avatarHue}, 80%, 35%) 0%, hsl(${m.avatarHue}, 90%, 10%) 100%); border: 1.5px solid hsl(${m.avatarHue}, 80%, 55%, 0.45); color: hsl(${m.avatarHue}, 90%, 90%); box-shadow: 0 0 16px hsl(${m.avatarHue}, 80%, 50%, 0.25);">
-                ${initials}
-                <div class="genesis-avatar-dot" style="background: hsl(${m.avatarHue}, 90%, 60%);"></div>
-              </div>
-              <div class="genesis-trigger-info">
-                <h3 class="genesis-member-name">${m.name}</h3>
-                <div class="genesis-member-sub">
-                  <span class="genesis-role-text">Студент 2 курса</span>
-                  <span style="color: var(--text-sub);">•</span>
-                  <span class="genesis-badge-tag">Лечебное дело</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="genesis-trigger-right">
-              <span class="genesis-syncd-badge" style="color: var(--accent); border-color: rgba(0, 242, 254, 0.3);">
-                СурГУ
-              </span>
-              <div class="genesis-chevron">▼</div>
-            </div>
+          <div class="team-simple-avatar" style="background: radial-gradient(circle at 30% 30%, hsl(${m.avatarHue}, 80%, 35%) 0%, hsl(${m.avatarHue}, 90%, 15%) 100%); border: 1.5px solid hsl(${m.avatarHue}, 80%, 55%, 0.45); color: #fff;">
+            ${initials}
           </div>
-
-          <div class="genesis-card-drawer">
-            <div class="genesis-drawer-inner">
-              <div class="genesis-drawer-content">
-                
-                <div class="genesis-manifesto-box">
-                  <div class="genesis-manifesto-hdr">
-                    <span>Участие в научно-исследовательском проекте</span>
-                    <span style="color: #64748b;">СурГУ • 2026</span>
-                  </div>
-                  <p class="genesis-manifesto-p">«${m.about}»</p>
-                  <div class="genesis-dept-line">
-                    <span class="genesis-dept-dot"></span>
-                    <span>${m.faculty} • ${m.program}</span>
-                  </div>
-                </div>
-
-                <div class="genesis-actions-row" style="margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--card-border, rgba(255,255,255,0.06)); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-                  <div class="genesis-verif-lbl" style="font-size: 11px; color: var(--text-sub);">
-                    <span class="genesis-verif-dot" style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #10b981; margin-right: 6px;"></span>
-                    <span>Авторский коллектив СурГУ</span>
-                  </div>
-                  <button type="button" class="genesis-act-btn primary" onclick="copyTeamDossier('${m.name}')">
-                    Скопировать данные об авторе
-                  </button>
-                </div>
-
-              </div>
-            </div>
+          <div class="team-simple-info">
+            <div class="team-simple-name">${m.name}</div>
+            <div class="team-simple-role">Студент 2 курса • Лечебное дело</div>
           </div>
         `;
 
         container.appendChild(card);
       });
-
-      updateTeamToggleLabel();
     }
 
-    function handleTeamCardClick(id) {
-      tactileTap();
-      if (openedTeamCards.has(id)) {
-        openedTeamCards.delete(id);
-      } else {
-        openedTeamCards.add(id);
-      }
-      renderTeamCards();
-    }
-
-    function toggleAllTeamCards() {
-      tactileTap();
-      const allOpen = researchers.length > 0 && researchers.every(r => openedTeamCards.has(r.id));
-      if (allOpen) {
-        openedTeamCards.clear();
-        showTeamToast("Все анкеты свернуты");
-      } else {
-        researchers.forEach(r => openedTeamCards.add(r.id));
-        showTeamToast("Все 8 анкет развернуты");
-      }
-      renderTeamCards();
-    }
-
-    function updateTeamToggleLabel() {
-      const lbl = document.getElementById('teamToggleAllLbl');
-      if (!lbl) return;
-      const allOpen = researchers.length > 0 && researchers.every(r => openedTeamCards.has(r.id));
-      lbl.textContent = allOpen ? "Свернуть анкеты" : "Развернуть все анкеты";
-    }
-
-    function handleTeamSearch(val) {
-      currentTeamSearch = val;
-      renderTeamCards();
-    }
-
-    function copyTeamDossier(name) {
-      tactileTap();
-      const text = 'СурГУ • Медицинский институт (2 курс, Лечебное дело)\n' +
-        'Автор проекта: ' + name + '\n' +
-        'Проект: «Знай свой риск: семейная история здоровья как инструмент ранней профилактики заболеваний»';
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(() => {
-          showTeamToast('Данные скопированы: ' + name);
-        }).catch(() => {
-          showTeamToast('Данные скопированы');
-        });
-      } else {
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        showTeamToast('Данные скопированы: ' + name);
-      }
-    }
-
-    let teamToastTimeout = null;
-    function showTeamToast(msg) {
-      const toast = document.getElementById('teamToast');
-      const txt = document.getElementById('teamToastText');
-      if (!toast || !txt) return;
-      txt.textContent = msg;
-      toast.classList.add('active');
-      clearTimeout(teamToastTimeout);
-      teamToastTimeout = setTimeout(() => {
-        toast.classList.remove('active');
-      }, 2500);
-    }
-
-    /* Team Canvas Background DNA Simulation (Silent & Lightweight) */
-    function initTeamCanvas() {
-      const canvas = document.getElementById('team-bg-canvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      let width = canvas.width = canvas.parentElement.offsetWidth || 800;
-      let height = canvas.height = canvas.parentElement.offsetHeight || 600;
-      let angle = 0;
-
-      function draw() {
-        if (!document.getElementById('authorModal').classList.contains('active')) {
-          teamCanvasAnimFrame = null;
-          return;
-        }
-
-        ctx.clearRect(0, 0, width, height);
-        angle += 0.009;
-        const centerX = width * 0.85;
-        const radius = Math.min(width * 0.12, 70);
-        const steps = 30;
-        const stepY = height / steps;
-
-        for (let i = 0; i < steps; i++) {
-          const y = i * stepY;
-          const phase = angle + i * 0.22;
-          const x1 = centerX + Math.sin(phase) * radius;
-          const z1 = Math.cos(phase);
-          const x2 = centerX + Math.sin(phase + Math.PI) * radius;
-          const z2 = Math.cos(phase + Math.PI);
-
-          if (i % 2 === 0) {
-            ctx.beginPath();
-            ctx.moveTo(x1, y);
-            ctx.lineTo(x2, y);
-            ctx.strokeStyle = 'rgba(56, 189, 248, 0.15)';
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
-
-          ctx.beginPath();
-          ctx.arc(x1, y, 2, 0, Math.PI * 2);
-          ctx.fillStyle = z1 > 0 ? 'rgba(0, 240, 255, 0.4)' : 'rgba(0, 240, 255, 0.15)';
-          ctx.fill();
-
-          ctx.beginPath();
-          ctx.arc(x2, y, 2, 0, Math.PI * 2);
-          ctx.fillStyle = z2 > 0 ? 'rgba(168, 85, 247, 0.4)' : 'rgba(168, 85, 247, 0.15)';
-          ctx.fill();
-        }
-
-        teamCanvasAnimFrame = requestAnimationFrame(draw);
-      }
-
-      if (!teamCanvasAnimFrame) {
-        draw();
-      }
-    }
-
-    // Override openAuthorModal / closeAuthorModal
     window.openAuthorModal = function() {
       tactileTap();
       const modal = document.getElementById('authorModal');
       if (modal) {
         modal.classList.add('active');
-        // Open first researcher (Баетова Милана) by default
-        if (openedTeamCards.size === 0) {
-          openedTeamCards.add(researchers[0].id);
-        }
         renderTeamCards();
-        setTimeout(initTeamCanvas, 60);
       }
     };
 
@@ -7287,12 +7702,92 @@
       if (modal) {
         modal.classList.remove('active');
       }
-      if (teamCanvasAnimFrame) {
-        cancelAnimationFrame(teamCanvasAnimFrame);
-        teamCanvasAnimFrame = null;
-      }
     };
   </script>
+
+
+  <!-- ПЛАВАЮЩИЙ ИИ-КОНСУЛЬТАНТ («КАПЕЛЬКА / ОСТРОВОК») -->
+  <div class="ai-widget-trigger" id="aiWidgetTrigger" onclick="tactileTap(); toggleAiWidgetChat()">
+    <div class="ai-widget-pulse-ring"></div>
+    <div class="ai-widget-icon-frame">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        <line x1="8" y1="10" x2="16" y2="10"></line>
+        <line x1="8" y1="14" x2="12" y2="14"></line>
+      </svg>
+    </div>
+    <span class="ai-widget-badge-dot"></span>
+  </div>
+
+  <!-- ВСПЛЫВАЮЩЕЕ ОКНО ЧАТА С ИИ -->
+  <div class="ai-widget-panel" id="aiWidgetPanel" style="display: none;">
+    <!-- Шапка чата -->
+    <div class="ai-widget-hdr">
+      <div class="ai-widget-hdr-info">
+        <div class="ai-widget-hdr-avatar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="ai-widget-title">ИИ-консультант: Семейный риск</div>
+          <div class="ai-widget-status">
+            <span class="ai-widget-status-dot"></span>
+            <span>Консультации по здоровью и анамнезу</span>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="ai-widget-close" onclick="tactileTap(); toggleAiWidgetChat()" title="Свернуть чат">✕</button>
+    </div>
+
+    <!-- Область переписки -->
+    <div class="ai-widget-messages" id="aiWidgetMessages">
+      <div class="ai-chat-msg bot">
+        <div class="ai-chat-msg-bubble">
+          Здравствуйте! Я виртуальный консультант по семейной истории здоровья. Отвечаю на вопросы о наследственных заболеваниях (ССЗ, инфаркты, инсульты, диабет, онкология) и значении анамнеза 3 поколений. Задайте ваш вопрос:
+        </div>
+      </div>
+
+      <!-- Быстрые чипы-подсказки -->
+      <div class="ai-chips-wrap" id="aiChipsWrap">
+        <button type="button" class="ai-chip-btn" onclick="tactileTap(); askPresetQuestion('Зачем врачу знать историю здоровья именно 3 поколений семьи?')">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Зачем анамнез 3 поколений?</span>
+        </button>
+        <button type="button" class="ai-chip-btn" onclick="tactileTap(); askPresetQuestion('Если у близких родственников был инфаркт до 50 лет, что предпринять в первую очередь?')">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Ранний инфаркт у родных: что делать?</span>
+        </button>
+        <button type="button" class="ai-chip-btn" onclick="tactileTap(); askPresetQuestion('Какие базовые анализы крови нужно сдать для проверки сосудистых и метаболических рисков?')">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Базовые анализы на риски</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Строка ввода -->
+    <div class="ai-widget-footer">
+      <div class="ai-widget-input-bar">
+        <input 
+          type="text" 
+          id="aiWidgetInput" 
+          class="ai-widget-input" 
+          placeholder="Спросите о семейных рисках..." 
+          onkeydown="if(event.key==='Enter'){tactileTap();handleWidgetSend();}"
+        />
+        <button type="button" class="ai-widget-send-btn" onclick="tactileTap(); handleWidgetSend()" title="Отправить вопрос">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </div>
+      <div class="ai-widget-disclaimer">
+        Информационный сервис • Не является медицинской консультацией
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
