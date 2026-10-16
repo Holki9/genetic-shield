@@ -7,7 +7,8 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   
   <!-- YANDEX MAPS API 2.1 -->
   <!-- YANDEX MAPS API 2.1 -->
@@ -1794,9 +1795,331 @@
       box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.03) !important;
     }
 
+
+    /* =====================================================
+       3D COSMIC DNA INTRO SYSTEM (SURGU)
+       ===================================================== */
+    #intro-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: radial-gradient(circle at center, #050d1a 0%, #010306 100%);
+      transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), visibility 1.2s;
+      touch-action: none;
+    }
+    #intro-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    #webgl-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    #singularity-flash {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(235, 252, 255, 0.98) 0%, rgba(0, 225, 255, 0.5) 42%, transparent 82%);
+      opacity: 0;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      z-index: 2;
+    }
+
+    .cinematic-hud {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(20px, 4vw, 44px);
+      box-sizing: border-box;
+    }
+
+    .hud-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .phase-indicator {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(139, 155, 180, 0.85);
+      font-weight: 600;
+    }
+
+    .phase-progress-track {
+      width: 80px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.14);
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+
+    .phase-progress-bar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #00f0ff, #f5b971);
+      box-shadow: 0 0 8px #00f0ff;
+    }
+
+    .btn-skip {
+      pointer-events: auto;
+      background: rgba(10, 22, 40, 0.6);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      color: #f0f6fc;
+      padding: 9px 18px;
+      border-radius: 100px;
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+    .btn-skip:hover {
+      border-color: #00f0ff;
+      background: rgba(0, 240, 255, 0.18);
+      box-shadow: 0 0 24px rgba(0, 240, 255, 0.35);
+      transform: translateY(-1px);
+    }
+    .btn-skip svg {
+      width: 14px;
+      height: 14px;
+      stroke: #00f0ff;
+      transition: transform 0.25s ease;
+    }
+    .btn-skip:hover svg {
+      transform: translateX(3px);
+    }
+
+    .subtitle-stage {
+      position: absolute;
+      left: 50%;
+      bottom: clamp(40px, 9vh, 90px);
+      transform: translateX(-50%);
+      width: min(90vw, 760px);
+      text-align: center;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      opacity: 0;
+      transform: translateY(16px) scale(0.98);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(21px, 3.4vw, 36px);
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: 0.03em;
+      color: #ffffff;
+      text-shadow: 0 4px 28px rgba(0, 210, 255, 0.45), 0 0 14px rgba(0, 0, 0, 0.95);
+    }
+    .caption-text.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .caption-sub {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(10.5px, 1.2vw, 12.5px);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #00f0ff;
+      margin-bottom: 8px;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .finale-brand {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 4;
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 1.0s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      text-align: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+    .finale-brand.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .surgu-crest {
+      width: 76px;
+      height: 76px;
+      margin-bottom: 18px;
+      filter: drop-shadow(0 0 24px rgba(0, 240, 255, 0.6));
+    }
+
+    .surgu-label {
+      font-size: 11.5px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #00f0ff;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .surgu-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(26px, 4.5vw, 50px);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #ffffff 20%, #a5f3fc 65%, #f5b971 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      max-width: 740px;
+    }
+
+    .hud-bottom-hint {
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(139, 155, 180, 0.6);
+      transition: opacity 0.6s;
+    }
+
+    /* Top bar 3D Intro replay button */
+    .btn-replay-intro {
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.28);
+      color: var(--text);
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-replay-intro:hover {
+      background: rgba(0, 240, 255, 0.18);
+      border-color: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+    }
+    body.light-theme .btn-replay-intro {
+      background: #f0f9ff !important;
+      border-color: #bae6fd !important;
+      color: #0369a1 !important;
+    }
+    body.light-theme .btn-replay-intro:hover {
+      background: #e0f2fe !important;
+      border-color: #0284c7 !important;
+      color: #0284c7 !important;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15) !important;
+    }
+
 </style>
 </head>
 <body>
+
+  <!-- 1. ИНТЕРАКТИВНОЕ 3D-ИНТРО СУРГУ (16 СЕКУНД) -->
+  <div id="intro-overlay">
+    <canvas id="webgl-canvas"></canvas>
+    <div id="singularity-flash"></div>
+
+    <div class="cinematic-hud">
+      <div class="hud-top">
+        <div class="phase-indicator">
+          <span id="phase-label">ФАЗА I · ЗВЁЗДНАЯ БЕЗДНА</span>
+          <div class="phase-progress-track">
+            <div class="phase-progress-bar" id="timeline-bar"></div>
+          </div>
+        </div>
+
+        <button class="btn-skip" id="btn-skip" type="button" aria-label="Пропустить интро" onclick="tactileTap(); completeCosmicIntro()">
+          <span>Пропустить</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="13 17 18 12 13 7"></polyline>
+            <polyline points="6 17 11 12 6 7"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <div class="subtitle-stage">
+        <div class="caption-text" id="caption-1">
+          <span class="caption-sub">Макрокосм и Микрокосм</span>
+          В каждом из нас скрыта история миллиардов лет...
+        </div>
+        <div class="caption-text" id="caption-2">
+          <span class="caption-sub">Наследие предков</span>
+          И уникальный код здоровья трёх поколений вашей семьи.
+        </div>
+      </div>
+
+      <div class="finale-brand" id="finale-brand">
+        <svg class="surgu-crest" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="44" stroke="url(#gradCyan)" stroke-width="1.2" stroke-dasharray="4 3" />
+          <ellipse cx="50" cy="50" rx="44" ry="18" transform="rotate(-30 50 50)" stroke="url(#gradCyan)" stroke-width="1.5" />
+          <ellipse cx="50" cy="50" rx="44" ry="18" transform="rotate(30 50 50)" stroke="url(#gradGold)" stroke-width="1.5" />
+          <circle cx="50" cy="50" r="6" fill="#00f0ff" />
+          <defs>
+            <linearGradient id="gradCyan" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#00f0ff" />
+              <stop offset="100%" stop-color="#0066ff" stop-opacity="0.2" />
+            </linearGradient>
+            <linearGradient id="gradGold" x1="100" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#f5b971" />
+              <stop offset="100%" stop-color="#00d2aa" stop-opacity="0.3" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="surgu-label">Сургутский государственный университет</div>
+        <h1 class="surgu-title">Знай свой риск: семейная история здоровья</h1>
+      </div>
+
+      <div class="hud-bottom-hint" id="hud-hint">
+        Двигайте курсором или проведите пальцем для 3D-обзора пространства
+      </div>
+    </div>
+  </div>
+
 
   <div class="glow-spot glow-top"></div>
   <div class="glow-spot glow-bottom"></div>
@@ -1809,10 +2132,20 @@
         <span class="pulse-dot"></span>
         <span>Скрининг • СурГУ</span>
       </div>
-      <div class="theme-segmented-group" id="themeSegmentGroup">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <button type="button" class="btn-replay-intro" id="btn-replay-top" onclick="tactileTap(); startCosmicIntro()" title="Запустить 3D-космогенез">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
+            <circle cx="12" cy="12" r="9" stroke-dasharray="3 2" />
+            <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(35 12 12)" />
+            <circle cx="12" cy="12" r="2" fill="currentColor" />
+          </svg>
+          <span>3D-интро</span>
+        </button>
+        <div class="theme-segmented-group" id="themeSegmentGroup">
         <button class="theme-seg-btn" data-theme="auto" onclick="tactileTap(); setThemeMode('auto')">Авто</button>
         <button class="theme-seg-btn active" data-theme="dark" onclick="tactileTap(); setThemeMode('dark')">Тёмная</button>
         <button class="theme-seg-btn" data-theme="light" onclick="tactileTap(); setThemeMode('light')">Светлая</button>
+      </div>
       </div>
     </header>
 
@@ -1833,6 +2166,27 @@
             <div class="stat-val">10 лет</div>
             <div class="stat-lbl">Запас предотвращения заболеваний</div>
           </div>
+        </div>
+      </div>
+
+            <!-- 3D COSMOGENESIS PROMO CARD -->
+      <div class="bento-card" onclick="tactileTap(); startCosmicIntro()" style="cursor: pointer; border-color: rgba(0, 242, 254, 0.35); background: linear-gradient(135deg, rgba(8, 17, 32, 0.9), rgba(0, 240, 255, 0.08)); margin-top: 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div style="width: 42px; height: 42px; border-radius: 12px; background: rgba(0, 240, 255, 0.1); border: 1.5px solid rgba(0, 240, 255, 0.3); display: grid; place-items: center; flex-shrink: 0; box-shadow: 0 0 16px rgba(0, 240, 255, 0.2);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="1.8">
+                <circle cx="12" cy="12" r="9" stroke-dasharray="3 2" />
+                <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(35 12 12)" />
+                <circle cx="12" cy="12" r="2" fill="#00f0ff" />
+              </svg>
+            </div>
+            <div>
+              <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); font-weight: 700;">3D-Космогенез ДНК</div>
+              <strong style="font-size: 14.5px; color: var(--text);">Запустить визуальное путешествие</strong>
+              <div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">Интерактивная 3D-модель эволюции и генетического кода семьи</div>
+            </div>
+          </div>
+          <span style="font-size: 20px; color: var(--accent); font-weight: 700;">›</span>
         </div>
       </div>
 
@@ -4902,5 +5256,583 @@
     });
     window.addEventListener('resize', initDock);
   </script>
+
+  <!-- Three.js Cosmic DNA Engine -->
+  <script>
+    (() => {
+      const STORAGE_KEY = 'surgu_cosmic_intro_seen_v2';
+      const TOTAL_DURATION = 16.0;
+
+      const overlay = document.getElementById('intro-overlay');
+      const canvas = document.getElementById('webgl-canvas');
+      const flashEl = document.getElementById('singularity-flash');
+      const timelineBar = document.getElementById('timeline-bar');
+      const phaseLabel = document.getElementById('phase-label');
+      const caption1 = document.getElementById('caption-1');
+      const caption2 = document.getElementById('caption-2');
+      const finaleBrand = document.getElementById('finale-brand');
+      const hudHint = document.getElementById('hud-hint');
+      const btnSkip = document.getElementById('btn-skip');
+
+      if (!canvas || !window.THREE) return;
+
+      let renderer, scene, camera, worldGroup;
+      let particleMaterial, shockwaveMat;
+      let startTime = performance.now();
+      let isIntroActive = false;
+      let animFrameId = null;
+
+      try {
+        renderer = new THREE.WebGLRenderer({
+          canvas,
+          antialias: true,
+          powerPreference: 'high-performance'
+        });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 400);
+        camera.position.set(0, 0, 44);
+
+        worldGroup = new THREE.Group();
+        scene.add(worldGroup);
+
+        // 15 000 particles
+        const PARTICLE_COUNT = 15000;
+        const geometry = new THREE.BufferGeometry();
+
+        const posCosmos = new Float32Array(PARTICLE_COUNT * 3);
+        const posDNA = new Float32Array(PARTICLE_COUNT * 3);
+        const dirBurst = new Float32Array(PARTICLE_COUNT * 3);
+        const aColorCosmos = new Float32Array(PARTICLE_COUNT * 3);
+        const aColorDNA = new Float32Array(PARTICLE_COUNT * 3);
+        const aScale = new Float32Array(PARTICLE_COUNT);
+        const aRandom = new Float32Array(PARTICLE_COUNT);
+
+        const colDeepBlue = new THREE.Color('#1964e8');
+        const colCyan = new THREE.Color('#00f2ff');
+        const colTeal = new THREE.Color('#00e6a8');
+        const colGold = new THREE.Color('#ffbe64');
+        const colWhiteHot = new THREE.Color('#eefcff');
+
+        const DNA_HEIGHT = 30.0;
+        const DNA_RADIUS = 5.4;
+        const DNA_TURNS = 3.5;
+        const TOTAL_RUNGS = 28;
+
+        const BACKBONE_LIMIT = Math.floor(PARTICLE_COUNT * 0.52);
+        const RUNG_LIMIT = Math.floor(PARTICLE_COUNT * 0.84);
+
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+          const i3 = i * 3;
+          const rand = Math.random();
+          aRandom[i] = rand;
+
+          // 1. Cosmos
+          const arm = i % 3;
+          const radius = Math.pow(Math.random(), 0.72) * 54 + 1.2;
+          const spinAngle = radius * 0.21 + (arm * Math.PI * 2) / 3;
+          const scatter = (1 - Math.exp(-radius * 0.075)) * 10.0;
+
+          posCosmos[i3]     = Math.cos(spinAngle) * radius + (Math.random() - 0.5) * scatter;
+          posCosmos[i3 + 1] = (Math.random() - 0.5) * scatter * 0.85;
+          posCosmos[i3 + 2] = Math.sin(spinAngle) * radius + (Math.random() - 0.5) * scatter;
+
+          const cCosmos = rand > 0.83 ? colGold.clone().lerp(colWhiteHot, 0.35)
+                        : rand > 0.45 ? colCyan
+                        : colDeepBlue;
+          aColorCosmos[i3]     = cCosmos.r;
+          aColorCosmos[i3 + 1] = cCosmos.g;
+          aColorCosmos[i3 + 2] = cCosmos.b;
+
+          // 2. DNA double helix
+          let dx, dy, dz;
+          let cDNA;
+          let pointSizeMultiplier = 1.0;
+
+          if (i < BACKBONE_LIMIT) {
+            const normIdx = i / BACKBONE_LIMIT;
+            const strand = (i % 2 === 0) ? 0.0 : Math.PI;
+            const t = normIdx * 2.0 - 1.0;
+            const y = t * (DNA_HEIGHT * 0.5);
+            const theta = t * Math.PI * DNA_TURNS + strand;
+
+            const ribbonAngle = Math.random() * Math.PI * 2.0;
+            const ribbonTube = Math.pow(Math.random(), 1.5) * 0.24;
+
+            dx = Math.cos(theta) * (DNA_RADIUS + Math.cos(ribbonAngle) * ribbonTube);
+            dy = y + Math.sin(ribbonAngle) * ribbonTube;
+            dz = Math.sin(theta) * (DNA_RADIUS + Math.cos(ribbonAngle) * ribbonTube);
+
+            cDNA = (i % 2 === 0) ? colCyan.clone().lerp(colWhiteHot, 0.25)
+                                 : colTeal.clone().lerp(colCyan, 0.3);
+            pointSizeMultiplier = 1.15;
+          }
+          else if (i < RUNG_LIMIT) {
+            const rungParticleIdx = i - BACKBONE_LIMIT;
+            const rungNumber = rungParticleIdx % TOTAL_RUNGS;
+
+            const tRung = ((rungNumber + 0.5) / TOTAL_RUNGS) * 2.0 - 1.0;
+            const yRung = tRung * (DNA_HEIGHT * 0.47);
+            const thetaRung = tRung * Math.PI * DNA_TURNS;
+
+            const s = (Math.random() * 2.0 - 1.0);
+            const absS = Math.abs(s);
+            const radialPos = s * DNA_RADIUS;
+            const tightJitter = (Math.random() - 0.5) * 0.11;
+
+            dx = Math.cos(thetaRung) * radialPos + tightJitter;
+            dy = yRung + (Math.random() - 0.5) * 0.10;
+            dz = Math.sin(thetaRung) * radialPos + tightJitter;
+
+            if (absS > 0.88) {
+              cDNA = colWhiteHot;
+              pointSizeMultiplier = 1.45;
+            } else if (absS < 0.22) {
+              cDNA = colWhiteHot.clone().lerp(colGold, 0.5);
+              pointSizeMultiplier = 1.2;
+            } else {
+              cDNA = (s > 0) ? colGold : colGold.clone().lerp(colTeal, 0.45);
+              pointSizeMultiplier = 0.95;
+            }
+          }
+          else {
+            const tAura = (Math.random() * 2.0 - 1.0);
+            const auraY = tAura * (DNA_HEIGHT * 0.65);
+            const auraRadius = DNA_RADIUS + 3.8 + Math.random() * 9.5;
+            const auraTheta = Math.random() * Math.PI * 2.0;
+
+            dx = Math.cos(auraTheta) * auraRadius;
+            dy = auraY;
+            dz = Math.sin(auraTheta) * auraRadius;
+            cDNA = colDeepBlue.clone().lerp(colGold, Math.random() * 0.45);
+            pointSizeMultiplier = 0.7;
+          }
+
+          posDNA[i3]     = dx;
+          posDNA[i3 + 1] = dy;
+          posDNA[i3 + 2] = dz;
+
+          aColorDNA[i3]     = cDNA.r;
+          aColorDNA[i3 + 1] = cDNA.g;
+          aColorDNA[i3 + 2] = cDNA.b;
+
+          // 3. Singularity burst vectors
+          const u = Math.random();
+          const v = Math.random();
+          const phi = u * 2.0 * Math.PI;
+          const cosTheta = 2.0 * v - 1.0;
+          const sinTheta = Math.sqrt(1.0 - cosTheta * cosTheta);
+          const speed = (Math.pow(Math.random(), 0.48) * 70 + 12);
+
+          dirBurst[i3]     = sinTheta * Math.cos(phi) * speed;
+          dirBurst[i3 + 1] = sinTheta * Math.sin(phi) * speed;
+          dirBurst[i3 + 2] = cosTheta * speed;
+
+          aScale[i] = (Math.pow(Math.random(), 2.0) * 2.5 + 0.85) * pointSizeMultiplier;
+        }
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(posCosmos, 3));
+        geometry.setAttribute('aPosDNA', new THREE.BufferAttribute(posDNA, 3));
+        geometry.setAttribute('aDirBurst', new THREE.BufferAttribute(dirBurst, 3));
+        geometry.setAttribute('aColorCosmos', new THREE.BufferAttribute(aColorCosmos, 3));
+        geometry.setAttribute('aColorDNA', new THREE.BufferAttribute(aColorDNA, 3));
+        geometry.setAttribute('aScale', new THREE.BufferAttribute(aScale, 1));
+        geometry.setAttribute('aRandom', new THREE.BufferAttribute(aRandom, 1));
+
+        particleMaterial = new THREE.ShaderMaterial({
+          transparent: true,
+          depthWrite: false,
+          blending: THREE.AdditiveBlending,
+          uniforms: {
+            uTime: { value: 0 },
+            uMorphDNA: { value: 0 },
+            uImplode: { value: 0 },
+            uExplode: { value: 0 },
+            uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) }
+          },
+          vertexShader: `
+            attribute vec3 aPosDNA;
+            attribute vec3 aDirBurst;
+            attribute vec3 aColorCosmos;
+            attribute vec3 aColorDNA;
+            attribute float aScale;
+            attribute float aRandom;
+
+            uniform float uTime;
+            uniform float uMorphDNA;
+            uniform float uImplode;
+            uniform float uExplode;
+            uniform float uPixelRatio;
+
+            varying vec3 vColor;
+            varying float vEnergy;
+
+            mat2 rotate2d(float angle) {
+              float s = sin(angle);
+              float c = cos(angle);
+              return mat2(c, -s, s, c);
+            }
+
+            void main() {
+              vec3 cosmos = position;
+              float cosmicDrift = uTime * 0.12 * (0.4 + aRandom * 0.6);
+              cosmos.xz = rotate2d(cosmicDrift) * cosmos.xz;
+              cosmos.y += sin(uTime * 1.1 + aRandom * 10.0) * 0.35;
+
+              vec3 dna = aPosDNA;
+              float dnaSpin = uTime * 0.72;
+              dna.xz = rotate2d(dnaSpin) * dna.xz;
+
+              dna.xy = rotate2d(0.26) * dna.xy;
+              dna.yz = rotate2d(0.10) * dna.yz;
+
+              float heightWave = clamp((aPosDNA.y + 16.0) / 32.0, 0.0, 1.0);
+              float localMorph = smoothstep(0.0, 1.0, clamp((uMorphDNA * 1.35 - heightWave * 0.35), 0.0, 1.0));
+
+              vec3 pos = mix(cosmos, dna, localMorph);
+
+              float assemblySwirl = (1.0 - localMorph) * uMorphDNA * 2.2;
+              pos.xz = rotate2d(assemblySwirl) * pos.xz;
+
+              if (uImplode > 0.0) {
+                float pull = smoothstep(0.0, 1.0, uImplode);
+                float deepGravity = pow(pull, 2.1);
+
+                pos.y *= mix(1.0, 0.12, pow(pull, 1.3));
+
+                float radialDist = length(pos.xz) + 0.8;
+                float vortexSpin = deepGravity * (9.0 + 18.0 / radialDist);
+                pos.xz = rotate2d(vortexSpin) * pos.xz;
+                pos.xy = rotate2d(deepGravity * 3.5) * pos.xy;
+
+                float collapseFactor = smoothstep(0.0, 0.88, pow(pull, 1.45));
+                pos = mix(pos, vec3(0.0), collapseFactor);
+
+                float pinpointTremor = (1.0 - step(0.001, uExplode)) * smoothstep(0.82, 1.0, pull) * 0.08;
+                pos += vec3(
+                  sin(uTime * 90.0 + aRandom * 50.0),
+                  cos(uTime * 85.0 + aRandom * 40.0),
+                  sin(uTime * 95.0 + aRandom * 60.0)
+                ) * pinpointTremor;
+              }
+
+              if (uExplode > 0.0) {
+                float burstProgress = pow(uExplode, 0.68);
+                pos += aDirBurst * burstProgress;
+              }
+
+              vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+              gl_Position = projectionMatrix * mvPosition;
+
+              vec3 baseColor = mix(aColorCosmos, aColorDNA, localMorph);
+              vec3 singularityWhite = vec3(0.92, 0.98, 1.0);
+              float heat = clamp(pow(uImplode, 2.2) + smoothstep(0.0, 0.25, uExplode) * (1.0 - uExplode), 0.0, 1.0);
+              vColor = mix(baseColor, singularityWhite, heat * 0.88);
+
+              float twinkle = 0.8 + 0.2 * sin(uTime * 3.5 + aRandom * 35.0);
+              vEnergy = twinkle * (1.0 + heat * 1.8) * (1.0 - smoothstep(0.68, 1.0, uExplode));
+
+              float burstScale = 1.0 + sin(clamp(uExplode * 3.14159, 0.0, 3.14159)) * 1.9;
+              gl_PointSize = (aScale * burstScale * uPixelRatio) * (130.0 / max(-mvPosition.z, 1.4));
+            }
+          `,
+          fragmentShader: `
+            varying vec3 vColor;
+            varying float vEnergy;
+
+            void main() {
+              vec2 uv = gl_PointCoord - vec2(0.5);
+              float dist = length(uv) * 2.0;
+              if (dist > 1.0) discard;
+
+              float core = exp(-dist * dist * 20.0);
+              float halo = exp(-dist * 3.8) * 0.52;
+              float luminance = (core + halo) * vEnergy;
+
+              vec3 finalColor = mix(vColor, vec3(1.0), core * 0.78);
+              gl_FragColor = vec4(finalColor * luminance, clamp(luminance, 0.0, 1.0));
+            }
+          `
+        });
+
+        const particleSystem = new THREE.Points(geometry, particleMaterial);
+        worldGroup.add(particleSystem);
+
+        // Shockwave
+        const shockwaveGeo = new THREE.PlaneGeometry(100, 100);
+        shockwaveMat = new THREE.ShaderMaterial({
+          transparent: true,
+          depthWrite: false,
+          blending: THREE.AdditiveBlending,
+          uniforms: {
+            uImplode: { value: 0 },
+            uExplode: { value: 0 },
+            uTime: { value: 0 }
+          },
+          vertexShader: `
+            varying vec2 vUv;
+            void main() {
+              vUv = uv * 2.0 - 1.0;
+              gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+          `,
+          fragmentShader: `
+            varying vec2 vUv;
+            uniform float uImplode;
+            uniform float uExplode;
+            uniform float uTime;
+
+            void main() {
+              float r = length(vUv);
+              float angle = atan(vUv.y, vUv.x);
+
+              float collapseRadius = mix(0.52, 0.005, pow(uImplode, 1.65));
+              float implosionGlow = exp(-abs(r - collapseRadius) * 32.0) * smoothstep(0.08, 0.85, uImplode) * (1.0 - step(0.001, uExplode));
+              float corePinpoint = exp(-r * 75.0) * pow(uImplode, 2.5) * 3.2 * (1.0 - uExplode);
+
+              float waveRadius = pow(uExplode, 0.6) * 1.4;
+              float ringThickness = mix(0.012, 0.18, uExplode);
+              float shockRing = exp(-pow((r - waveRadius) / ringThickness, 2.0)) * step(0.001, uExplode) * (1.0 - smoothstep(0.55, 1.0, uExplode));
+
+              float rays = (0.6 + 0.4 * sin(angle * 12.0 + uTime * 3.5) * cos(angle * 7.0 - uTime * 2.5));
+              float supernovaFlare = exp(-r * mix(20.0, 3.0, uExplode)) * rays * sin(clamp(uExplode * 3.14159, 0.0, 3.14159)) * 2.0;
+
+              float totalIntensity = implosionGlow + corePinpoint + shockRing * 1.5 + supernovaFlare;
+
+              vec3 colCyan = vec3(0.0, 0.92, 1.0);
+              vec3 colGold = vec3(1.0, 0.78, 0.45);
+              vec3 waveColor = mix(colCyan, colGold, smoothstep(0.0, 0.85, r));
+              vec3 finalCol = mix(waveColor, vec3(1.0), clamp(corePinpoint + shockRing * 0.65, 0.0, 1.0));
+
+              gl_FragColor = vec4(finalCol * totalIntensity, clamp(totalIntensity, 0.0, 1.0));
+            }
+          `
+        });
+
+        const shockwaveMesh = new THREE.Mesh(shockwaveGeo, shockwaveMat);
+        scene.add(shockwaveMesh);
+      } catch (err) {
+        console.warn('WebGL init fallback:', err);
+        if (overlay) overlay.classList.add('hidden');
+        return;
+      }
+
+      // Parallax interaction
+      const pointer = { targetX: 0, targetY: 0, currentX: 0, currentY: 0, isDown: false, prevX: 0, prevY: 0 };
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isIntroActive) return;
+        const nx = (e.clientX / window.innerWidth) * 2 - 1;
+        const ny = (e.clientY / window.innerHeight) * 2 - 1;
+        pointer.targetX = nx * 0.6;
+        pointer.targetY = ny * 0.4;
+      }, { passive: true });
+
+      window.addEventListener('touchstart', (e) => {
+        if (!isIntroActive || e.touches.length === 0) return;
+        pointer.isDown = true;
+        pointer.prevX = e.touches[0].clientX;
+        pointer.prevY = e.touches[0].clientY;
+      }, { passive: true });
+
+      window.addEventListener('touchmove', (e) => {
+        if (!isIntroActive || !pointer.isDown || e.touches.length === 0) return;
+        const dx = (e.touches[0].clientX - pointer.prevX) / window.innerWidth;
+        const dy = (e.touches[0].clientY - pointer.prevY) / window.innerHeight;
+        pointer.targetX = Math.max(-1.2, Math.min(1.2, pointer.targetX + dx * 2.6));
+        pointer.targetY = Math.max(-0.8, Math.min(0.8, pointer.targetY + dy * 2.0));
+        pointer.prevX = e.touches[0].clientX;
+        pointer.prevY = e.touches[0].clientY;
+      }, { passive: true });
+
+      window.addEventListener('touchend', () => { pointer.isDown = false; }, { passive: true });
+
+      window.addEventListener('deviceorientation', (e) => {
+        if (!isIntroActive || pointer.isDown || e.gamma === null || e.beta === null) return;
+        pointer.targetX = THREE.MathUtils.clamp(e.gamma / 35, -0.75, 0.75);
+        pointer.targetY = THREE.MathUtils.clamp((e.beta - 45) / 35, -0.55, 0.55);
+      }, { passive: true });
+
+      window.addEventListener('resize', () => {
+        if (!renderer || !camera) return;
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        if (particleMaterial && particleMaterial.uniforms.uPixelRatio) {
+          particleMaterial.uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio, 2);
+        }
+      });
+
+      function easeInOutCubic(x) {
+        return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+      }
+
+      function completeIntro() {
+        if (!isIntroActive) return;
+        isIntroActive = false;
+        try { localStorage.setItem(STORAGE_KEY, '1'); } catch(e){}
+        if (overlay) overlay.classList.add('hidden');
+        setTimeout(() => {
+          if (!isIntroActive && animFrameId) {
+            cancelAnimationFrame(animFrameId);
+          }
+        }, 1250);
+      }
+
+      function startIntro() {
+        if (!overlay) return;
+        isIntroActive = true;
+        startTime = performance.now();
+        overlay.classList.remove('hidden');
+        if (finaleBrand) finaleBrand.classList.remove('active');
+        if (caption1) caption1.classList.remove('active');
+        if (caption2) caption2.classList.remove('active');
+        if (hudHint) hudHint.style.opacity = '1';
+        if (flashEl) flashEl.style.opacity = '0';
+        if (camera) {
+          camera.position.set(0, 0, 44);
+          camera.fov = 58;
+          camera.updateProjectionMatrix();
+        }
+
+        if (animFrameId) cancelAnimationFrame(animFrameId);
+        animate(performance.now());
+      }
+
+      function animate(now) {
+        if (!isIntroActive) return;
+        animFrameId = requestAnimationFrame(animate);
+
+        const elapsed = (now - startTime) / 1000;
+        const progress = Math.min(elapsed / TOTAL_DURATION, 1.0);
+        if (timelineBar) timelineBar.style.width = (progress * 100).toFixed(1) + '%';
+
+        pointer.currentX += (pointer.targetX - pointer.currentX) * 0.055;
+        pointer.currentY += (pointer.targetY - pointer.currentY) * 0.055;
+        if (worldGroup) {
+          worldGroup.rotation.y = pointer.currentX * 0.8;
+          worldGroup.rotation.x = pointer.currentY * 0.6;
+        }
+
+        if (particleMaterial) particleMaterial.uniforms.uTime.value = elapsed;
+        if (shockwaveMat) shockwaveMat.uniforms.uTime.value = elapsed;
+
+        // Phase 1 (0.0 – 4.2s)
+        if (elapsed < 4.2) {
+          if (phaseLabel) phaseLabel.textContent = 'ФАЗА I · ЗВЁЗДНАЯ БЕЗДНА';
+          if (caption1) caption1.classList.toggle('active', elapsed > 0.35 && elapsed < 3.85);
+          if (caption2) caption2.classList.remove('active');
+          if (finaleBrand) finaleBrand.classList.remove('active');
+
+          if (particleMaterial) {
+            particleMaterial.uniforms.uMorphDNA.value = 0;
+            particleMaterial.uniforms.uImplode.value = 0;
+            particleMaterial.uniforms.uExplode.value = 0;
+          }
+          if (shockwaveMat) {
+            shockwaveMat.uniforms.uImplode.value = 0;
+            shockwaveMat.uniforms.uExplode.value = 0;
+          }
+
+          if (camera) camera.position.z = 44.0 - elapsed * 1.2;
+        }
+        // Phase 2 (4.2 – 9.2s)
+        else if (elapsed >= 4.2 && elapsed < 9.2) {
+          if (phaseLabel) phaseLabel.textContent = 'ФАЗА II · ГЕНЕТИЧЕСКАЯ СБОРКА';
+          if (caption1) caption1.classList.remove('active');
+          if (caption2) caption2.classList.toggle('active', elapsed > 4.5 && elapsed < 8.85);
+
+          const morphRaw = Math.min((elapsed - 4.2) / 1.8, 1.0);
+          if (particleMaterial) {
+            particleMaterial.uniforms.uMorphDNA.value = easeInOutCubic(morphRaw);
+            particleMaterial.uniforms.uImplode.value = 0;
+            particleMaterial.uniforms.uExplode.value = 0;
+          }
+          if (shockwaveMat) {
+            shockwaveMat.uniforms.uImplode.value = 0;
+            shockwaveMat.uniforms.uExplode.value = 0;
+          }
+
+          if (camera) camera.position.z = 38.96 - (elapsed - 4.2) * 1.1;
+        }
+        // Phase 3 (9.2 – 16.0s)
+        else if (elapsed >= 9.2 && elapsed < TOTAL_DURATION) {
+          if (phaseLabel) phaseLabel.textContent = 'ФАЗА III · СИНГУЛЯРНОСТЬ';
+          if (caption2) caption2.classList.remove('active');
+          if (hudHint) hudHint.style.opacity = '0';
+
+          if (elapsed < 13.15) {
+            const implodeProgress = (elapsed - 9.2) / 3.95;
+            if (particleMaterial) {
+              particleMaterial.uniforms.uMorphDNA.value = 1.0;
+              particleMaterial.uniforms.uImplode.value = implodeProgress;
+              particleMaterial.uniforms.uExplode.value = 0.0;
+            }
+            if (shockwaveMat) {
+              shockwaveMat.uniforms.uImplode.value = implodeProgress;
+              shockwaveMat.uniforms.uExplode.value = 0.0;
+            }
+
+            if (camera) {
+              camera.fov = 58 + Math.pow(implodeProgress, 2.2) * 26;
+              camera.position.z = 33.46 - Math.pow(implodeProgress, 1.6) * 12.5;
+              camera.updateProjectionMatrix();
+            }
+            if (flashEl) flashEl.style.opacity = (Math.pow(implodeProgress, 5) * 0.42).toFixed(3);
+          }
+          else {
+            const explodeProgress = (elapsed - 13.15) / (TOTAL_DURATION - 13.15);
+            if (particleMaterial) {
+              particleMaterial.uniforms.uImplode.value = 1.0;
+              particleMaterial.uniforms.uExplode.value = explodeProgress;
+            }
+            if (shockwaveMat) {
+              shockwaveMat.uniforms.uImplode.value = 1.0;
+              shockwaveMat.uniforms.uExplode.value = explodeProgress;
+            }
+
+            if (camera) {
+              camera.fov = 84 - Math.pow(explodeProgress, 0.35) * 26;
+              camera.position.z = 20.96 - explodeProgress * 11.5;
+              camera.updateProjectionMatrix();
+            }
+
+            const flashIntensity = Math.exp(-explodeProgress * 5.8);
+            if (flashEl) flashEl.style.opacity = flashIntensity.toFixed(3);
+
+            if (elapsed > 13.38 && finaleBrand) {
+              finaleBrand.classList.add('active');
+            }
+          }
+        }
+        else {
+          completeIntro();
+        }
+
+        if (renderer && scene && camera) {
+          renderer.render(scene, camera);
+        }
+      }
+
+      window.startCosmicIntro = startIntro;
+      window.completeCosmicIntro = completeIntro;
+
+      if (btnSkip) btnSkip.addEventListener('click', completeIntro);
+
+      // Start on first visit or if query has ?intro=1
+      const urlParams = new URLSearchParams(window.location.search);
+      const forceIntro = urlParams.get('intro') === '1';
+      const hasSeen = localStorage.getItem(STORAGE_KEY) === '1';
+
+      if (!hasSeen || forceIntro) {
+        startIntro();
+      } else {
+        if (overlay) overlay.classList.add('hidden');
+      }
+    })();
+  </script>
+
 </body>
 </html>
