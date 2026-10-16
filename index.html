@@ -2019,43 +2019,7 @@
       transition: opacity 0.6s;
     }
 
-    /* Top bar 3D Intro replay button */
-    .btn-replay-intro {
-      background: rgba(0, 240, 255, 0.08);
-      border: 1px solid rgba(0, 240, 255, 0.28);
-      color: var(--text);
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: inherit;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-    .btn-replay-intro:hover {
-      background: rgba(0, 240, 255, 0.18);
-      border-color: var(--accent);
-      color: #ffffff;
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
-    }
-    body.light-theme .btn-replay-intro {
-      background: #f0f9ff !important;
-      border-color: #bae6fd !important;
-      color: #0369a1 !important;
-    }
-    body.light-theme .btn-replay-intro:hover {
-      background: #e0f2fe !important;
-      border-color: #0284c7 !important;
-      color: #0284c7 !important;
-      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15) !important;
-    }
-
-</style>
+    </style>
 </head>
 <body>
 
@@ -2132,20 +2096,10 @@
         <span class="pulse-dot"></span>
         <span>Скрининг • СурГУ</span>
       </div>
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <button type="button" class="btn-replay-intro" id="btn-replay-top" onclick="tactileTap(); startCosmicIntro()" title="Запустить 3D-космогенез">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
-            <circle cx="12" cy="12" r="9" stroke-dasharray="3 2" />
-            <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(35 12 12)" />
-            <circle cx="12" cy="12" r="2" fill="currentColor" />
-          </svg>
-          <span>3D-интро</span>
-        </button>
-        <div class="theme-segmented-group" id="themeSegmentGroup">
+      <div class="theme-segmented-group" id="themeSegmentGroup">
         <button class="theme-seg-btn" data-theme="auto" onclick="tactileTap(); setThemeMode('auto')">Авто</button>
         <button class="theme-seg-btn active" data-theme="dark" onclick="tactileTap(); setThemeMode('dark')">Тёмная</button>
         <button class="theme-seg-btn" data-theme="light" onclick="tactileTap(); setThemeMode('light')">Светлая</button>
-      </div>
       </div>
     </header>
 
@@ -2169,26 +2123,6 @@
         </div>
       </div>
 
-            <!-- 3D COSMOGENESIS PROMO CARD -->
-      <div class="bento-card" onclick="tactileTap(); startCosmicIntro()" style="cursor: pointer; border-color: rgba(0, 242, 254, 0.35); background: linear-gradient(135deg, rgba(8, 17, 32, 0.9), rgba(0, 240, 255, 0.08)); margin-top: 14px;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <div style="display: flex; align-items: center; gap: 14px;">
-            <div style="width: 42px; height: 42px; border-radius: 12px; background: rgba(0, 240, 255, 0.1); border: 1.5px solid rgba(0, 240, 255, 0.3); display: grid; place-items: center; flex-shrink: 0; box-shadow: 0 0 16px rgba(0, 240, 255, 0.2);">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="1.8">
-                <circle cx="12" cy="12" r="9" stroke-dasharray="3 2" />
-                <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(35 12 12)" />
-                <circle cx="12" cy="12" r="2" fill="#00f0ff" />
-              </svg>
-            </div>
-            <div>
-              <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); font-weight: 700;">3D-Космогенез ДНК</div>
-              <strong style="font-size: 14.5px; color: var(--text);">Запустить визуальное путешествие</strong>
-              <div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">Интерактивная 3D-модель эволюции и генетического кода семьи</div>
-            </div>
-          </div>
-          <span style="font-size: 20px; color: var(--accent); font-weight: 700;">›</span>
-        </div>
-      </div>
 
       <div class="bento-card" onclick="goToTab(1)" style="cursor: pointer; border-color: rgba(0, 242, 254, 0.3);">
         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -5821,15 +5755,12 @@
 
       if (btnSkip) btnSkip.addEventListener('click', completeIntro);
 
-      // Start on first visit or if query has ?intro=1
+      // Start intro on page load (reload page to re-watch)
       const urlParams = new URLSearchParams(window.location.search);
-      const forceIntro = urlParams.get('intro') === '1';
-      const hasSeen = localStorage.getItem(STORAGE_KEY) === '1';
-
-      if (!hasSeen || forceIntro) {
-        startIntro();
+      if (urlParams.get('skip') === '1' || urlParams.get('nointro') === '1') {
+        completeIntro();
       } else {
-        if (overlay) overlay.classList.add('hidden');
+        startIntro();
       }
     })();
   </script>
